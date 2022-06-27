@@ -1,8 +1,10 @@
+import Register from "../pages/Register";
+
 export const routes = [
   {
     name: "Inicio",
     path: "/",
-    element: <h1>Inicio</h1>
+    element: <Register />
   },
   {
     name: "Not Found",
