@@ -6,6 +6,14 @@
   width: 100%;
 }
 
+.input-upper {
+  text-transform: uppercase;
+}
+
+.input-cap {
+  text-transform: capitalize;
+}
+
 .items-bottom {
   display: flex;
   flex-direction: column;
