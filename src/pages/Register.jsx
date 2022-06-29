@@ -2,13 +2,25 @@ import "../styles/registro/Register.modules.css";
 import "dayjs/locale/es-mx";
 import { useState } from "react";
 import dayjs from "dayjs";
-import { Form, Input, Button, Checkbox, Radio, DatePicker, Spin } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Checkbox,
+  Radio,
+  DatePicker,
+  Spin,
+  Result,
+  Modal,
+  Alert
+} from "antd";
 import Home from "../layouts/Home";
 import locale from "antd/es/date-picker/locale/es_ES";
 
 import { REGISTER_INITIAL_STATE } from "../forms/states/register";
 import { FORM_ITEM_LAYOUT } from "../utils/formItemLayout";
 import { REGISTER_SCHEMA } from "../forms/schemas/register.schema";
+import { registerUser } from "../api/register/registerUser";
 
 const { Item } = Form;
 const { Password } = Input;
@@ -16,7 +28,18 @@ const { Group } = Radio;
 
 function Register() {
   const [loading, setLoading] = useState(false);
-  const formSuccess = (data) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const formSuccess = async (data) => {
     const { curp, birthday } = data;
     data = {
       ...data,
@@ -27,10 +50,29 @@ function Register() {
     delete data.confirmPassword;
     delete data.polities;
     console.log(data);
-  };
-
-  const formFailed = (error) => {
-    console.log(error);
+    setLoading(true);
+    const response = await registerUser(data);
+    if (!response.data) {
+      setResult(
+        <Result
+          status="error"
+          title={response?.message}
+          subTitle={response?.response?.data?.error?.message}
+        />
+      );
+      showModal();
+    } else {
+      setResult(
+        <Result
+          status="success"
+          title="Se ha creado tu cuenta"
+          subTitle="Buenas noticias tu cuenta ha sido creada, ya puedes iniciar sesión"
+        />
+      );
+      showModal();
+    }
+    console.log(response);
+    setLoading(false);
   };
 
   let myForm = (
@@ -38,7 +80,6 @@ function Register() {
       name="form-register"
       initialValues={REGISTER_INITIAL_STATE}
       onFinish={formSuccess}
-      onFinishFailed={formFailed}
       autoComplete="off"
       scrollToFirstError
       {...FORM_ITEM_LAYOUT}
@@ -125,6 +166,17 @@ function Register() {
 
   return (
     <Home>
+      <Modal
+        visible={isModalVisible}
+        closable={false}
+        footer={
+          <Button type="primary" onClick={handleOk}>
+            Aceptar
+          </Button>
+        }
+      >
+        {result}
+      </Modal>
       <Spin size="large" spinning={loading} tip="Validando...">
         {myForm}
       </Spin>
