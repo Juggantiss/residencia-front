@@ -1,12 +1,13 @@
+import validateCurp from "../../utils/validateCurp";
+
 export const REGISTER_SCHEMA = {
   curp: [
     {
       required: true,
-      message: "Por favor ingresa tu curp"
-    },
-    {
-      pattern: /^[a-zA-Z0-9|ñ|Ñ]+$/,
-      message: "La curp solo debe incluir letras y números sin espacios"
+      validator: (_, value) =>
+        validateCurp(value) === "Válido"
+          ? Promise.resolve()
+          : Promise.reject(new Error("Ingresa una curp válida"))
     }
   ],
   name: [
@@ -15,7 +16,8 @@ export const REGISTER_SCHEMA = {
       message: "Por favor ingresa un nombre"
     },
     {
-      pattern: /^[a-zA-Z|ñ|Ñ]([a-zA-Z|ñ|Ñ ]*)[a-zA-Z|ñ|Ñ]$/,
+      pattern:
+        /^[a-zA-ZÀ-ÿ\u00f1\u00d1]([a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)[a-zA-ZÀ-ÿ\u00f1\u00d1]$/,
       message: "El nombre solo debe incluir letras"
     }
   ],
@@ -25,7 +27,8 @@ export const REGISTER_SCHEMA = {
       message: "Por favor ingresa tu apellido paterno"
     },
     {
-      pattern: /^[a-zA-Z|ñ|Ñ]([a-zA-Z|ñ|Ñ ]*)[a-zA-Z|ñ|Ñ]$/,
+      pattern:
+        /^[a-zA-ZÀ-ÿ\u00f1\u00d1]([a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)[a-zA-ZÀ-ÿ\u00f1\u00d1]$/,
       message: "El apellido paterno solo debe incluir letras"
     }
   ],
@@ -35,7 +38,8 @@ export const REGISTER_SCHEMA = {
       message: "Por favor ingresa tu apellido materno"
     },
     {
-      pattern: /^[a-zA-Z|ñ|Ñ]([a-zA-Z|ñ|Ñ ]*)[a-zA-Z|ñ|Ñ]$/,
+      pattern:
+        /^[a-zA-ZÀ-ÿ\u00f1\u00d1]([a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)[a-zA-ZÀ-ÿ\u00f1\u00d1]$/,
       message: "El apellido materno solo debe incluir letras"
     }
   ],
@@ -45,8 +49,7 @@ export const REGISTER_SCHEMA = {
       message: "Por favor ingresa tu correo"
     },
     {
-      pattern:
-        /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+      type: "email",
       message: "Ingresa un correo válido"
     }
   ],
@@ -54,13 +57,32 @@ export const REGISTER_SCHEMA = {
     {
       required: true,
       message: "Por favor ingresa una contraseña"
+    },
+    {
+      min: 8,
+      message: "La contraseña debe tener mínimo 8 carácteres"
+    },
+    {
+      pattern:
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      message:
+        "La contraseña debe contener mínimo una letra minúscula, mayúscula, número y un carácter especial"
     }
   ],
   confirmPassword: [
     {
       required: true,
       message: "Por favor confirma tu contraseña"
-    }
+    },
+    ({ getFieldValue }) => ({
+      validator(_, value) {
+        if (!value || getFieldValue("password") === value) {
+          return Promise.resolve();
+        }
+
+        return Promise.reject(new Error("Las contraseñas no coinciden"));
+      }
+    })
   ],
   birthday: [
     {
@@ -86,8 +108,12 @@ export const REGISTER_SCHEMA = {
   ],
   polities: [
     {
-      required: true,
-      message: "Debes de aceptar las políticas de privacidad"
+      validator: (_, value) =>
+        value
+          ? Promise.resolve()
+          : Promise.reject(
+              new Error("Debes de aceptar las políticas de privacidad")
+            )
     }
   ]
 };
