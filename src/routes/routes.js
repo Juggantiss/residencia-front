@@ -1,3 +1,4 @@
+import Login from "../pages/Login";
 import Register from "../pages/Register";
 
 export const routes = [
@@ -14,7 +15,7 @@ export const routes = [
   {
     name: "Inicio Sesión",
     path: "login",
-    element: <h1>Login</h1>
+    element: <Login />
   },
   {
     name: "Registro",

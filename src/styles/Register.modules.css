@@ -1,3 +1,7 @@
+.register-form {
+  max-width: 700px;
+}
+
 .datePicker {
   width: 100%;
 }

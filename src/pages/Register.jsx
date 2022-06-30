@@ -1,4 +1,4 @@
-import "../styles/registro/Register.modules.css";
+import "../styles/Register.modules.css";
 import "dayjs/locale/es-mx";
 import { useState } from "react";
 import dayjs from "dayjs";
@@ -84,7 +84,8 @@ function Register() {
 
   let myForm = (
     <Form
-      name="form-register"
+      name="form_register"
+      className="register-form"
       initialValues={REGISTER_INITIAL_STATE}
       onFinish={formSuccess}
       autoComplete="off"
@@ -173,6 +174,7 @@ function Register() {
 
   return (
     <Home>
+      <h1>Registro de Aspirante</h1>
       <Modal
         visible={isModalVisible}
         closable={false}
