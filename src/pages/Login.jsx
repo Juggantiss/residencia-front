@@ -15,6 +15,7 @@ function Login() {
   return (
     <Home>
       <Form name="form_login" className="login-form" onFinish={onFinish}>
+        <h1>Inicio de Sesión</h1>
         <Item name="email" rules={LOGIN_SCHEMA.email}>
           <Input
             prefix={<MailOutlined className="site-form-item-icon" />}
@@ -42,7 +43,7 @@ function Login() {
             className="login-form-button"
             size="large"
           >
-            Log in
+            Iniciar Sesión
           </Button>
           O <a href="/">registrate como aspirante</a>
         </Item>

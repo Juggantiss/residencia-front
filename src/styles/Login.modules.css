@@ -1,6 +1,10 @@
 .login-form {
-  max-width: 300px;
-  /* border: 2px solid green; */
+  width: 100%;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 5px 10px 20px #bebebe, -10px -10px 20px #eff0f3;
 }
 
 .login-form-forgot {
@@ -14,4 +18,8 @@
 .login-form-button {
   width: 100%;
   margin-bottom: 10px;
+}
+
+h1 {
+  text-align: center;
 }

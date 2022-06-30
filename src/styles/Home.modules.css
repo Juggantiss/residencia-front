@@ -13,22 +13,26 @@ html {
 .layout {
   display: flex;
   min-height: 100vh;
-  background-color: #eff0f3;
+  background-color: #f2f2f2;
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
 }
 
 .content {
-  flex: none;
-  background-color: #ffffff;
+  /* flex: none; */
+  display: flex;
+  /* background-color: #eff0f3; */
   border-radius: 5px;
   padding: 25px 20px;
   width: 100%;
   height: auto;
-  max-width: 700px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* max-width: 700px; */
+  /* margin-top: 30px; */
+  /* margin-bottom: 30px; */
 }
 
 .footer {
