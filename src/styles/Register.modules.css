@@ -1,3 +1,8 @@
+.spin-layout {
+  width: 100%;
+  margin-top: 15px;
+}
+
 .register-form {
   width: 100%;
   padding: 25px 20px;

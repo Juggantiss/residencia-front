@@ -1,6 +1,7 @@
 import "../styles/Login.modules.css";
+import { useState } from "react";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 import { Link } from "react-router-dom";
 import Home from "../layouts/Home";
 
@@ -10,7 +11,11 @@ const { Item } = Form;
 const { Password } = Input;
 
 function Login() {
+  const [loading, setLoading] = useState(false);
+
   const onFinish = (values) => {
+    if (loading) return;
+    setLoading(true);
     console.log("Received values of form: ", values);
   };
 
@@ -50,6 +55,7 @@ function Login() {
           </Button>
           <Link to="/">Registrate como aspirante</Link>
         </Item>
+        <Spin className="spin-layout" size="large" spinning={loading} />
       </Form>
     </Home>
   );
