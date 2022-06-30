@@ -17,7 +17,6 @@ import Home from "../layouts/Home";
 import locale from "antd/es/date-picker/locale/es_ES";
 
 import { REGISTER_INITIAL_STATE } from "../forms/states/register";
-import { FORM_ITEM_LAYOUT } from "../utils/formItemLayout";
 import { REGISTER_SCHEMA } from "../forms/schemas/register.schema";
 import { registerUser } from "../api/register/registerUser";
 
@@ -90,10 +89,10 @@ function Register() {
       onFinish={formSuccess}
       autoComplete="off"
       scrollToFirstError
-      {...FORM_ITEM_LAYOUT}
     >
+      <h1>Registro de Aspirante</h1>
       <Item label="CURP" name="curp" rules={REGISTER_SCHEMA.curp}>
-        <Input className="input-upper" maxLength={18} />
+        <Input autoFocus className="input-upper" maxLength={18} />
       </Item>
       <Item label="Nombre (s)" name="name" rules={REGISTER_SCHEMA.name}>
         <Input className="input-cap" maxLength={30} />
@@ -174,7 +173,6 @@ function Register() {
 
   return (
     <Home>
-      <h1>Registro de Aspirante</h1>
       <Modal
         visible={isModalVisible}
         closable={false}

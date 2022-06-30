@@ -18,6 +18,7 @@ function Login() {
         <h1>Inicio de Sesión</h1>
         <Item name="email" rules={LOGIN_SCHEMA.email}>
           <Input
+            autoFocus
             prefix={<MailOutlined className="site-form-item-icon" />}
             placeholder="Correo"
             size="large"
