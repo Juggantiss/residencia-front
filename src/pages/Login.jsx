@@ -1,7 +1,9 @@
 import "../styles/Login.modules.css";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
+import { Link } from "react-router-dom";
 import Home from "../layouts/Home";
+
 import { LOGIN_SCHEMA } from "../forms/schemas/login.schema";
 
 const { Item } = Form;
@@ -32,9 +34,9 @@ function Login() {
           />
         </Item>
         <Item>
-          <a className="login-form-forgot" href="">
+          <Link className="login-form-forgot" to="/forgot-password">
             Olvidé mi contraseña
-          </a>
+          </Link>
         </Item>
 
         <Item>
@@ -46,7 +48,7 @@ function Login() {
           >
             Iniciar Sesión
           </Button>
-          O <a href="/">registrate como aspirante</a>
+          <Link to="/">Registrate como aspirante</Link>
         </Item>
       </Form>
     </Home>

@@ -13,6 +13,7 @@ import {
   Result,
   Modal
 } from "antd";
+import { Link } from "react-router-dom";
 import Home from "../layouts/Home";
 import locale from "antd/es/date-picker/locale/es_ES";
 
@@ -89,8 +90,9 @@ function Register() {
       onFinish={formSuccess}
       autoComplete="off"
       scrollToFirstError
+      requiredMark={false}
     >
-      <h1>Registro de Aspirante</h1>
+      <h1>Nuevo Aspirante</h1>
       <Item label="CURP" name="curp" rules={REGISTER_SCHEMA.curp}>
         <Input autoFocus className="input-upper" maxLength={18} />
       </Item>
@@ -159,7 +161,8 @@ function Register() {
           rules={REGISTER_SCHEMA.polities}
         >
           <Checkbox>
-            Acepto las <a href="">políticas de privacidad.</a>
+            Acepto las
+            <Link to="/privacy-policies"> políticas de privacidad.</Link>
           </Checkbox>
         </Item>
         <Item>
@@ -168,6 +171,7 @@ function Register() {
           </Button>
         </Item>
       </div>
+      ¿Ya tienes cuenta? <Link to="/login">Inicia Sesión</Link>
     </Form>
   );
 
