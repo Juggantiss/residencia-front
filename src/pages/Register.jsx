@@ -11,8 +11,7 @@ import {
   DatePicker,
   Spin,
   Result,
-  Modal,
-  Alert
+  Modal
 } from "antd";
 import Home from "../layouts/Home";
 import locale from "antd/es/date-picker/locale/es_ES";
@@ -31,7 +30,14 @@ function Register() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [result, setResult] = useState(null);
 
-  const showModal = () => {
+  const showModal = (resultData) => {
+    setResult(
+      <Result
+        status={resultData.status}
+        title={resultData.title}
+        subTitle={resultData.subTitle}
+      />
+    );
     setIsModalVisible(true);
   };
 
@@ -52,27 +58,28 @@ function Register() {
     console.log(data);
     setLoading(true);
     const response = await registerUser(data);
-    if (!response.data) {
-      setResult(
-        <Result
-          status="error"
-          title={response?.message}
-          subTitle={response?.response?.data?.error?.message}
-        />
-      );
-      showModal();
-    } else {
-      setResult(
-        <Result
-          status="success"
-          title="Se ha creado tu cuenta"
-          subTitle="Buenas noticias tu cuenta ha sido creada, ya puedes iniciar sesión"
-        />
-      );
-      showModal();
-    }
+    resultForResponse(response);
     console.log(response);
     setLoading(false);
+  };
+
+  const resultForResponse = (response) => {
+    let resultData = null;
+    if (!response.data) {
+      resultData = {
+        status: "error",
+        title: "Lo sentimos ah ocurrido un error",
+        subTitle: "Verifica los datos ingresados, e intenta nuevamente"
+      };
+    } else {
+      resultData = {
+        status: "success",
+        title: "Se ha creado tu cuenta",
+        subTitle:
+          "Buenas noticias tu cuenta ha sido creada, ya puedes iniciar sesión"
+      };
+    }
+    showModal(resultData);
   };
 
   let myForm = (
