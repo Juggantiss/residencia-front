@@ -1,26 +1,71 @@
 import "../styles/Login.modules.css";
 import { useState } from "react";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Spin } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Form, Input, Spin, Result, Modal } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import Home from "../layouts/Home";
 
 import { LOGIN_SCHEMA } from "../forms/schemas/login.schema";
+import { loginUser } from "../api/login/loginUser";
 
 const { Item } = Form;
 const { Password } = Input;
 
 function Login() {
   const [loading, setLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [result, setResult] = useState(null);
+  const navigate = useNavigate();
 
-  const onFinish = (values) => {
+  const showModal = () => {
+    setResult(
+      <Result
+        status="error"
+        title="Verifica tus datos"
+        subTitle="Correo o contraseña incorrecta"
+      />
+    );
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const onFinish = async (data) => {
     if (loading) return;
+    const { email, password } = data;
+    console.log(data);
     setLoading(true);
-    console.log("Received values of form: ", values);
+    const response = await loginUser({ identifier: email, password });
+    resultForResponse(response);
+    console.log(response);
+    setLoading(false);
+  };
+
+  const resultForResponse = (response) => {
+    if (!response.data) {
+      showModal();
+    } else {
+      window.localStorage.setItem("jwt", response?.data?.jwt);
+      console.log("todo bien");
+      navigate("/dashboard");
+    }
   };
 
   return (
     <Home>
+      <Modal
+        visible={isModalVisible}
+        closable={false}
+        footer={
+          <Button type="primary" onClick={handleOk}>
+            Aceptar
+          </Button>
+        }
+      >
+        {result}
+      </Modal>
       <Form name="form_login" className="login-form" onFinish={onFinish}>
         <h1>Inicio de Sesión</h1>
         <Item name="email" rules={LOGIN_SCHEMA.email}>
