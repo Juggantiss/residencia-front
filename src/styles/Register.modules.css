@@ -1,0 +1,38 @@
+.spin-layout {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.register-form {
+  width: 100%;
+  padding: 25px 20px;
+  max-width: 550px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 5px 10px 20px #bebebe, -10px -10px 20px #eff0f3;
+}
+
+.datePicker {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+}
+
+.input-upper {
+  text-transform: uppercase;
+}
+
+.input-cap {
+  text-transform: capitalize;
+}
+
+.items-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+}
