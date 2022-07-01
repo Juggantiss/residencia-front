@@ -1,3 +1,4 @@
+import DashboardAspirant from "../pages/DashboardAspirant";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
@@ -25,6 +26,6 @@ export const routes = [
   {
     name: "Dashboard",
     path: "dashboard",
-    element: <h1>Dashboard</h1>
+    element: <DashboardAspirant />
   }
 ];

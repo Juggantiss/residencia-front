@@ -7,6 +7,7 @@ import Home from "../layouts/Home";
 
 import { LOGIN_SCHEMA } from "../forms/schemas/login.schema";
 import { loginUser } from "../api/login/loginUser";
+import useGetSession from "../hooks/useGetSession";
 
 const { Item } = Form;
 const { Password } = Input;
@@ -16,6 +17,7 @@ function Login() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [result, setResult] = useState(null);
   const navigate = useNavigate();
+  useGetSession();
 
   const showModal = () => {
     setResult(
@@ -35,11 +37,14 @@ function Login() {
   const onFinish = async (data) => {
     if (loading) return;
     const { email, password } = data;
-    console.log(data);
+    console.log("🚀 ~ file: Login.jsx ~ line 38 ~ onFinish ~ data", data);
     setLoading(true);
     const response = await loginUser({ identifier: email, password });
     resultForResponse(response);
-    console.log(response);
+    console.log(
+      "🚀 ~ file: Login.jsx ~ line 42 ~ onFinish ~ response",
+      response
+    );
     setLoading(false);
   };
 
@@ -48,7 +53,7 @@ function Login() {
       showModal();
     } else {
       window.localStorage.setItem("jwt", response?.data?.jwt);
-      console.log("todo bien");
+      window.localStorage.setItem("id", response?.data?.user?.id);
       navigate("/dashboard");
     }
   };

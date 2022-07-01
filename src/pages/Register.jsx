@@ -21,6 +21,8 @@ import { REGISTER_INITIAL_STATE } from "../forms/states/register";
 import { REGISTER_SCHEMA } from "../forms/schemas/register.schema";
 import { registerUser } from "../api/register/registerUser";
 
+import useGetSession from "../hooks/useGetSession";
+
 const { Item } = Form;
 const { Password } = Input;
 const { Group } = Radio;
@@ -29,6 +31,7 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [result, setResult] = useState(null);
+  useGetSession();
 
   const showModal = (resultData) => {
     setResult(
