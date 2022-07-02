@@ -2,10 +2,13 @@ import {
   HomeOutlined,
   UserOutlined,
   FormOutlined,
-  CloseCircleFilled
+  QuestionCircleOutlined
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Link } from "react-router-dom";
+import { Breadcrumb, Layout, Menu, Button, Popconfirm } from "antd";
 import "../styles/Aspirant.modules.css";
+
+import { useNavigate } from "react-router-dom";
 
 const { Content, Footer, Sider } = Layout;
 const { Item } = Breadcrumb;
@@ -20,13 +23,19 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem("Inicio", "1", <HomeOutlined />),
-  getItem("Formularios", "2", <FormOutlined />),
-  getItem("Perfil", "3", <UserOutlined />),
-  getItem("Cerrar Sesión", "4", <CloseCircleFilled />)
+  getItem(<Link to="/dashboard">Inicio</Link>, "1", <HomeOutlined />),
+  getItem(<Link to="/aspirant/forms">Formularios</Link>, "2", <FormOutlined />),
+  getItem(<Link to="/aspirant/profile">Perfil</Link>, "3", <UserOutlined />)
 ];
 
-function Aspirant({ children }) {
+function Aspirant({ children, path }) {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    window.localStorage.clear();
+    navigate("/login");
+  };
+
   return (
     <Layout className="layout-container">
       <Sider breakpoint="lg" collapsedWidth="0">
@@ -35,6 +44,26 @@ function Aspirant({ children }) {
           src={require("../assets/img/banner-cbtis.jpg")}
           alt="logo"
         />
+        <div className="text-button">
+          <h1>ASPIRANTE</h1>
+          <Popconfirm
+            title="¿Estás seguro？"
+            onConfirm={logout}
+            okText="Sí"
+            cancelText="No"
+            icon={
+              <QuestionCircleOutlined
+                style={{
+                  color: "red"
+                }}
+              />
+            }
+          >
+            <Button className="btnClose" type="primary" danger size="large">
+              Cerrar Sesión
+            </Button>
+          </Popconfirm>
+        </div>
         {/* <div className="logo" /> */}
         <Menu
           theme="dark"
@@ -47,8 +76,12 @@ function Aspirant({ children }) {
         {/* <Header className="site-layout-background header-one" /> */}
         <Content className="content-container">
           <Breadcrumb className="breadcumb-container">
-            <Item>Aspirante</Item>
-            <Item>Inicio</Item>
+            {path &&
+              path.map((item, index) => (
+                <Item key={index} href={item.route}>
+                  {item.name}
+                </Item>
+              ))}
           </Breadcrumb>
           <div className="site-layout-background header-two">{children}</div>
         </Content>

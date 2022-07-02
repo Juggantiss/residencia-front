@@ -9,6 +9,16 @@
   /* margin: 10px; */
 }
 
+.text-button h1 {
+  margin: 10px;
+  color: #ffffff;
+}
+
+.text-button .btnClose {
+  width: 100%;
+  /* margin-bottom: 10px; */
+}
+
 .site-layout .site-layout-background {
   background: #ffffff;
 }

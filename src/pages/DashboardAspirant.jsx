@@ -1,38 +1,19 @@
-import { QuestionCircleOutlined } from "@ant-design/icons";
-import { Button, Popconfirm } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
 
-import { useNavigate } from "react-router-dom";
 import Aspirant from "../layouts/Aspirant";
 
+const path = [
+  {
+    name: <HomeOutlined />,
+    route: "/dashboard"
+  }
+];
+
 function DashboardAspirant() {
-  const navigate = useNavigate();
-
-  const logout = () => {
-    window.localStorage.clear();
-    navigate("/login");
-  };
-
   return (
-    <Aspirant>
+    <Aspirant path={path}>
       <div style={{ textAlign: "center" }}>
         <h1>Bienvenido Aspirante</h1>
-        <Popconfirm
-          title="¿Estás seguro？"
-          onConfirm={logout}
-          okText="Sí"
-          cancelText="No"
-          icon={
-            <QuestionCircleOutlined
-              style={{
-                color: "red"
-              }}
-            />
-          }
-        >
-          <Button type="primary" danger>
-            Cerrar Sesión
-          </Button>
-        </Popconfirm>
       </div>
     </Aspirant>
   );
