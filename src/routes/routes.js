@@ -1,4 +1,5 @@
-import DashboardAspirant from "../pages/DashboardAspirant";
+import DashboardAspirant from "../pages/aspirant/DashboardAspirant";
+import FormAspirant from "../pages/aspirant/FormAspirant";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
@@ -27,5 +28,10 @@ export const routes = [
     name: "Dashboard",
     path: "dashboard",
     element: <DashboardAspirant />
+  },
+  {
+    name: "Formularios",
+    path: "aspirant/forms",
+    element: <FormAspirant />
   }
 ];

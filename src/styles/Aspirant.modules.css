@@ -53,7 +53,7 @@
 }
 
 .site-layout .site-layout-background {
-  background: #ffffff;
+  background-color: #ffffff;
 }
 
 .header-one {
@@ -61,8 +61,13 @@
 }
 
 .header-two {
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
   min-height: 360px;
+  border-radius: 5px;
 }
 
 .breadcumb-container {
@@ -70,7 +75,11 @@
 }
 
 .content-container {
-  margin: 0 16px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 16px;
+  padding-bottom: 16px;
 }
 
 .footer-container {

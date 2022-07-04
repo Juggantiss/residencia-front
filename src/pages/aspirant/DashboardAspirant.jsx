@@ -1,11 +1,14 @@
 import { HomeOutlined } from "@ant-design/icons";
 
-import Aspirant from "../layouts/Aspirant";
+import Aspirant from "../../layouts/Aspirant";
 
 const path = [
   {
     name: <HomeOutlined />,
     route: "/dashboard"
+  },
+  {
+    name: "Dashboard"
   }
 ];
 
