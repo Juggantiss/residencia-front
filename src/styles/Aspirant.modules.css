@@ -5,8 +5,41 @@
 
 .logo {
   width: 100%;
-  height: 60px;
-  /* margin: 10px; */
+  height: 64px;
+}
+
+.ulLeft {
+  float: left;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.ulRight {
+  float: right;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.tituloMenu {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.nameMenu {
+  /* float: right; */
+  font-size: 18px;
+  color: #ffffff;
+  padding-right: 10px;
+  /* font-weight: bold; */
+}
+
+.menuToggle {
+  color: #ffffff;
+  font-size: 18px;
+  padding-right: 20px;
 }
 
 .text-button h1 {
@@ -43,4 +76,22 @@
 .footer-container {
   text-align: center;
   background-color: #ffffff;
+}
+
+@media (max-width: 550px) {
+  .tituloMenu {
+    font-size: 0px;
+  }
+}
+
+@media (max-width: 500px) {
+  .nameMenu {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .nameMenu {
+    font-size: 0px;
+  }
 }

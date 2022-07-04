@@ -1,16 +1,18 @@
+import { useState } from "react";
 import {
   HomeOutlined,
   UserOutlined,
   FormOutlined,
-  QuestionCircleOutlined
+  QuestionCircleOutlined,
+  MenuOutlined
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { Breadcrumb, Layout, Menu, Button, Popconfirm } from "antd";
+import { Breadcrumb, Layout, Menu, Button, Popconfirm, Avatar } from "antd";
 import "../styles/Aspirant.modules.css";
 
 import { useNavigate } from "react-router-dom";
 
-const { Content, Footer, Sider } = Layout;
+const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Breadcrumb;
 
 function getItem(label, key, icon, children) {
@@ -30,6 +32,8 @@ const items = [
 
 function Aspirant({ children, path }) {
   const navigate = useNavigate();
+  let width = window.screen.width;
+  const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
 
   const logout = () => {
     window.localStorage.clear();
@@ -38,7 +42,14 @@ function Aspirant({ children, path }) {
 
   return (
     <Layout className="layout-container">
-      <Sider breakpoint="lg" collapsedWidth="0">
+      <Sider
+        zeroWidthTriggerStyle={{
+          display: "none"
+        }}
+        breakpoint="lg"
+        collapsedWidth="0"
+        collapsed={collapsed}
+      >
         <img
           className="logo"
           src={require("../assets/img/banner-cbtis.jpg")}
@@ -73,7 +84,37 @@ function Aspirant({ children, path }) {
         />
       </Sider>
       <Layout className="site-layout">
-        {/* <Header className="site-layout-background header-one" /> */}
+        <Header>
+          <ul className="ulLeft">
+            <li>
+              <MenuOutlined
+                className="menuToggle"
+                onClick={() => setCollapsed(!collapsed)}
+              />
+            </li>
+            <li>
+              <span className="tituloMenu">SSF CBTis 205</span>
+            </li>
+          </ul>
+          <ul className="ulRight">
+            <li>
+              {width < 700 ? (
+                !collapsed ? null : (
+                  <span className="nameMenu">Juan Raul Martinez Lopez</span>
+                )
+              ) : (
+                <span className="nameMenu">Juan Raul Martinez Lopez</span>
+              )}
+              {width < 380 ? (
+                !collapsed ? null : (
+                  <Avatar icon={<UserOutlined />} />
+                )
+              ) : (
+                <Avatar icon={<UserOutlined />} />
+              )}
+            </li>
+          </ul>
+        </Header>
         <Content className="content-container">
           <Breadcrumb className="breadcumb-container">
             {path &&
