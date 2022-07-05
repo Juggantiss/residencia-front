@@ -59,7 +59,7 @@ function Register() {
     };
     delete data.confirmPassword;
     delete data.polities;
-    console.log(data);
+    console.log("🚀 ~ file: Register.jsx ~ line 63 ~ formSuccess ~ data", data);
     setLoading(true);
     const response = await registerUser(data);
     resultForResponse(response);
