@@ -11,7 +11,7 @@ import FormGeneralData from "../../components/aspirant/FormGeneralData";
 
 const { Step } = Steps;
 
-function FormAspirant() {
+function FormAspirant({ data }) {
   const [current, setCurrent] = useState(0);
 
   const next = () => {
@@ -25,7 +25,14 @@ function FormAspirant() {
   const steps = [
     {
       title: "Generales",
-      content: <FormGeneralData next={next} />,
+      content: (
+        <FormGeneralData
+          next={next}
+          idAspirant={
+            data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.id
+          }
+        />
+      ),
       icon: <SolutionOutlined />
     },
     {

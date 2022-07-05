@@ -38,7 +38,7 @@ export const registerUser = async (data) => {
       );
       return responseAspirant;
     } else {
-      throw "Error";
+      throw new Error();
     }
   } catch (error) {
     return error;

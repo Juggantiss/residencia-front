@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery } from "@apollo/client/react";
 import {
   HomeOutlined,
   UserOutlined,
@@ -12,6 +13,7 @@ import "../styles/Aspirant.modules.css";
 import { useNavigate } from "react-router-dom";
 import FormAspirant from "../pages/aspirant/FormAspirant";
 import DashboardAspirant from "../pages/aspirant/DashboardAspirant";
+import { GET_ASPIRANT_DATA } from "../graphql/queries";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Breadcrumb;
@@ -34,9 +36,21 @@ const items = [
 function Aspirant() {
   const navigate = useNavigate();
   let width = window.screen.width;
+  let idUser = window.localStorage.getItem("id");
+  const { data, loading, error } = useQuery(GET_ASPIRANT_DATA, {
+    variables: { ID: idUser }
+  });
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
   const [content, setContent] = useState(<DashboardAspirant />);
   const [path, setPath] = useState("Inicio");
+
+  if (loading) {
+    return <h1>Cargando...</h1>;
+  }
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
 
   const logout = () => {
     window.localStorage.clear();
@@ -51,10 +65,30 @@ function Aspirant() {
       setContent(<DashboardAspirant />);
     }
     if (key === "2") {
-      setContent(<FormAspirant />);
+      setContent(<FormAspirant data={data} />);
     }
     if (key === "3") {
       setContent(<h1>Este es tu perfil</h1>);
+    }
+  };
+
+  const getFullName = () => {
+    const { name, firstLastName, secondLastName } =
+      data?.usersPermissionsUser?.data?.attributes;
+    let fullName = `${name} ${firstLastName} ${secondLastName}`;
+
+    return fullName;
+  };
+
+  const getImageProfile = () => {
+    const document =
+      data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
+        ?.document;
+    const url = document?.data?.attributes?.url;
+    if (url) {
+      return <Avatar src={url} />;
+    } else {
+      return <Avatar icon={<UserOutlined />} />;
     }
   };
 
@@ -118,18 +152,16 @@ function Aspirant() {
             <li>
               {width < 700 ? (
                 !collapsed ? null : (
-                  <span className="nameMenu">Juan Raul Martinez Lopez</span>
+                  <span className="nameMenu">{getFullName()}</span>
                 )
               ) : (
-                <span className="nameMenu">Juan Raul Martinez Lopez</span>
+                <span className="nameMenu">{getFullName()}</span>
               )}
-              {width < 380 ? (
-                !collapsed ? null : (
-                  <Avatar icon={<UserOutlined />} />
-                )
-              ) : (
-                <Avatar icon={<UserOutlined />} />
-              )}
+              {width < 380
+                ? !collapsed
+                  ? null
+                  : getImageProfile()
+                : getImageProfile()}
             </li>
           </ul>
         </Header>

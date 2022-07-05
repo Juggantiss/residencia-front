@@ -6,12 +6,11 @@ import { addAddress } from "../../api/aspirant/addAddress";
 
 const { Item } = Form;
 
-function FormGeneralData({ next }) {
+function FormGeneralData({ next, idAspirant }) {
   const [loading, setLoading] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
 
   const onFinish = async (data) => {
-    let id = window.localStorage.getItem("id");
     console.log(
       "🚀 ~ file: FormGeneralData.jsx ~ line 11 ~ onSubmit ~ data",
       data
@@ -20,7 +19,7 @@ function FormGeneralData({ next }) {
       ...data,
       number:
         disabledInput || data.number.length < 1 ? 0 : parseInt(data.number),
-      aspirant: id
+      aspirant: idAspirant
     };
     console.log(data);
     setLoading(true);
