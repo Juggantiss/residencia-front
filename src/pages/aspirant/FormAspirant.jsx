@@ -9,26 +9,9 @@ import { Button, message, Steps } from "antd";
 import Aspirant from "../../layouts/Aspirant";
 
 import "../../styles/FormAspirant.modules.css";
+import FormGeneralData from "../../components/aspirant/FormGeneralData";
 
 const { Step } = Steps;
-
-const steps = [
-  {
-    title: "Generales",
-    content: "First-content",
-    icon: <SolutionOutlined />
-  },
-  {
-    title: "Especialidad",
-    content: "Second-content",
-    icon: <SelectOutlined />
-  },
-  {
-    title: "Documentos",
-    content: "Last-content",
-    icon: <FileAddOutlined />
-  }
-];
 
 const path = [
   {
@@ -50,6 +33,24 @@ function FormAspirant() {
   const prev = () => {
     setCurrent(current - 1);
   };
+
+  const steps = [
+    {
+      title: "Generales",
+      content: <FormGeneralData next={next} />,
+      icon: <SolutionOutlined />
+    },
+    {
+      title: "Especialidad",
+      content: "Second-content",
+      icon: <SelectOutlined />
+    },
+    {
+      title: "Documentos",
+      content: "Last-content",
+      icon: <FileAddOutlined />
+    }
+  ];
 
   return (
     <Aspirant path={path}>
