@@ -6,11 +6,12 @@ import {
   QuestionCircleOutlined,
   MenuOutlined
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
 import { Breadcrumb, Layout, Menu, Button, Popconfirm, Avatar } from "antd";
 import "../styles/Aspirant.modules.css";
 
 import { useNavigate } from "react-router-dom";
+import FormAspirant from "../pages/aspirant/FormAspirant";
+import DashboardAspirant from "../pages/aspirant/DashboardAspirant";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Breadcrumb;
@@ -25,19 +26,36 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem(<Link to="/dashboard">Inicio</Link>, "1", <HomeOutlined />),
-  getItem(<Link to="/aspirant/forms">Formularios</Link>, "2", <FormOutlined />),
-  getItem(<Link to="/aspirant/profile">Perfil</Link>, "3", <UserOutlined />)
+  getItem("Inicio", "1", <HomeOutlined />),
+  getItem("Formularios", "2", <FormOutlined />),
+  getItem("Perfil", "3", <UserOutlined />)
 ];
 
-function Aspirant({ children, path }) {
+function Aspirant() {
   const navigate = useNavigate();
   let width = window.screen.width;
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
+  const [content, setContent] = useState(<DashboardAspirant />);
+  const [path, setPath] = useState("Inicio");
 
   const logout = () => {
     window.localStorage.clear();
     navigate("/login");
+  };
+
+  const onClickMenuItem = (e) => {
+    const { key } = e;
+    const { label } = items[key - 1];
+    setPath(label);
+    if (key === "1") {
+      setContent(<DashboardAspirant />);
+    }
+    if (key === "2") {
+      setContent(<FormAspirant />);
+    }
+    if (key === "3") {
+      setContent(<h1>Este es tu perfil</h1>);
+    }
   };
 
   return (
@@ -75,12 +93,12 @@ function Aspirant({ children, path }) {
             </Button>
           </Popconfirm>
         </div>
-        {/* <div className="logo" /> */}
         <Menu
           theme="dark"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys="1"
           mode="inline"
           items={items}
+          onClick={onClickMenuItem}
         />
       </Sider>
       <Layout className="site-layout">
@@ -117,14 +135,12 @@ function Aspirant({ children, path }) {
         </Header>
         <Content className="content-container">
           <Breadcrumb className="breadcumb-container">
-            {path &&
-              path.map((item, index) => (
-                <Item key={index} href={item.route}>
-                  {item.name}
-                </Item>
-              ))}
+            <Item>
+              <HomeOutlined />
+            </Item>
+            <Item>{path}</Item>
           </Breadcrumb>
-          <div className="site-layout-background header-two">{children}</div>
+          <div className="site-layout-background header-two">{content}</div>
         </Content>
         <Footer className="footer-container">
           Sistema de Solicitud de Fichas &copy; 2022 CBTIS 205
