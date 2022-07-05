@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Button, message, Form, Input, Spin, Switch } from "antd";
+import { Button, Form, Input, Spin, Switch } from "antd";
 import { DATA_GENERAL_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { DATA_GENERAL_INITIAL_STATE } from "../../forms/states/aspirant";
+import { addAddress } from "../../api/aspirant/addAddress";
 
 const { Item } = Form;
 
@@ -9,7 +10,7 @@ function FormGeneralData({ next }) {
   const [loading, setLoading] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
 
-  const onFinish = (data) => {
+  const onFinish = async (data) => {
     let id = window.localStorage.getItem("id");
     console.log(
       "🚀 ~ file: FormGeneralData.jsx ~ line 11 ~ onSubmit ~ data",
@@ -22,7 +23,13 @@ function FormGeneralData({ next }) {
       aspirant: id
     };
     console.log(data);
-
+    setLoading(true);
+    const response = await addAddress(data);
+    console.log(
+      "🚀 ~ file: FormGeneralData.jsx ~ line 28 ~ onFinish ~ response",
+      response
+    );
+    setLoading(false);
     // next();
   };
 
