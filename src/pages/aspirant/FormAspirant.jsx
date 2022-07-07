@@ -16,9 +16,15 @@ function FormAspirant({ data }) {
   let haveAddress =
     data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
       ?.address?.data;
+  let haveSpecialtyOption =
+    data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
+      ?.specialtyOption?.data;
   let idAspirant =
     data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.id;
-  const [current, setCurrent] = useState(haveAddress ? 1 : 0);
+
+  const [current, setCurrent] = useState(
+    haveAddress ? (haveSpecialtyOption ? 2 : 1) : 0
+  );
 
   const next = () => {
     setCurrent(current + 1);
