@@ -29,3 +29,23 @@ export const DATA_GENERAL_SCHEMA = {
     { pattern: /^[0-9]+$/, message: "Solo debe tener números" }
   ]
 };
+
+export const SPECIALTY_SCHEMA = {
+  specialty: [
+    {
+      required: true,
+      message: "Debes seleccionar una especialidad"
+    }
+  ],
+  schoolProcedence: [
+    {
+      required: true,
+      message: "Debes ingresar el nombre de la escuela"
+    },
+    {
+      pattern:
+        /^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]([a-zA-ZÀ-ÿ0-9\u00f1\u00d1 ]*)[a-zA-ZÀ-ÿ0-9\u00f1\u00d1]$/,
+      message: "El nombre solo debe incluir letras y números"
+    }
+  ]
+};

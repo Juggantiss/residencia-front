@@ -8,6 +8,7 @@ import { Button, message, Steps } from "antd";
 
 import "../../styles/FormAspirant.modules.css";
 import FormGeneralData from "../../components/aspirant/FormGeneralData";
+import FormSpecialty from "../../components/aspirant/FormSpecialty";
 
 const { Step } = Steps;
 
@@ -15,6 +16,8 @@ function FormAspirant({ data }) {
   let haveAddress =
     data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
       ?.address?.data;
+  let idAspirant =
+    data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.id;
   const [current, setCurrent] = useState(haveAddress ? 1 : 0);
 
   const next = () => {
@@ -28,19 +31,12 @@ function FormAspirant({ data }) {
   const steps = [
     {
       title: "Generales",
-      content: (
-        <FormGeneralData
-          next={next}
-          idAspirant={
-            data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.id
-          }
-        />
-      ),
+      content: <FormGeneralData next={next} idAspirant={idAspirant} />,
       icon: <SolutionOutlined />
     },
     {
       title: "Especialidad",
-      content: "Second-content",
+      content: <FormSpecialty next={next} idAspirant={idAspirant} />,
       icon: <SelectOutlined />
     },
     {
