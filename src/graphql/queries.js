@@ -49,3 +49,16 @@ export const GET_ASPIRANT_DATA = gql`
     }
   }
 `;
+
+export const GET_SPECIALTIES = gql`
+  {
+    specialties {
+      data {
+        value: id
+        attributes {
+          label: description
+        }
+      }
+    }
+  }
+`;

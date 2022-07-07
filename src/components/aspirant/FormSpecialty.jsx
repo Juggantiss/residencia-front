@@ -1,12 +1,20 @@
 import { useState } from "react";
+import { useQuery } from "@apollo/client/react";
 import { Button, Form, Input, Select, Spin, message } from "antd";
+
 import { SPECIALTY_SCHEMA } from "../../forms/schemas/aspirant.schema";
+import { GET_SPECIALTIES } from "../../graphql/queries";
 
 const { Item } = Form;
 const { Option } = Select;
 
 function FormSpecialty({ next, idAspirant }) {
-  const [loading, setLoading] = useState(false);
+  const [loadingForm, setLoadingForm] = useState(false);
+  const { data, loading, error } = useQuery(GET_SPECIALTIES);
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
 
   const onFinish = async (data) => {
     console.log(
@@ -38,11 +46,12 @@ function FormSpecialty({ next, idAspirant }) {
           allowClear
           placeholder="Selecciona una especialidad"
         >
-          <Option value="1">Informatica</Option>
-          <Option value="2">Sistemas</Option>
-          <Option value="3">Enfermeria</Option>
-          <Option value="4">Administracion</Option>
-          <Option value="5">Construccion</Option>
+          {data &&
+            data.specialties?.data?.map((specialty) => (
+              <Option key={specialty.value} value={specialty.value}>
+                {specialty.attributes.label}
+              </Option>
+            ))}
         </Select>
       </Item>
       <br />
@@ -58,7 +67,7 @@ function FormSpecialty({ next, idAspirant }) {
       <Button size="large" htmlType="submit" type="primary">
         Siguiente
       </Button>
-      <Spin className="spin-layout" size="large" spinning={loading} />
+      <Spin className="spin-layout" size="large" spinning={loadingForm} />
     </Form>
   );
 }
