@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form, Input, Spin, Switch } from "antd";
+import { Button, Form, Input, Spin, Switch, message } from "antd";
 import { DATA_GENERAL_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { DATA_GENERAL_INITIAL_STATE } from "../../forms/states/aspirant";
 import { addAddress } from "../../api/aspirant/addAddress";
@@ -24,12 +24,20 @@ function FormGeneralData({ next, idAspirant }) {
     console.log(data);
     setLoading(true);
     const response = await addAddress(data);
+    resultForResponse(response);
     console.log(
       "🚀 ~ file: FormGeneralData.jsx ~ line 28 ~ onFinish ~ response",
       response
     );
     setLoading(false);
-    // next();
+  };
+
+  const resultForResponse = (response) => {
+    if (response?.data) {
+      next();
+    } else {
+      message.error("Ah ocurrido un error al registrar los datos generales", 2);
+    }
   };
 
   return (

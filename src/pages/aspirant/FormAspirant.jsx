@@ -12,7 +12,10 @@ import FormGeneralData from "../../components/aspirant/FormGeneralData";
 const { Step } = Steps;
 
 function FormAspirant({ data }) {
-  const [current, setCurrent] = useState(0);
+  let haveAddress =
+    data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
+      ?.address?.data;
+  const [current, setCurrent] = useState(haveAddress ? 1 : 0);
 
   const next = () => {
     setCurrent(current + 1);
@@ -73,17 +76,6 @@ function FormAspirant({ data }) {
             onClick={() => message.success("Processing complete!")}
           >
             Enviar
-          </Button>
-        )}
-        {current > 0 && (
-          <Button
-            size="large"
-            style={{
-              margin: "0 8px"
-            }}
-            onClick={() => prev()}
-          >
-            Anterior
           </Button>
         )}
       </div>

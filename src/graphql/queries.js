@@ -21,6 +21,11 @@ export const GET_ASPIRANT_DATA = gql`
               attributes {
                 statusRequest
                 schoolProcedence
+                address {
+                  data {
+                    id
+                  }
+                }
                 document {
                   data {
                     id
