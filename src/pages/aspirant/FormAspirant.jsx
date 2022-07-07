@@ -9,6 +9,7 @@ import { Button, message, Steps } from "antd";
 import "../../styles/FormAspirant.modules.css";
 import FormGeneralData from "../../components/aspirant/FormGeneralData";
 import FormSpecialty from "../../components/aspirant/FormSpecialty";
+import FormDocumentation from "../../components/aspirant/FormDocumentation";
 
 const { Step } = Steps;
 
@@ -47,7 +48,7 @@ function FormAspirant({ data }) {
     },
     {
       title: "Documentos",
-      content: "Last-content",
+      content: <FormDocumentation idAspirant={idAspirant} />,
       icon: <FileAddOutlined />
     }
   ];
@@ -65,22 +66,7 @@ function FormAspirant({ data }) {
         ))}
       </Steps>
       <div className="steps-content">{steps[current].content}</div>
-      <div className="steps-action">
-        {current < steps.length - 1 && (
-          <Button size="large" type="primary" onClick={() => next()}>
-            Siguiente
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button
-            size="large"
-            type="primary"
-            onClick={() => message.success("Processing complete!")}
-          >
-            Enviar
-          </Button>
-        )}
-      </div>
+      <div className="steps-action"></div>
     </div>
   );
 }

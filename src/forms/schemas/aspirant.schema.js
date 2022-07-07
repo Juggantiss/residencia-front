@@ -49,3 +49,12 @@ export const SPECIALTY_SCHEMA = {
     }
   ]
 };
+
+export const DOCUMENTATION_SCHEMA = {
+  certificate: [{ required: true, message: "Debes seleccionar tu constancia" }],
+  birthCertificate: [
+    { required: true, message: "Debes seleccionar tu acta de nacimiento" }
+  ],
+  curp: [{ required: true, message: "Debes seleccionar tu curp" }],
+  photo: [{ required: true, message: "Debes seleccionar tu foto" }]
+};
