@@ -4,6 +4,7 @@ import { Button, Form, Input, Select, Spin, message } from "antd";
 
 import { SPECIALTY_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { GET_SPECIALTIES } from "../../graphql/queries";
+import { addSpecialty } from "../../api/aspirant/addSpecialty";
 
 const { Item } = Form;
 const { Option } = Select;
@@ -21,6 +22,25 @@ function FormSpecialty({ next, idAspirant }) {
       "🚀 ~ file: FormSpecialty.jsx ~ line 10 ~ onFinish ~ data",
       data
     );
+    setLoadingForm(true);
+    const response = await addSpecialty(data, idAspirant);
+    resultForResponse(response);
+    console.log(
+      "🚀 ~ file: FormSpecialty.jsx ~ line 26 ~ onFinish ~ response",
+      response
+    );
+    setLoadingForm(false);
+  };
+
+  const resultForResponse = (response) => {
+    if (response?.data) {
+      next();
+    } else {
+      message.error(
+        "Ah ocurrido un error al registrar los datos de especialidad",
+        2
+      );
+    }
   };
 
   return (
