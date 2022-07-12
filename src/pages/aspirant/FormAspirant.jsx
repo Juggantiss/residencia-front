@@ -5,7 +5,7 @@ import {
   FileAddOutlined,
   CheckOutlined
 } from "@ant-design/icons";
-import { Steps } from "antd";
+import { Steps, Progress } from "antd";
 
 import "../../styles/FormAspirant.modules.css";
 import FormGeneralData from "../../components/aspirant/FormGeneralData";
@@ -57,7 +57,14 @@ function FormAspirant({ data }) {
     },
     {
       title: "Finalizado",
-      content: <h1>Finalizado</h1>,
+      content: (
+        <Progress
+          width={240}
+          type="circle"
+          percent={100}
+          format={() => "Finalizado"}
+        />
+      ),
       icon: <CheckOutlined />
     }
   ];
