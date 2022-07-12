@@ -2,9 +2,10 @@ import { useState } from "react";
 import {
   SolutionOutlined,
   SelectOutlined,
-  FileAddOutlined
+  FileAddOutlined,
+  CheckOutlined
 } from "@ant-design/icons";
-import { Button, message, Steps } from "antd";
+import { Steps } from "antd";
 
 import "../../styles/FormAspirant.modules.css";
 import FormGeneralData from "../../components/aspirant/FormGeneralData";
@@ -20,20 +21,23 @@ function FormAspirant({ data }) {
   let haveSpecialtyOption =
     data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
       ?.specialtyOption?.data;
+  let haveDocument =
+    data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
+      ?.document?.data;
   let idAspirant =
     data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.id;
 
   const [current, setCurrent] = useState(
-    haveAddress ? (haveSpecialtyOption ? 2 : 1) : 0
+    haveAddress ? (haveSpecialtyOption ? (haveDocument ? 3 : 2) : 1) : 0
   );
 
   const next = () => {
     setCurrent(current + 1);
   };
 
-  const prev = () => {
-    setCurrent(current - 1);
-  };
+  // const prev = () => {
+  //   setCurrent(current - 1);
+  // };
 
   const steps = [
     {
@@ -48,8 +52,13 @@ function FormAspirant({ data }) {
     },
     {
       title: "Documentos",
-      content: <FormDocumentation idAspirant={idAspirant} />,
+      content: <FormDocumentation idAspirant={idAspirant} next={next} />,
       icon: <FileAddOutlined />
+    },
+    {
+      title: "Finalizado",
+      content: <h1>Finalizado</h1>,
+      icon: <CheckOutlined />
     }
   ];
 
