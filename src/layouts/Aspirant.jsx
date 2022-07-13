@@ -8,6 +8,7 @@ import {
   MenuOutlined
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, Button, Popconfirm, Avatar } from "antd";
+import BannerCbtis from "../assets/img/banner-cbtis.jpg";
 import "../styles/Aspirant.modules.css";
 
 import { useNavigate } from "react-router-dom";
@@ -41,7 +42,7 @@ function Aspirant() {
     variables: { ID: idUser }
   });
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
-  const [content, setContent] = useState(<DashboardAspirant />);
+  const [content, setContent] = useState(<DashboardAspirant data={data} />);
   const [path, setPath] = useState("Inicio");
 
   if (loading) {
@@ -62,7 +63,7 @@ function Aspirant() {
     const { label } = items[key - 1];
     setPath(label);
     if (key === "1") {
-      setContent(<DashboardAspirant />);
+      setContent(<DashboardAspirant data={data} />);
     }
     if (key === "2") {
       setContent(<FormAspirant data={data} />);
@@ -84,7 +85,6 @@ function Aspirant() {
     const document =
       data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
         ?.document;
-    console.log(document);
     const url = document?.data?.attributes?.photo?.data?.attributes?.url;
     if (url) {
       return <Avatar src={process.env.REACT_APP_API_URL.slice(0, -4) + url} />;
@@ -103,11 +103,7 @@ function Aspirant() {
         collapsedWidth="0"
         collapsed={collapsed}
       >
-        <img
-          className="logo"
-          src={require("../assets/img/banner-cbtis.jpg")}
-          alt="logo"
-        />
+        <img className="logo" src={BannerCbtis} alt="logo" />
         <div className="text-button">
           <h1>ASPIRANTE</h1>
           <Popconfirm
