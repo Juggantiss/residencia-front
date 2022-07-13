@@ -84,9 +84,10 @@ function Aspirant() {
     const document =
       data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
         ?.document;
-    const url = document?.data?.attributes?.url;
+    console.log(document);
+    const url = document?.data?.attributes?.photo?.data?.attributes?.url;
     if (url) {
-      return <Avatar src={url} />;
+      return <Avatar src={process.env.REACT_APP_API_URL.slice(0, -4) + url} />;
     } else {
       return <Avatar icon={<UserOutlined />} />;
     }
