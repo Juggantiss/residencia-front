@@ -1,13 +1,22 @@
+import { useState } from "react";
+import { useQuery } from "@apollo/client/react";
 import {
   HomeOutlined,
   UserOutlined,
   FormOutlined,
-  CloseCircleFilled
+  QuestionCircleOutlined,
+  MenuOutlined
 } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Breadcrumb, Layout, Menu, Button, Popconfirm, Avatar } from "antd";
+import BannerCbtis from "../assets/img/banner-cbtis.jpg";
 import "../styles/Aspirant.modules.css";
 
-const { Content, Footer, Sider } = Layout;
+import { useNavigate } from "react-router-dom";
+import FormAspirant from "../pages/aspirant/FormAspirant";
+import DashboardAspirant from "../pages/aspirant/DashboardAspirant";
+import { GET_ASPIRANT_DATA } from "../graphql/queries";
+
+const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Breadcrumb;
 
 function getItem(label, key, icon, children) {
@@ -22,35 +31,145 @@ function getItem(label, key, icon, children) {
 const items = [
   getItem("Inicio", "1", <HomeOutlined />),
   getItem("Formularios", "2", <FormOutlined />),
-  getItem("Perfil", "3", <UserOutlined />),
-  getItem("Cerrar Sesión", "4", <CloseCircleFilled />)
+  getItem("Perfil", "3", <UserOutlined />)
 ];
 
-function Aspirant({ children }) {
+function Aspirant() {
+  const navigate = useNavigate();
+  let width = window.screen.width;
+  let idUser = window.localStorage.getItem("id");
+  const { data, loading, error } = useQuery(GET_ASPIRANT_DATA, {
+    variables: { ID: idUser }
+  });
+  const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
+  const [content, setContent] = useState(<DashboardAspirant data={data} />);
+  const [path, setPath] = useState("Inicio");
+
+  if (loading) {
+    return <h1>Cargando...</h1>;
+  }
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
+
+  const logout = () => {
+    window.localStorage.clear();
+    navigate("/login");
+  };
+
+  const onClickMenuItem = (e) => {
+    const { key } = e;
+    const { label } = items[key - 1];
+    setPath(label);
+    if (key === "1") {
+      setContent(<DashboardAspirant data={data} />);
+    }
+    if (key === "2") {
+      setContent(<FormAspirant data={data} />);
+    }
+    if (key === "3") {
+      setContent(<h1>Este es tu perfil</h1>);
+    }
+  };
+
+  const getFullName = () => {
+    const { name, firstLastName, secondLastName } =
+      data?.usersPermissionsUser?.data?.attributes;
+    let fullName = `${name} ${firstLastName} ${secondLastName}`;
+
+    return fullName;
+  };
+
+  const getImageProfile = () => {
+    const document =
+      data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
+        ?.document;
+    const url = document?.data?.attributes?.photo?.data?.attributes?.url;
+    if (url) {
+      return <Avatar src={process.env.REACT_APP_API_URL.slice(0, -4) + url} />;
+    } else {
+      return <Avatar icon={<UserOutlined />} />;
+    }
+  };
+
   return (
     <Layout className="layout-container">
-      <Sider breakpoint="lg" collapsedWidth="0">
-        <img
-          className="logo"
-          src={require("../assets/img/banner-cbtis.jpg")}
-          alt="logo"
-        />
-        {/* <div className="logo" /> */}
+      <Sider
+        zeroWidthTriggerStyle={{
+          display: "none"
+        }}
+        breakpoint="lg"
+        collapsedWidth="0"
+        collapsed={collapsed}
+      >
+        <img className="logo" src={BannerCbtis} alt="logo" />
+        <div className="text-button">
+          <h1>ASPIRANTE</h1>
+          <Popconfirm
+            title="¿Estás seguro？"
+            onConfirm={logout}
+            okText="Sí"
+            cancelText="No"
+            icon={
+              <QuestionCircleOutlined
+                style={{
+                  color: "red"
+                }}
+              />
+            }
+          >
+            <Button className="btnClose" type="primary" danger size="large">
+              Cerrar Sesión
+            </Button>
+          </Popconfirm>
+        </div>
         <Menu
           theme="dark"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys="1"
           mode="inline"
           items={items}
+          onClick={onClickMenuItem}
         />
       </Sider>
       <Layout className="site-layout">
-        {/* <Header className="site-layout-background header-one" /> */}
+        <Header>
+          <ul className="ulLeft">
+            <li>
+              <MenuOutlined
+                className="menuToggle"
+                onClick={() => setCollapsed(!collapsed)}
+              />
+            </li>
+            <li>
+              <span className="tituloMenu">SSF CBTis 205</span>
+            </li>
+          </ul>
+          <ul className="ulRight">
+            <li>
+              {width < 700 ? (
+                !collapsed ? null : (
+                  <span className="nameMenu">{getFullName()}</span>
+                )
+              ) : (
+                <span className="nameMenu">{getFullName()}</span>
+              )}
+              {width < 380
+                ? !collapsed
+                  ? null
+                  : getImageProfile()
+                : getImageProfile()}
+            </li>
+          </ul>
+        </Header>
         <Content className="content-container">
           <Breadcrumb className="breadcumb-container">
-            <Item>Aspirante</Item>
-            <Item>Inicio</Item>
+            <Item>
+              <HomeOutlined />
+            </Item>
+            <Item>{path}</Item>
           </Breadcrumb>
-          <div className="site-layout-background header-two">{children}</div>
+          <div className="site-layout-background header-two">{content}</div>
         </Content>
         <Footer className="footer-container">
           Sistema de Solicitud de Fichas &copy; 2022 CBTIS 205

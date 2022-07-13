@@ -59,7 +59,7 @@ function Register() {
     };
     delete data.confirmPassword;
     delete data.polities;
-    console.log(data);
+    console.log("🚀 ~ file: Register.jsx ~ line 63 ~ formSuccess ~ data", data);
     setLoading(true);
     const response = await registerUser(data);
     resultForResponse(response);
@@ -110,7 +110,7 @@ function Register() {
       >
         <h1>Nuevo Aspirante</h1>
         <Item label="CURP" name="curp" rules={REGISTER_SCHEMA.curp}>
-          <Input autoFocus className="input-upper" maxLength={18} />
+          <Input showCount autoFocus className="input-upper" maxLength={18} />
         </Item>
         <Item label="Nombre (s)" name="name" rules={REGISTER_SCHEMA.name}>
           <Input className="input-cap" maxLength={30} />
