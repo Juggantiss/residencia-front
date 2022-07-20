@@ -1,9 +1,9 @@
-import { Card, Typography } from "antd";
+import { Card } from "antd";
 import "../../styles/DashboardAspirant.modules.css";
 import DashboardImage from "../../assets/img/dashboard-img.svg";
 
 const { Grid } = Card;
-const { Text } = Typography;
+// const { Text } = Typography;
 
 function DashboardAspirant({ data }) {
   return (
@@ -19,7 +19,7 @@ function DashboardAspirant({ data }) {
         </p>
       </Grid>
       <Grid className="banner_card" hoverable={false}>
-        <img className="image" src={DashboardImage} alt="Dashboard Image" />
+        <img className="image" src={DashboardImage} alt="Dashboard" />
       </Grid>
     </Card>
   );
