@@ -1,7 +1,7 @@
 .banner_container {
   background-color: #f8f9fe;
   border-radius: 1rem;
-  min-height: 200px;
+  min-height: 250px;
 }
 
 .banner_container .banner_card {
@@ -24,7 +24,7 @@
   font-weight: bold;
 }
 
-.banner_container p {
+p {
   font-size: 1rem;
 }
 
@@ -45,11 +45,31 @@
   margin-top: 20px;
 }
 
-.cards_container .card_progress {
+.card_progress {
+  width: 300px;
+  height: 350px;
+}
+
+.card {
   background-color: #f8f9fe;
   border-radius: 1rem;
-  width: 300px;
-  height: 400px;
+  margin: 0.5rem;
+}
+
+.card_status {
+  width: 350px;
+  height: 200px;
+}
+
+.card_status p {
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.2rem;
+}
+
+.card_contact {
+  width: 500px;
+  height: 200px;
 }
 
 /* @media (max-width: 810px) {

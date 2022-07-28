@@ -30,7 +30,7 @@ function DashboardAspirant({ data }) {
       </Row>
       <Row className="cards_container">
         <Card
-          className="card_progress"
+          className="card card_progress"
           // headStyle={{ color: "#ffffff" }}
           title="Progreso de formularios"
           extra={
@@ -47,17 +47,21 @@ function DashboardAspirant({ data }) {
             format={percent[1] === 100 && (() => "Enviado")}
           />
         </Card>
+        <Card
+          className="card card_status"
+          title="Estado"
+          extra={<span style={{ color: "#16bd3f" }}>Aspirante</span>}
+        >
+          <p>
+            ¡Felicidades tus datos están correctos! descarga tu ficha oficial
+            por correo o en las notificaciones.
+          </p>
+        </Card>
+        {/* <Card className="card card_contact" title="Contacto">
+          Correo: juan@gmail.com Telefono: 971 152 1165
+        </Card> */}
       </Row>
     </div>
-
-    // <Card className="banner_container">
-    //   <Grid className="banner_card" hoverable={false}>
-
-    //   </Grid>
-    //   <Grid className="banner_card" hoverable={false}>
-    //     <img className="image" src={DashboardImage} alt="Dashboard" />
-    //   </Grid>
-    // </Card>
   );
 }
 
