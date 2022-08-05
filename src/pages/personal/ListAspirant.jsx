@@ -109,6 +109,9 @@ function ListAspirant() {
       <h1>Lista de solicitud de aspirantes</h1>
       <Table
         // rowSelection={{ type: "checkbox" }}
+        onRow={(row) => ({
+          onClick: () => console.log(row)
+        })}
         columns={columns}
         dataSource={newData}
       />
