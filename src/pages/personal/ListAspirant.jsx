@@ -43,7 +43,9 @@ const columns = [
     title: "Sexo",
     dataIndex: "gender",
     key: "gender",
-    responsive: ["md"]
+    responsive: ["md"],
+    render: (_, { gender }) =>
+      gender === "Hombre" ? "M" : gender === "Mujer" ? "F" : ""
   },
   {
     title: "Action",
@@ -79,23 +81,25 @@ function ListAspirant() {
   if (data) {
     data?.aspirants?.data?.map((aspirant) => {
       const user = aspirant?.attributes?.user?.data?.attributes;
-      const specialty =
-        aspirant?.attributes?.specialtyOption?.data?.attributes?.specialty?.data
-          ?.attributes;
+      if (user) {
+        const specialty =
+          aspirant?.attributes?.specialtyOption?.data?.attributes?.specialty
+            ?.data?.attributes;
 
-      newData = [
-        ...newData,
-        {
-          key: aspirant?.id,
-          name: user
-            ? `${user.name} ${user.firstLastName} ${user.secondLastName}`
-            : "",
-          birthday: user ? user.birthday : "",
-          gender: user ? user.gender : "",
-          status: aspirant?.attributes?.status,
-          specialty: specialty?.description
-        }
-      ];
+        newData = [
+          ...newData,
+          {
+            key: aspirant?.id,
+            name: user
+              ? `${user.name} ${user.firstLastName} ${user.secondLastName}`
+              : "",
+            birthday: user ? user.birthday : "",
+            gender: user ? user.gender : "",
+            status: aspirant?.attributes?.status,
+            specialty: specialty?.description
+          }
+        ];
+      }
       return null;
     });
   }
