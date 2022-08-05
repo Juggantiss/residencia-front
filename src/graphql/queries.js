@@ -67,3 +67,43 @@ export const GET_SPECIALTIES = gql`
     }
   }
 `;
+
+export const GET_LIST_ASPIRANTS = gql`
+  {
+    aspirants {
+      data {
+        id
+        attributes {
+          user {
+            data {
+              id
+              attributes {
+                name
+                firstLastName
+                secondLastName
+                gender
+                birthday
+              }
+            }
+          }
+          status: statusRequest
+          specialtyOption {
+            data {
+              id
+              attributes {
+                specialty {
+                  data {
+                    id
+                    attributes {
+                      description
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
