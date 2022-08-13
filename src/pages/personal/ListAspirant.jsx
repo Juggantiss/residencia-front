@@ -1,7 +1,9 @@
-import { Space, Table, Tag } from "antd";
+import { useState } from "react";
+import { Space, Table, Tag, Skeleton, Modal } from "antd";
 import { CheckOutlined, EditOutlined } from "@ant-design/icons";
 import { useQuery } from "@apollo/client/react";
 import { GET_LIST_ASPIRANTS } from "../../graphql/queries";
+import Profile from "../../components/aspirant/Profile";
 
 const columns = [
   {
@@ -83,10 +85,8 @@ const colorByStatus = (status) => {
 
 function ListAspirant() {
   const { data, loading, error } = useQuery(GET_LIST_ASPIRANTS);
-
-  if (loading) {
-    return <h1>Cargando...</h1>;
-  }
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [idAspirant, setIdAspirant] = useState(null);
 
   if (error) {
     return <h1>{error}</h1>;
@@ -97,6 +97,7 @@ function ListAspirant() {
   if (data) {
     data?.aspirants?.data?.map((aspirant) => {
       const user = aspirant?.attributes?.user?.data?.attributes;
+      const idUser = aspirant?.attributes?.user?.data?.id;
       if (user) {
         const specialty =
           aspirant?.attributes?.specialtyOption?.data?.attributes?.specialty
@@ -106,6 +107,7 @@ function ListAspirant() {
           ...newData,
           {
             key: aspirant?.id,
+            id: idUser,
             name: user
               ? `${user.name} ${user.firstLastName} ${user.secondLastName}`
               : "",
@@ -120,17 +122,43 @@ function ListAspirant() {
     });
   }
 
+  const showModal = (id) => {
+    setIdAspirant(id);
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <>
       <h1>Lista de solicitud de aspirantes</h1>
-      <Table
-        // rowSelection={{ type: "checkbox" }}
-        onRow={(row) => ({
-          onClick: () => console.log(row)
-        })}
-        columns={columns}
-        dataSource={newData}
-      />
+      {loading ? (
+        <Skeleton active paragraph={{ rows: 5 }} />
+      ) : (
+        <Table
+          // rowSelection={{ type: "checkbox" }}
+          onRow={(row) => ({
+            onClick: () => showModal(row?.id)
+          })}
+          columns={columns}
+          dataSource={newData}
+        />
+      )}
+      <Modal
+        title="Perfil aspirante"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width="60%"
+      >
+        <Profile id={idAspirant} />
+      </Modal>
     </>
   );
 }

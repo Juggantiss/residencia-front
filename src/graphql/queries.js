@@ -29,6 +29,16 @@ export const GET_ASPIRANT_DATA = gql`
                 specialtyOption {
                   data {
                     id
+                    attributes {
+                      specialty {
+                        data {
+                          id
+                          attributes {
+                            description
+                          }
+                        }
+                      }
+                    }
                   }
                 }
                 document {
