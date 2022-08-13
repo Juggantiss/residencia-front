@@ -19,12 +19,7 @@ const columns = [
     key: "status",
     dataIndex: "status",
     render: (_, { key, status }) => {
-      let color =
-        status === "registrado"
-          ? "geekblue"
-          : status === "enviado"
-          ? "green"
-          : "volcano";
+      let color = colorByStatus(status);
 
       return (
         <Tag color={color} key={key}>
@@ -54,16 +49,37 @@ const columns = [
       <Space size="small">
         <EditOutlined
           onClick={() => console.log("Se va a editar", record)}
-          style={{ fontSize: "24px" }}
+          style={{ fontSize: "24px", color: "#8898aa" }}
         />
         <CheckOutlined
           onClick={() => console.log("Aceptado!", record)}
-          style={{ fontSize: "24px" }}
+          style={{ fontSize: "24px", color: "#16bd3f" }}
         />
       </Space>
     )
   }
 ];
+
+const colorByStatus = (status) => {
+  switch (status) {
+    case "registrado":
+      return "#8898aa";
+    case "generales":
+      return "#725b10";
+    case "documentos":
+      return "#725b10";
+    case "enviado":
+      return "#01b6a4";
+    case "observaciones":
+      return "#5b08e2";
+    case "aprobado":
+      return "#16bd3f";
+    case "rechazado":
+      return "#fd4a4a";
+    default:
+      return "#8898aa";
+  }
+};
 
 function ListAspirant() {
   const { data, loading, error } = useQuery(GET_LIST_ASPIRANTS);
