@@ -155,7 +155,7 @@ function ListAspirant() {
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        width="60%"
+        // width="30%"
       >
         <Profile id={idAspirant} />
       </Modal>

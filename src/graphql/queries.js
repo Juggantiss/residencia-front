@@ -24,6 +24,13 @@ export const GET_ASPIRANT_DATA = gql`
                 address {
                   data {
                     id
+                    attributes {
+                      street
+                      number
+                      municipality
+                      zipCode
+                      suburb
+                    }
                   }
                 }
                 specialtyOption {
@@ -46,6 +53,30 @@ export const GET_ASPIRANT_DATA = gql`
                     id
                     attributes {
                       photo {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      certificate {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      curp {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      birthCertificate {
                         data {
                           id
                           attributes {
