@@ -138,8 +138,17 @@ const Profile = ({ id }) => {
           </Title>
         </Col>
       </Row>
-      <Row style={{ padding: "20px 0 0" }}>
-        <Title level={5}>Documentos:</Title>
+      <Row style={{ padding: "20px 0 15px  0" }}>
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+          span={24}
+        >
+          <Title level={5}>Documentos:</Title>
+        </Col>
       </Row>
       <Row>
         <Col style={{ padding: "10px 0 0" }} span={8}>
