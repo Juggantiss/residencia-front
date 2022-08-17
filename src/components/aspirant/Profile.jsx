@@ -24,6 +24,8 @@ const Profile = ({ id }) => {
   let address = aspirant?.address?.data?.attributes;
   let document = aspirant?.document?.data?.attributes;
 
+  let baseUrl = process.env.REACT_APP_API_URL.slice(0, -4);
+
   return loading ? (
     <Skeleton
       active
@@ -34,9 +36,21 @@ const Profile = ({ id }) => {
     />
   ) : (
     <>
-      <Row align="middle">
-        <Col flex="150px">
-          <Avatar
+      <Row>
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+          span={24}
+        >
+          <div class="avatar">
+            <div class="w-32 mask mask-squircle">
+              <img src="https://placeimg.com/192/192/people" />
+            </div>
+          </div>
+          {/* <Avatar
             size={{
               xs: 24,
               sm: 32,
@@ -46,9 +60,19 @@ const Profile = ({ id }) => {
               xxl: 128
             }}
             icon={<UserOutlined />}
-          />
+          /> */}
         </Col>
-        <Col flex="auto">
+      </Row>
+      <Row>
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "20px 0 0",
+            alignItems: "center"
+          }}
+          span={24}
+        >
           <Row>
             <Title level={4}>
               {user?.name} {user?.firstLastName} {user?.secondLastName}
@@ -62,16 +86,20 @@ const Profile = ({ id }) => {
               {user?.email}
             </Title>
           </Row>
-          <Row>
+          <Row gutter={12}>
             <Col>
-              <Title level={5} keyboard>
+              <div
+                className={`badge ${
+                  user?.gender === "Hombre"
+                    ? "badge-primary"
+                    : user?.gender === "Mujer" && "badge-secondary"
+                }  badge-lg`}
+              >
                 {user?.gender}
-              </Title>
+              </div>
             </Col>
             <Col>
-              <Title level={5} keyboard>
-                {specialty}
-              </Title>
+              <div className="badge badge-lg">{specialty}</div>
             </Col>
           </Row>
         </Col>
@@ -126,7 +154,7 @@ const Profile = ({ id }) => {
           style={{
             display: "flex",
             flexDirection: "column",
-            padding: "20px 0 0",
+            padding: "5px 0 0",
             alignItems: "center"
           }}
           span={24}
@@ -151,50 +179,70 @@ const Profile = ({ id }) => {
         </Col>
       </Row>
       <Row>
-        <Col style={{ padding: "10px 0 0" }} span={8}>
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+          span={8}
+        >
           <Link
-            style={{
-              padding: 10,
-              border: "1px solid #CCCCCC",
-              borderRadius: 8,
-              fontSize: 16,
-              backgroundColor: "#f1f1f1",
-              cursor: "pointer"
-            }}
             to={{
-              pathname:
-                process.env.REACT_APP_API_URL.slice(0, -4) +
-                document?.certificate?.data?.attributes?.url
+              pathname: baseUrl + document?.certificate?.data?.attributes?.url
             }}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FilePdfOutlined /> <Text>Certificado</Text>
+            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2">
+              <FilePdfOutlined />
+              Certificado
+            </button>
           </Link>
         </Col>
-        <Col style={{ padding: "10px 0 0" }} span={6}>
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+          span={8}
+        >
           <Link
-            style={{
-              padding: 10,
-              border: "1px solid #CCCCCC",
-              borderRadius: 8,
-              fontSize: 16,
-              backgroundColor: "#f1f1f1",
-              cursor: "pointer"
-            }}
             to={{
-              pathname:
-                process.env.REACT_APP_API_URL.slice(0, -4) +
-                document?.curp?.data?.attributes?.url
+              pathname: baseUrl + document?.curp?.data?.attributes?.url
             }}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FilePdfOutlined /> <Text>CURP</Text>
+            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2">
+              <FilePdfOutlined />
+              CURP
+            </button>
           </Link>
         </Col>
-        <Col style={{ padding: "10px 0 0" }} span={10}>
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+          span={8}
+        >
           <Link
+            to={{
+              pathname:
+                baseUrl + document?.birthCertificate?.data?.attributes?.url
+            }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2">
+              <FilePdfOutlined />
+              Acta
+            </button>
+          </Link>
+          {/* <Link
             style={{
               padding: 10,
               border: "1px solid #CCCCCC",
@@ -212,7 +260,7 @@ const Profile = ({ id }) => {
             rel="noopener noreferrer"
           >
             <FilePdfOutlined /> <Text>Acta de nacimiento</Text>
-          </Link>
+          </Link> */}
         </Col>
       </Row>
     </>

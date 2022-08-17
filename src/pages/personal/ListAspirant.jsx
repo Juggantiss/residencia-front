@@ -137,7 +137,8 @@ function ListAspirant() {
 
   return (
     <>
-      <h1>Lista de solicitud de aspirantes</h1>
+      <h1 className="text-3xl font-bold">Lista de solicitud de aspirantes</h1>
+
       {loading ? (
         <Skeleton active paragraph={{ rows: 5 }} />
       ) : (
