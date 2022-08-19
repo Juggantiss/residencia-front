@@ -146,7 +146,7 @@ function ListAspirant() {
         <Table
           // rowSelection={{ type: "checkbox" }}
           onRow={(row) => ({
-            onClick: () => showModal(row?.id)
+            onDoubleClick: () => showModal(row?.id)
           })}
           columns={columns}
           dataSource={newData}
