@@ -45,8 +45,8 @@ const Profile = ({ id }) => {
           }}
           span={24}
         >
-          <div class="avatar">
-            <div class="w-32 mask mask-squircle">
+          <div className="avatar">
+            <div className="w-32 mask mask-squircle">
               <img src="https://placeimg.com/192/192/people" />
             </div>
           </div>
@@ -154,7 +154,6 @@ const Profile = ({ id }) => {
           style={{
             display: "flex",
             flexDirection: "column",
-            padding: "5px 0 0",
             alignItems: "center"
           }}
           span={24}
@@ -166,7 +165,7 @@ const Profile = ({ id }) => {
           </Title>
         </Col>
       </Row>
-      <Row style={{ padding: "20px 0 15px  0" }}>
+      <Row style={{ padding: "15px 0 15px  0" }}>
         <Col
           style={{
             display: "flex",
@@ -194,7 +193,7 @@ const Profile = ({ id }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2">
+            <button className="btn gap-2">
               <FilePdfOutlined />
               Certificado
             </button>
@@ -215,7 +214,7 @@ const Profile = ({ id }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2">
+            <button className="btn gap-2">
               <FilePdfOutlined />
               CURP
             </button>
@@ -237,7 +236,7 @@ const Profile = ({ id }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2">
+            <button className="btn gap-2">
               <FilePdfOutlined />
               Acta
             </button>

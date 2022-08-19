@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Space, Table, Tag, Skeleton, Modal } from "antd";
+import { Space, Table, Tag, Skeleton } from "antd";
 import { CheckOutlined, EditOutlined } from "@ant-design/icons";
 import { useQuery } from "@apollo/client/react";
 import { GET_LIST_ASPIRANTS } from "../../graphql/queries";
 import Profile from "../../components/aspirant/Profile";
+import Modal from "../../components/aspirant/Modal";
 
 const columns = [
   {
@@ -131,7 +132,7 @@ function ListAspirant() {
     setIsModalVisible(false);
   };
 
-  const handleCancel = () => {
+  const handleClose = () => {
     setIsModalVisible(false);
   };
 
@@ -151,7 +152,13 @@ function ListAspirant() {
           dataSource={newData}
         />
       )}
-      <Modal
+      {isModalVisible && (
+        <Modal close={handleClose}>
+          <Profile id={idAspirant} />
+        </Modal>
+      )}
+
+      {/* <Modal
         title="Perfil aspirante"
         visible={isModalVisible}
         onOk={handleOk}
@@ -159,7 +166,7 @@ function ListAspirant() {
         // width="30%"
       >
         <Profile id={idAspirant} />
-      </Modal>
+      </Modal> */}
     </>
   );
 }
