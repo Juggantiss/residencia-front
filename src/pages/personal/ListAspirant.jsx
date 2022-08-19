@@ -4,7 +4,7 @@ import { CheckOutlined, EditOutlined } from "@ant-design/icons";
 import { useQuery } from "@apollo/client/react";
 import { GET_LIST_ASPIRANTS } from "../../graphql/queries";
 import Profile from "../../components/aspirant/Profile";
-import Modal from "../../components/aspirant/Modal";
+import Modal from "../../components/Modal";
 
 const columns = [
   {
