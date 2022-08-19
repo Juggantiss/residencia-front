@@ -4,13 +4,12 @@ const Modal = ({ close, children }) => {
   return (
     <div className="modal-open modal-bottom sm:modal-middle flex justify-center fixed top-0 w-full h-full">
       <div className="modal-box">
-        <label
-          htmlFor="my-modal-3"
+        <button
           className="btn btn-sm btn-circle absolute right-2 top-2"
           onClick={close}
         >
           ✕
-        </label>
+        </button>
         {children}
         <div className="divider"></div>
         <div className="modal-action">
