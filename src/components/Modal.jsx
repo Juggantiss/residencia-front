@@ -1,4 +1,5 @@
-import { MessageOutlined, CheckOutlined } from "@ant-design/icons";
+import { GiCheckMark } from "react-icons/gi";
+import { BiMessageEdit } from "react-icons/bi";
 
 const Modal = ({ close, children }) => {
   return (
@@ -15,11 +16,11 @@ const Modal = ({ close, children }) => {
         <div className="modal-action">
           <div className="btn-group">
             <button className="btn btn-outline btn-info gap-2">
-              <MessageOutlined />
+              <BiMessageEdit size={18} />
               Mensaje
             </button>
             <button className="btn btn-circle btn-outline btn-success">
-              <CheckOutlined />
+              <GiCheckMark />
             </button>
           </div>
         </div>

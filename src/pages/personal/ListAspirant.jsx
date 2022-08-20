@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Space, Table, Tag, Skeleton } from "antd";
-import { CheckOutlined, EditOutlined } from "@ant-design/icons";
+import { GiCheckMark } from "react-icons/gi";
+import { MdModeEdit } from "react-icons/md";
 import { useQuery } from "@apollo/client/react";
 import { GET_LIST_ASPIRANTS } from "../../graphql/queries";
 import Profile from "../../components/aspirant/Profile";
@@ -25,7 +26,7 @@ const columns = [
       let color = colorByStatus(status);
 
       return (
-        <Tag color={color} key={key}>
+        <Tag style={{ borderRadius: 10 }} color={color} key={key}>
           {status.toUpperCase()}
         </Tag>
       );
@@ -50,13 +51,17 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="small">
-        <EditOutlined
+        <MdModeEdit
+          size={24}
+          color="#8898aa"
+          cursor="pointer"
           onClick={() => console.log("Se va a editar", record)}
-          style={{ fontSize: "24px", color: "#8898aa" }}
         />
-        <CheckOutlined
+        <GiCheckMark
+          size={24}
+          color="#16bd3f"
           onClick={() => console.log("Aceptado!", record)}
-          style={{ fontSize: "24px", color: "#16bd3f" }}
+          cursor="pointer"
         />
       </Space>
     )
