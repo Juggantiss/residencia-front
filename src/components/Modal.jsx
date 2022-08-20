@@ -1,5 +1,6 @@
 import { GiCheckMark } from "react-icons/gi";
 import { BiMessageEdit } from "react-icons/bi";
+import { MdPersonRemove } from "react-icons/md";
 
 const Modal = ({ close, children }) => {
   return (
@@ -15,6 +16,9 @@ const Modal = ({ close, children }) => {
         <div className="divider"></div>
         <div className="modal-action">
           <div className="btn-group">
+            <button className="btn btn-circle btn-outline btn-error">
+              <MdPersonRemove size={18} />
+            </button>
             <button className="btn btn-outline btn-info gap-2">
               <BiMessageEdit size={18} />
               Mensaje

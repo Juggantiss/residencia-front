@@ -51,18 +51,22 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space size="small">
-        <MdModeEdit
-          size={24}
-          color="#8898aa"
-          cursor="pointer"
-          onClick={() => console.log("Se va a editar", record)}
-        />
-        <GiCheckMark
-          size={24}
-          color="#16bd3f"
-          onClick={() => console.log("Aceptado!", record)}
-          cursor="pointer"
-        />
+        <div className="tooltip" data-tip="Observaciones">
+          <MdModeEdit
+            size={24}
+            color="#8898aa"
+            cursor="pointer"
+            onClick={() => console.log("Se va a editar", record)}
+          />
+        </div>
+        <div className="tooltip tooltip-success" data-tip="Aceptar">
+          <GiCheckMark
+            size={24}
+            color="#16bd3f"
+            onClick={() => console.log("Aceptado!", record)}
+            cursor="pointer"
+          />
+        </div>
       </Space>
     )
   }
