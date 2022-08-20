@@ -159,14 +159,20 @@ function ListAspirant() {
       ) : (
         <Table
           onRow={(row) => ({
-            onDoubleClick: () => showModal(row?.id)
+            onDoubleClick: () => {
+              setIdAspirant(row?.key);
+              showModal(row?.id);
+            }
           })}
           columns={columns}
           dataSource={newData}
         />
       )}
       {isModalVisible && (
-        <Modal close={handleClose} accept={handleAcceptAspirant}>
+        <Modal
+          close={handleClose}
+          accept={() => handleAcceptAspirant(idAspirant)}
+        >
           <Profile id={idUser} />
         </Modal>
       )}
