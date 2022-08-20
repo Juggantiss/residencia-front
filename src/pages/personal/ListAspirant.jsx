@@ -6,71 +6,7 @@ import { useQuery } from "@apollo/client/react";
 import { GET_LIST_ASPIRANTS } from "../../graphql/queries";
 import Profile from "../../components/aspirant/Profile";
 import Modal from "../../components/Modal";
-
-const columns = [
-  {
-    title: "Nombre",
-    dataIndex: "name",
-    key: "name"
-  },
-  {
-    title: "Especialidad",
-    dataIndex: "specialty",
-    key: "specialty"
-  },
-  {
-    title: "Estado",
-    key: "status",
-    dataIndex: "status",
-    render: (_, { key, status }) => {
-      let color = colorByStatus(status);
-
-      return (
-        <Tag style={{ borderRadius: 10 }} color={color} key={key}>
-          {status.toUpperCase()}
-        </Tag>
-      );
-    }
-  },
-  {
-    title: "Nacimiento",
-    dataIndex: "birthday",
-    key: "birthday",
-    responsive: ["md"]
-  },
-  {
-    title: "Sexo",
-    dataIndex: "gender",
-    key: "gender",
-    responsive: ["md"],
-    render: (_, { gender }) =>
-      gender === "Hombre" ? "M" : gender === "Mujer" ? "F" : ""
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="small">
-        <div className="tooltip" data-tip="Observaciones">
-          <MdModeEdit
-            size={24}
-            color="#8898aa"
-            cursor="pointer"
-            onClick={() => console.log("Se va a editar", record)}
-          />
-        </div>
-        <div className="tooltip tooltip-success" data-tip="Aceptar">
-          <GiCheckMark
-            size={24}
-            color="#16bd3f"
-            onClick={() => console.log("Aceptado!", record)}
-            cursor="pointer"
-          />
-        </div>
-      </Space>
-    )
-  }
-];
+import { updateAspirant } from "../../api/personal/updateAspirant";
 
 const colorByStatus = (status) => {
   switch (status) {
@@ -94,9 +30,10 @@ const colorByStatus = (status) => {
 };
 
 function ListAspirant() {
-  const { data, loading, error } = useQuery(GET_LIST_ASPIRANTS);
+  const { data, loading, error, refetch } = useQuery(GET_LIST_ASPIRANTS);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [idAspirant, setIdAspirant] = useState(null);
+  const [idUser, setIdUser] = useState(null);
 
   if (error) {
     return <h1>{error}</h1>;
@@ -132,12 +69,80 @@ function ListAspirant() {
     });
   }
 
+  const columns = [
+    {
+      title: "Nombre",
+      dataIndex: "name",
+      key: "name"
+    },
+    {
+      title: "Especialidad",
+      dataIndex: "specialty",
+      key: "specialty"
+    },
+    {
+      title: "Estado",
+      key: "status",
+      dataIndex: "status",
+      render: (_, { key, status }) => {
+        let color = colorByStatus(status);
+
+        return (
+          <Tag style={{ borderRadius: 10 }} color={color} key={key}>
+            {status.toUpperCase()}
+          </Tag>
+        );
+      }
+    },
+    {
+      title: "Nacimiento",
+      dataIndex: "birthday",
+      key: "birthday",
+      responsive: ["md"]
+    },
+    {
+      title: "Sexo",
+      dataIndex: "gender",
+      key: "gender",
+      responsive: ["md"],
+      render: (_, { gender }) =>
+        gender === "Hombre" ? "M" : gender === "Mujer" ? "F" : ""
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size="small">
+          <div className="tooltip" data-tip="Observaciones">
+            <MdModeEdit
+              size={24}
+              color="#8898aa"
+              cursor="pointer"
+              onClick={() => console.log("Se va a editar", record)}
+            />
+          </div>
+          <div className="tooltip tooltip-success" data-tip="Aceptar">
+            <GiCheckMark
+              size={24}
+              color="#16bd3f"
+              onClick={() => handleAcceptAspirant(record.key)}
+              cursor="pointer"
+            />
+          </div>
+        </Space>
+      )
+    }
+  ];
+
   const showModal = (id) => {
-    setIdAspirant(id);
+    setIdUser(id);
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
+  const handleAcceptAspirant = async (id) => {
+    const response = await updateAspirant({ statusRequest: "aprobado" }, id);
+    console.log(response);
+    refetch();
     setIsModalVisible(false);
   };
 
@@ -161,8 +166,8 @@ function ListAspirant() {
         />
       )}
       {isModalVisible && (
-        <Modal close={handleClose}>
-          <Profile id={idAspirant} />
+        <Modal close={handleClose} accept={handleAcceptAspirant}>
+          <Profile id={idUser} />
         </Modal>
       )}
     </>
