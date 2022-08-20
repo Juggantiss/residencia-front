@@ -144,7 +144,6 @@ function ListAspirant() {
         <Skeleton active paragraph={{ rows: 5 }} />
       ) : (
         <Table
-          // rowSelection={{ type: "checkbox" }}
           onRow={(row) => ({
             onDoubleClick: () => showModal(row?.id)
           })}
@@ -157,16 +156,6 @@ function ListAspirant() {
           <Profile id={idAspirant} />
         </Modal>
       )}
-
-      {/* <Modal
-        title="Perfil aspirante"
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        // width="30%"
-      >
-        <Profile id={idAspirant} />
-      </Modal> */}
     </>
   );
 }

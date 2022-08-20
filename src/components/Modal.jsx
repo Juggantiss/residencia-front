@@ -2,7 +2,7 @@ import { MessageOutlined, CheckOutlined } from "@ant-design/icons";
 
 const Modal = ({ close, children }) => {
   return (
-    <div className="modal-open modal-bottom sm:modal-middle flex justify-center fixed top-0 w-full h-full">
+    <div className="modal modal-open modal-bottom sm:modal-middle flex justify-center fixed top-0 w-full h-full">
       <div className="modal-box">
         <button
           className="btn btn-sm btn-circle absolute right-2 top-2"
