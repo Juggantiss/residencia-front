@@ -6,12 +6,13 @@ const Modal = ({ close, accept, children }) => {
   return (
     <div className="modal modal-open modal-bottom sm:modal-middle flex justify-center fixed top-0 w-full h-full">
       <div className="modal-box">
-        <button
+        <label
+          htmlFor="my-modal-3"
           className="btn btn-sm btn-circle absolute right-2 top-2"
           onClick={close}
         >
           ✕
-        </button>
+        </label>
         {children}
         <div className="divider"></div>
         <div className="modal-action">
