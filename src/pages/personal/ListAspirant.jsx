@@ -119,7 +119,7 @@ function ListAspirant() {
               size={24}
               color="#8898aa"
               cursor="pointer"
-              onClick={() => console.log("Se va a editar", record)}
+              onClick={() => console.log("editar")}
             />
           </div>
           <div className="tooltip tooltip-success" data-tip="Aceptar">
@@ -156,6 +156,22 @@ function ListAspirant() {
     setIsModalVisible(false);
   };
 
+  const handleClickDecline = async (id) => {
+    Warning(
+      "¿Estás seguro de querer rechazar al aspirante?",
+      "Este aspirante quedará rechazado.",
+      "Confirmar",
+      async () => await declineAspirant(id)
+    );
+  };
+
+  const declineAspirant = async (id) => {
+    const response = await updateAspirant({ statusRequest: "rechazado" }, id);
+    console.log(response);
+    refetch();
+    setIsModalVisible(false);
+  };
+
   const handleClose = () => {
     setIsModalVisible(false);
   };
@@ -179,7 +195,11 @@ function ListAspirant() {
         />
       )}
       {isModalVisible && (
-        <Modal close={handleClose} accept={() => handleClickAccept(idAspirant)}>
+        <Modal
+          close={handleClose}
+          accept={() => handleClickAccept(idAspirant)}
+          decline={() => handleClickDecline(idAspirant)}
+        >
           <Profile id={idUser} />
         </Modal>
       )}
