@@ -7,6 +7,7 @@ import { GET_LIST_ASPIRANTS } from "../../graphql/queries";
 import Profile from "../../components/aspirant/Profile";
 import Modal from "../../components/Modal";
 import { updateAspirant } from "../../api/personal/updateAspirant";
+import { Warning } from "../../components/Alerts";
 
 const colorByStatus = (status) => {
   switch (status) {
@@ -125,7 +126,7 @@ function ListAspirant() {
             <GiCheckMark
               size={24}
               color="#16bd3f"
-              onClick={() => handleAcceptAspirant(record.key)}
+              onClick={() => handleClickAccept(record.key)}
               cursor="pointer"
             />
           </div>
@@ -139,7 +140,16 @@ function ListAspirant() {
     setIsModalVisible(true);
   };
 
-  const handleAcceptAspirant = async (id) => {
+  const handleClickAccept = async (id) => {
+    Warning(
+      "¿Estás seguro de que los datos son correctos?",
+      "Estas confirmando que los datos del aspirante son correctos y quedará aprobado.",
+      "Confirmar",
+      async () => await acceptAspirant(id)
+    );
+  };
+
+  const acceptAspirant = async (id) => {
     const response = await updateAspirant({ statusRequest: "aprobado" }, id);
     console.log(response);
     refetch();
@@ -169,10 +179,7 @@ function ListAspirant() {
         />
       )}
       {isModalVisible && (
-        <Modal
-          close={handleClose}
-          accept={() => handleAcceptAspirant(idAspirant)}
-        >
+        <Modal close={handleClose} accept={() => handleClickAccept(idAspirant)}>
           <Profile id={idUser} />
         </Modal>
       )}
