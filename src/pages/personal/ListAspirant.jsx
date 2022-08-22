@@ -7,7 +7,7 @@ import { GET_LIST_ASPIRANTS } from "../../graphql/queries";
 import Profile from "../../components/aspirant/Profile";
 import Modal from "../../components/Modal";
 import { updateAspirant } from "../../api/personal/updateAspirant";
-import { Warning } from "../../components/Alerts";
+import { Warning, ModalInput } from "../../components/Alerts";
 import { Loading } from "../../components/Loading";
 
 const colorByStatus = (status) => {
@@ -121,7 +121,7 @@ function ListAspirant() {
               size={24}
               color="#8898aa"
               cursor="pointer"
-              onClick={() => console.log("editar")}
+              onClick={() => handleClickMessage(record.key)}
             />
           </div>
           <div className="tooltip tooltip-success" data-tip="Aceptar">
@@ -142,6 +142,10 @@ function ListAspirant() {
     setIsModalVisible(true);
   };
 
+  const handleClose = () => {
+    setIsModalVisible(false);
+  };
+
   const handleClickAccept = async (id) => {
     Warning(
       "¿Estás seguro de que los datos son correctos?",
@@ -160,6 +164,14 @@ function ListAspirant() {
     );
   };
 
+  const handleClickMessage = async (id) => {
+    const text = await ModalInput("Observación");
+    if (text) {
+      console.log(text);
+      await actionUpdateAspirant({ statusRequest: "observaciones" }, id);
+    }
+  };
+
   const actionUpdateAspirant = async (data, id) => {
     setLoadingAction(true);
     const response = await updateAspirant(data, id);
@@ -173,10 +185,6 @@ function ListAspirant() {
     if (response?.data) {
       refetch();
     }
-  };
-
-  const handleClose = () => {
-    setIsModalVisible(false);
   };
 
   return (
@@ -197,12 +205,15 @@ function ListAspirant() {
           dataSource={newData}
         />
       )}
+
       {loadingAction && <Loading />}
+
       {isModalVisible && (
         <Modal
           close={handleClose}
           accept={() => handleClickAccept(idAspirant)}
           decline={() => handleClickDecline(idAspirant)}
+          message={() => handleClickMessage(idAspirant)}
         >
           <Profile id={idUser} />
         </Modal>

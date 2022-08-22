@@ -2,7 +2,7 @@ import { GiCheckMark } from "react-icons/gi";
 import { BiMessageEdit } from "react-icons/bi";
 import { MdPersonRemove } from "react-icons/md";
 
-const Modal = ({ close, accept, decline, children }) => {
+const Modal = ({ close, accept, decline, message, children }) => {
   return (
     <div className="modal modal-open modal-bottom sm:modal-middle">
       <div className="modal-box">
@@ -23,7 +23,10 @@ const Modal = ({ close, accept, decline, children }) => {
             >
               <MdPersonRemove size={18} />
             </button>
-            <button className="btn btn-outline btn-info gap-2">
+            <button
+              className="btn btn-outline btn-info gap-2"
+              onClick={message}
+            >
               <BiMessageEdit size={18} />
               Mensaje
             </button>

@@ -29,3 +29,21 @@ export const Error = (title, text, footer) => {
     footer
   });
 };
+
+export const ModalInput = async (label) => {
+  const { value: text } = await MySwal.fire({
+    input: "textarea",
+    inputLabel: label,
+    inputPlaceholder: "Escribe tu mensaje aquí",
+    showCancelButton: true,
+    cancelButtonText: "Cancelar",
+    confirmButtonText: "Enviar",
+    inputValidator: (value) => {
+      if (!value) {
+        return "Upps... Esto no puede estar vacío";
+      }
+    }
+  });
+
+  return text;
+};
