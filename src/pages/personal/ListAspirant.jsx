@@ -8,6 +8,7 @@ import Profile from "../../components/aspirant/Profile";
 import Modal from "../../components/Modal";
 import { updateAspirant } from "../../api/personal/updateAspirant";
 import { Warning } from "../../components/Alerts";
+import { Loading } from "../../components/Loading";
 
 const colorByStatus = (status) => {
   switch (status) {
@@ -35,6 +36,7 @@ function ListAspirant() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [idAspirant, setIdAspirant] = useState(null);
   const [idUser, setIdUser] = useState(null);
+  const [loadingAction, setLoadingAction] = useState(false);
 
   if (error) {
     return <h1>{error}</h1>;
@@ -194,6 +196,7 @@ function ListAspirant() {
           dataSource={newData}
         />
       )}
+      {loadingAction && <Loading />}
       {isModalVisible && (
         <Modal
           close={handleClose}

@@ -4,7 +4,7 @@ import { MdPersonRemove } from "react-icons/md";
 
 const Modal = ({ close, accept, decline, children }) => {
   return (
-    <div className="modal modal-open modal-bottom sm:modal-middle flex justify-center fixed top-0 w-full h-full">
+    <div className="modal modal-open modal-bottom sm:modal-middle">
       <div className="modal-box">
         <label
           htmlFor="my-modal-3"
