@@ -20,3 +20,12 @@ export const Warning = (title, text, confirmText, action) => {
     }
   });
 };
+
+export const Error = (title, text, footer) => {
+  MySwal.fire({
+    icon: "error",
+    title,
+    text,
+    footer
+  });
+};

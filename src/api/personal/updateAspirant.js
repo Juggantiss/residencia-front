@@ -1,3 +1,4 @@
+import { Error } from "../../components/Alerts";
 import axios from "../axiosSetup";
 
 export const updateAspirant = async (values, id) => {
@@ -7,6 +8,10 @@ export const updateAspirant = async (values, id) => {
     });
     return response;
   } catch (error) {
-    return error;
+    Error(
+      "Ah ocurrido un error al actualizar el estado del aspirante",
+      error?.message
+    );
+    return null;
   }
 };

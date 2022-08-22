@@ -147,15 +147,8 @@ function ListAspirant() {
       "¿Estás seguro de que los datos son correctos?",
       "Estas confirmando que los datos del aspirante son correctos y quedará aprobado.",
       "Confirmar",
-      async () => await acceptAspirant(id)
+      async () => await actionUpdateAspirant({ statusRequest: "aprobado" }, id)
     );
-  };
-
-  const acceptAspirant = async (id) => {
-    const response = await updateAspirant({ statusRequest: "aprobado" }, id);
-    console.log(response);
-    refetch();
-    setIsModalVisible(false);
   };
 
   const handleClickDecline = async (id) => {
@@ -163,15 +156,23 @@ function ListAspirant() {
       "¿Estás seguro de querer rechazar al aspirante?",
       "Este aspirante quedará rechazado.",
       "Confirmar",
-      async () => await declineAspirant(id)
+      async () => await actionUpdateAspirant({ statusRequest: "rechazado" }, id)
     );
   };
 
-  const declineAspirant = async (id) => {
-    const response = await updateAspirant({ statusRequest: "rechazado" }, id);
-    console.log(response);
-    refetch();
+  const actionUpdateAspirant = async (data, id) => {
+    setLoadingAction(true);
+    const response = await updateAspirant(data, id);
+    // console.log(response);
+    resultForResponse(response);
     setIsModalVisible(false);
+    setLoadingAction(false);
+  };
+
+  const resultForResponse = (response) => {
+    if (response?.data) {
+      refetch();
+    }
   };
 
   const handleClose = () => {
