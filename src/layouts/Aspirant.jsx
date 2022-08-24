@@ -10,10 +10,10 @@ import "../styles/Aspirant.modules.css";
 
 import { useNavigate } from "react-router-dom";
 import FormAspirant from "../pages/aspirant/FormAspirant";
-import DashboardAspirant from "../pages/aspirant/DashboardAspirant";
 import { GET_ASPIRANT_DATA } from "../graphql/queries";
 import { Warning, Error } from "../components/Alerts";
 import { Loading } from "../components/Loading";
+import Profile from "../components/aspirant/Profile";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -39,7 +39,7 @@ function Aspirant() {
     variables: { ID: idUser }
   });
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
-  const [content, setContent] = useState(<DashboardAspirant data={data} />);
+  const [content, setContent] = useState(<Profile id={idUser} />);
 
   if (loading) {
     return <Loading />;
@@ -61,7 +61,7 @@ function Aspirant() {
   const onClickMenuItem = (e) => {
     const { key } = e;
     if (key === "1") {
-      setContent(<DashboardAspirant data={data} />);
+      setContent(<Profile id={idUser} />);
     }
     if (key === "2") {
       setContent(<FormAspirant data={data} />);
