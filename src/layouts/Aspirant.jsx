@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import {
-  HomeOutlined,
-  UserOutlined,
-  FormOutlined,
-  QuestionCircleOutlined,
-  MenuOutlined
-} from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, Button, Popconfirm, Avatar } from "antd";
+import { FaWpforms } from "react-icons/fa";
+import { AiFillHome, AiOutlineMenu } from "react-icons/ai";
+import { UserOutlined } from "@ant-design/icons";
+
+import { Layout, Menu, Avatar } from "antd";
 import BannerCbtis from "../assets/img/banner-cbtis.jpg";
 import "../styles/Aspirant.modules.css";
 
@@ -15,9 +12,10 @@ import { useNavigate } from "react-router-dom";
 import FormAspirant from "../pages/aspirant/FormAspirant";
 import DashboardAspirant from "../pages/aspirant/DashboardAspirant";
 import { GET_ASPIRANT_DATA } from "../graphql/queries";
+import { Warning, Error } from "../components/Alerts";
+import { Loading } from "../components/Loading";
 
 const { Header, Content, Footer, Sider } = Layout;
-const { Item } = Breadcrumb;
 
 function getItem(label, key, icon, children) {
   return {
@@ -29,9 +27,8 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem("Inicio", "1", <HomeOutlined />),
-  getItem("Formularios", "2", <FormOutlined />),
-  getItem("Perfil", "3", <UserOutlined />)
+  getItem("Inicio", "1", <AiFillHome />),
+  getItem("Formularios", "2", <FaWpforms />)
 ];
 
 function Aspirant() {
@@ -43,15 +40,18 @@ function Aspirant() {
   });
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
   const [content, setContent] = useState(<DashboardAspirant data={data} />);
-  const [path, setPath] = useState("Inicio");
 
   if (loading) {
-    return <h1>Cargando...</h1>;
+    return <Loading />;
   }
 
   if (error) {
-    return <h1>{error}</h1>;
+    return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
+
+  const handleClickLogout = () => {
+    Warning("¿Estás seguro？", "", "Cerrar Sesión", logout);
+  };
 
   const logout = () => {
     window.localStorage.clear();
@@ -60,16 +60,11 @@ function Aspirant() {
 
   const onClickMenuItem = (e) => {
     const { key } = e;
-    const { label } = items[key - 1];
-    setPath(label);
     if (key === "1") {
       setContent(<DashboardAspirant data={data} />);
     }
     if (key === "2") {
       setContent(<FormAspirant data={data} />);
-    }
-    if (key === "3") {
-      setContent(<h1>Este es tu perfil</h1>);
     }
   };
 
@@ -106,23 +101,6 @@ function Aspirant() {
         <img className="logo" src={BannerCbtis} alt="logo" />
         <div className="text-button">
           <h1>ASPIRANTE</h1>
-          <Popconfirm
-            title="¿Estás seguro？"
-            onConfirm={logout}
-            okText="Sí"
-            cancelText="No"
-            icon={
-              <QuestionCircleOutlined
-                style={{
-                  color: "red"
-                }}
-              />
-            }
-          >
-            <Button className="btnClose" type="primary" danger size="large">
-              Cerrar Sesión
-            </Button>
-          </Popconfirm>
         </div>
         <Menu
           theme="dark"
@@ -131,13 +109,21 @@ function Aspirant() {
           items={items}
           onClick={onClickMenuItem}
         />
+        <div className="divider" />
+        <button
+          className="btn btn-block btn-outline btn-error"
+          onClick={handleClickLogout}
+        >
+          Cerrar Sesión
+        </button>
       </Sider>
       <Layout className="site-layout">
         <Header>
           <ul className="ulLeft">
             <li>
-              <MenuOutlined
-                className="menuToggle"
+              <AiOutlineMenu
+                size={20}
+                className="menuToggle mr-2"
                 onClick={() => setCollapsed(!collapsed)}
               />
             </li>
@@ -163,12 +149,6 @@ function Aspirant() {
           </ul>
         </Header>
         <Content className="content-container">
-          <Breadcrumb className="breadcumb-container">
-            <Item>
-              <HomeOutlined />
-            </Item>
-            <Item>{path}</Item>
-          </Breadcrumb>
           <div className="site-layout-background header-two">{content}</div>
         </Content>
         <Footer className="footer-container">
