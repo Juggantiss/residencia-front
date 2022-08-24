@@ -61,12 +61,6 @@ export const REGISTER_SCHEMA = {
     {
       min: 8,
       message: "La contraseña debe tener mínimo 8 carácteres"
-    },
-    {
-      pattern:
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      message:
-        "La contraseña debe contener mínimo una letra minúscula, mayúscula, número y un carácter especial"
     }
   ],
   confirmPassword: [

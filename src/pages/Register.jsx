@@ -21,7 +21,7 @@ import { REGISTER_INITIAL_STATE } from "../forms/states/register";
 import { REGISTER_SCHEMA } from "../forms/schemas/register.schema";
 import { registerUser } from "../api/register/registerUser";
 
-import useGetSession from "../hooks/useGetSession";
+import useGetSession from "../utils/hooks/useGetSession";
 
 const { Item } = Form;
 const { Password } = Input;

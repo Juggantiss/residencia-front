@@ -7,7 +7,7 @@ import Home from "../layouts/Home";
 
 import { LOGIN_SCHEMA } from "../forms/schemas/login.schema";
 import { loginUser } from "../api/login/loginUser";
-import useGetSession from "../hooks/useGetSession";
+import useGetSession from "../utils/hooks/useGetSession";
 
 const { Item } = Form;
 const { Password } = Input;

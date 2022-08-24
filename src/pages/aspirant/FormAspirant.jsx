@@ -11,26 +11,16 @@ import "../../styles/FormAspirant.modules.css";
 import FormGeneralData from "../../components/aspirant/FormGeneralData";
 import FormSpecialty from "../../components/aspirant/FormSpecialty";
 import FormDocumentation from "../../components/aspirant/FormDocumentation";
+import getProgressFormAspirant from "../../utils/getProgressFormAspirant";
 
 const { Step } = Steps;
 
 function FormAspirant({ data }) {
-  let haveAddress =
-    data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
-      ?.address?.data;
-  let haveSpecialtyOption =
-    data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
-      ?.specialtyOption?.data;
-  let haveDocument =
-    data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
-      ?.document?.data;
+  let percent = getProgressFormAspirant(data);
   let idAspirant =
     data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.id;
 
-  const [current, setCurrent] = useState(
-    haveAddress ? (haveSpecialtyOption ? (haveDocument ? 3 : 2) : 1) : 0
-  );
-
+  const [current, setCurrent] = useState(percent[0]);
   const next = () => {
     setCurrent(current + 1);
   };
@@ -60,10 +50,11 @@ function FormAspirant({ data }) {
       content: (
         <div>
           <Progress
+            strokeWidth={12}
             width={240}
             type="circle"
-            percent={100}
-            format={() => "Enviado"}
+            percent={percent[1]}
+            format={percent[1] === 100 && (() => "Enviado")}
           />
           <Typography.Title level={2}>En espera de revisión</Typography.Title>
         </div>
