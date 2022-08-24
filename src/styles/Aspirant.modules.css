@@ -20,6 +20,7 @@
   list-style: none;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .tituloMenu {
@@ -38,12 +39,12 @@
 
 .menuToggle {
   color: #ffffff;
-  font-size: 18px;
-  padding-right: 20px;
+  cursor: pointer;
 }
 
 .text-button h1 {
-  margin: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   color: #ffffff;
 }
 
@@ -78,8 +79,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 16px;
-  padding-bottom: 16px;
+  padding: 16px;
 }
 
 .footer-container {

@@ -1,4 +1,5 @@
 import Aspirant from "../layouts/Aspirant";
+import Personal from "../layouts/Personal";
 import FormAspirant from "../pages/aspirant/FormAspirant";
 import Login from "../pages/Login";
 import ListAspirant from "../pages/personal/ListAspirant";
@@ -28,7 +29,7 @@ export const routes = [
   {
     name: "Dashboard",
     path: "dashboard",
-    element: <ListAspirant />
+    element: <Personal />
   },
   {
     name: "Formularios",
