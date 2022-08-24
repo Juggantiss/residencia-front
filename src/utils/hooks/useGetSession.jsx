@@ -8,7 +8,7 @@ function useGetSession() {
   const id = window.localStorage.getItem("id");
 
   useEffect(() => {
-    if (jwt && id) navigate("/dashboard");
+    if (jwt && id) navigate("personal/dashboard");
 
     return;
   });
