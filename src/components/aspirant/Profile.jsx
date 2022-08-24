@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
-import { Skeleton, Avatar, Typography, Row, Col } from "antd";
-import { UserOutlined, FilePdfOutlined } from "@ant-design/icons";
+import { Skeleton, Typography, Row, Col } from "antd";
+import { FilePdfOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 import { GET_ASPIRANT_DATA } from "../../graphql/queries";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const Profile = ({ id }) => {
   const { data, loading, error } = useQuery(GET_ASPIRANT_DATA, {
@@ -47,20 +47,9 @@ const Profile = ({ id }) => {
         >
           <div className="avatar">
             <div className="w-32 mask mask-squircle">
-              <img src="https://placeimg.com/192/192/people" />
+              <img src="https://placeimg.com/192/192/people" alt="profile" />
             </div>
           </div>
-          {/* <Avatar
-            size={{
-              xs: 24,
-              sm: 32,
-              md: 40,
-              lg: 64,
-              xl: 80,
-              xxl: 128
-            }}
-            icon={<UserOutlined />}
-          /> */}
         </Col>
       </Row>
       <Row>
