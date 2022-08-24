@@ -54,7 +54,7 @@ function Login() {
     } else {
       window.localStorage.setItem("jwt", response?.data?.jwt);
       window.localStorage.setItem("id", response?.data?.user?.id);
-      navigate("/dashboard");
+      navigate("personal/dashboard");
     }
   };
 

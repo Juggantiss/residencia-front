@@ -2,7 +2,6 @@ import Aspirant from "../layouts/Aspirant";
 import Personal from "../layouts/Personal";
 import FormAspirant from "../pages/aspirant/FormAspirant";
 import Login from "../pages/Login";
-import ListAspirant from "../pages/personal/ListAspirant";
 import Register from "../pages/Register";
 
 export const routes = [
@@ -28,7 +27,12 @@ export const routes = [
   },
   {
     name: "Dashboard",
-    path: "dashboard",
+    path: "aspirant/dashboard",
+    element: <Aspirant />
+  },
+  {
+    name: "Dashboard",
+    path: "personal/dashboard",
     element: <Personal />
   },
   {
