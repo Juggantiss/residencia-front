@@ -1,76 +1,61 @@
 import "../styles/Login.modules.css";
 import { useState } from "react";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Spin, Result, Modal } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Button, Form, Input } from "antd";
+import { Link } from "react-router-dom";
 import Home from "../layouts/Home";
 
 import { LOGIN_SCHEMA } from "../forms/schemas/login.schema";
 import { loginUser } from "../api/login/loginUser";
-import useGetSession from "../hooks/useGetSession";
+import useGetSession from "../utils/hooks/useGetSession";
+import { Loading } from "../components/Loading";
+import { useLazyQuery } from "@apollo/client";
+import { GET_ME_DATA } from "../graphql/queries";
+import { Error } from "../components/Alerts";
 
 const { Item } = Form;
 const { Password } = Input;
 
 function Login() {
-  const [loading, setLoading] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [result, setResult] = useState(null);
-  const navigate = useNavigate();
+  const [loadingAction, setLoadingAction] = useState(false);
+  const [getMe, { loading, error, data }] = useLazyQuery(GET_ME_DATA);
   useGetSession();
 
-  const showModal = () => {
-    setResult(
-      <Result
-        status="error"
-        title="Verifica tus datos"
-        subTitle="Correo o contraseña incorrecta"
-      />
-    );
-    setIsModalVisible(true);
-  };
+  if (error) {
+    return Error("Ah ocurrido un error al traer los datos", error?.message);
+  }
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const onFinish = async (data) => {
-    if (loading) return;
-    const { email, password } = data;
-    console.log("🚀 ~ file: Login.jsx ~ line 38 ~ onFinish ~ data", data);
-    setLoading(true);
+  const onFinish = async (values) => {
+    if (loadingAction) return;
+    const { email, password } = values;
+    console.log("🚀 ~ file: Login.jsx ~ line 38 ~ onFinish ~ data", values);
+    setLoadingAction(true);
     const response = await loginUser({ identifier: email, password });
+    getMe();
     resultForResponse(response);
     console.log(
       "🚀 ~ file: Login.jsx ~ line 42 ~ onFinish ~ response",
       response
     );
-    setLoading(false);
+    setLoadingAction(false);
   };
+
+  if (data) {
+    window.localStorage.setItem("role", data?.me?.role?.name);
+    // navigate("/personal/dashboard");
+  }
 
   const resultForResponse = (response) => {
     if (!response.data) {
-      showModal();
+      Error("Verifica tus datos", "Correo o contraseña incorrecta");
     } else {
       window.localStorage.setItem("jwt", response?.data?.jwt);
       window.localStorage.setItem("id", response?.data?.user?.id);
-      navigate("/dashboard");
     }
   };
 
   return (
     <Home>
-      <Modal
-        visible={isModalVisible}
-        closable={false}
-        footer={
-          <Button type="primary" onClick={handleOk}>
-            Aceptar
-          </Button>
-        }
-      >
-        {result}
-      </Modal>
       <Form name="form_login" className="login-form" onFinish={onFinish}>
         <h1>Inicio de Sesión</h1>
         <Item name="email" rules={LOGIN_SCHEMA.email}>
@@ -105,7 +90,7 @@ function Login() {
           </Button>
           <Link to="/">Registrate como aspirante</Link>
         </Item>
-        <Spin className="spin-layout" size="large" spinning={loading} />
+        {loading || (loadingAction && <Loading />)}
       </Form>
     </Home>
   );

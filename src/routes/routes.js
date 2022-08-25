@@ -1,6 +1,5 @@
-import Aspirant from "../layouts/Aspirant";
-import FormAspirant from "../pages/aspirant/FormAspirant";
 import Login from "../pages/Login";
+import PageNotFound from "../pages/PageNotFound";
 import Register from "../pages/Register";
 
 export const routes = [
@@ -12,26 +11,11 @@ export const routes = [
   {
     name: "Not Found",
     path: "*",
-    element: <h1>404 Esta pagina no existe</h1>
+    element: <PageNotFound />
   },
   {
     name: "Inicio Sesión",
     path: "login",
     element: <Login />
-  },
-  {
-    name: "Registro",
-    path: "registro",
-    element: <h1>Registro</h1>
-  },
-  {
-    name: "Dashboard",
-    path: "dashboard",
-    element: <Aspirant />
-  },
-  {
-    name: "Formularios",
-    path: "aspirant/forms",
-    element: <FormAspirant />
   }
 ];

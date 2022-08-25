@@ -1,27 +1,22 @@
 .banner_container {
   background-color: #f8f9fe;
-  display: flex;
-  /* flex-direction: column; */
-  align-items: center;
-  justify-content: center;
   border-radius: 1rem;
-  min-height: 200px;
+  min-height: 250px;
 }
 
 .banner_container .banner_card {
   /* background-color: palegoldenrod; */
   display: flex;
   flex-direction: column;
-  box-shadow: none;
   justify-content: center;
-  /* align-items: center; */
-  width: 60%;
+  padding-left: 20px;
 }
 
 .banner_container .banner_card:nth-child(2) {
   /* background-color: #1890ff; */
-  width: 40%;
-  /* height: 200px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .banner_container span {
@@ -29,7 +24,7 @@
   font-weight: bold;
 }
 
-.banner_container p {
+p {
   font-size: 1rem;
 }
 
@@ -37,12 +32,47 @@
   color: #8898aa;
 }
 
+.container-image {
+  width: 100%;
+  max-width: 250px;
+}
+
 .banner_container .image {
-  width: 200px;
+  width: 100%;
+}
+
+.cards_container {
+  margin-top: 20px;
+}
+
+.card_progress {
+  width: 300px;
+  height: 350px;
+}
+
+.card {
+  background-color: #f8f9fe;
+  border-radius: 1rem;
+  margin: 0.5rem;
+}
+
+.card_status {
+  width: 350px;
   height: 200px;
 }
 
-@media (max-width: 810px) {
+.card_status p {
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.2rem;
+}
+
+.card_contact {
+  width: 500px;
+  height: 200px;
+}
+
+/* @media (max-width: 810px) {
   .banner_container {
     height: 450px;
   }
@@ -51,4 +81,4 @@
     padding: 0 24px;
     width: 100%;
   }
-}
+} */

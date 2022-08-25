@@ -1,5 +1,21 @@
 import { gql } from "@apollo/client";
 
+export const GET_ME_DATA = gql`
+  {
+    me {
+      id
+      username
+      email
+      confirmed
+      blocked
+      role {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const GET_ASPIRANT_DATA = gql`
   query GET_ASPIRANT_DATA($ID: ID!) {
     usersPermissionsUser(id: $ID) {
@@ -24,11 +40,28 @@ export const GET_ASPIRANT_DATA = gql`
                 address {
                   data {
                     id
+                    attributes {
+                      street
+                      number
+                      municipality
+                      zipCode
+                      suburb
+                    }
                   }
                 }
                 specialtyOption {
                   data {
                     id
+                    attributes {
+                      specialty {
+                        data {
+                          id
+                          attributes {
+                            description
+                          }
+                        }
+                      }
+                    }
                   }
                 }
                 document {
@@ -36,6 +69,30 @@ export const GET_ASPIRANT_DATA = gql`
                     id
                     attributes {
                       photo {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      certificate {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      curp {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      birthCertificate {
                         data {
                           id
                           attributes {
@@ -62,6 +119,46 @@ export const GET_SPECIALTIES = gql`
         value: id
         attributes {
           label: description
+        }
+      }
+    }
+  }
+`;
+
+export const GET_LIST_ASPIRANTS = gql`
+  {
+    aspirants {
+      data {
+        id
+        attributes {
+          user {
+            data {
+              id
+              attributes {
+                name
+                firstLastName
+                secondLastName
+                gender
+                birthday
+              }
+            }
+          }
+          status: statusRequest
+          specialtyOption {
+            data {
+              id
+              attributes {
+                specialty {
+                  data {
+                    id
+                    attributes {
+                      description
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

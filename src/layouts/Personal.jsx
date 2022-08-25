@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import { FaWpforms } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import { AiFillHome, AiOutlineMenu } from "react-icons/ai";
 import { UserOutlined } from "@ant-design/icons";
 
@@ -9,11 +9,10 @@ import BannerCbtis from "../assets/img/banner-cbtis.jpg";
 import "../styles/Aspirant.modules.css";
 
 import { useNavigate } from "react-router-dom";
-import FormAspirant from "../pages/aspirant/FormAspirant";
 import { GET_ASPIRANT_DATA } from "../graphql/queries";
-import { Warning, Error } from "../components/Alerts";
 import { Loading } from "../components/Loading";
-import Profile from "../components/aspirant/Profile";
+import { Error, Warning } from "../components/Alerts";
+import ListAspirant from "../pages/personal/ListAspirant";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -28,10 +27,10 @@ function getItem(label, key, icon, children) {
 
 const items = [
   getItem("Inicio", "1", <AiFillHome />),
-  getItem("Formularios", "2", <FaWpforms />)
+  getItem("Aspirantes", "2", <FaUsers />)
 ];
 
-function Aspirant() {
+function Personal() {
   const navigate = useNavigate();
   let width = window.screen.width;
   let idUser = window.localStorage.getItem("id");
@@ -39,7 +38,7 @@ function Aspirant() {
     variables: { ID: idUser }
   });
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
-  const [content, setContent] = useState(<Profile id={idUser} />);
+  const [content, setContent] = useState(<h1>Estadisticas</h1>);
 
   const logout = () => {
     window.localStorage.clear();
@@ -61,20 +60,6 @@ function Aspirant() {
     return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
 
-  const handleClickLogout = () => {
-    Warning("¿Estás seguro？", "", "Cerrar Sesión", logout);
-  };
-
-  const onClickMenuItem = (e) => {
-    const { key } = e;
-    if (key === "1") {
-      setContent(<Profile id={idUser} />);
-    }
-    if (key === "2") {
-      setContent(<FormAspirant data={data} />);
-    }
-  };
-
   const getFullName = () => {
     const { name, firstLastName, secondLastName } =
       data?.usersPermissionsUser?.data?.attributes;
@@ -95,6 +80,20 @@ function Aspirant() {
     }
   };
 
+  const handleClickLogout = () => {
+    Warning("¿Estás seguro？", "", "Cerrar Sesión", logout);
+  };
+
+  const onClickMenuItem = (e) => {
+    const { key } = e;
+    if (key === "1") {
+      setContent(<h1>Estadisticas</h1>);
+    }
+    if (key === "2") {
+      setContent(<ListAspirant />);
+    }
+  };
+
   return (
     <Layout className="layout-container">
       <Sider
@@ -107,7 +106,7 @@ function Aspirant() {
       >
         <img className="logo" src={BannerCbtis} alt="logo" />
         <div className="text-button">
-          <h1>ASPIRANTE</h1>
+          <h1>DEPARTAMENTO</h1>
         </div>
         <Menu
           theme="dark"
@@ -166,4 +165,4 @@ function Aspirant() {
   );
 }
 
-export default Aspirant;
+export default Personal;
