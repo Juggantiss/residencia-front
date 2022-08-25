@@ -40,11 +40,23 @@ function Personal() {
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
   const [content, setContent] = useState(<h1>Estadisticas</h1>);
 
+  const logout = () => {
+    window.localStorage.clear();
+    navigate("/login");
+  };
+
   if (loading) {
     return <Loading />;
   }
 
   if (error) {
+    if (error?.networkError?.statusCode === 401) {
+      return Error(
+        "Upps... sesión expirada",
+        "Por favor inicia sesión de nuevo",
+        () => logout()
+      );
+    }
     return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
 
@@ -70,11 +82,6 @@ function Personal() {
 
   const handleClickLogout = () => {
     Warning("¿Estás seguro？", "", "Cerrar Sesión", logout);
-  };
-
-  const logout = () => {
-    window.localStorage.clear();
-    navigate("/login");
   };
 
   const onClickMenuItem = (e) => {

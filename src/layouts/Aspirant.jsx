@@ -41,21 +41,28 @@ function Aspirant() {
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
   const [content, setContent] = useState(<Profile id={idUser} />);
 
+  const logout = () => {
+    window.localStorage.clear();
+    navigate("/login");
+  };
+
   if (loading) {
     return <Loading />;
   }
 
   if (error) {
+    if (error?.networkError?.statusCode === 401) {
+      return Error(
+        "Upps... sesión expirada",
+        "Por favor inicia sesión de nuevo",
+        () => logout()
+      );
+    }
     return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
 
   const handleClickLogout = () => {
     Warning("¿Estás seguro？", "", "Cerrar Sesión", logout);
-  };
-
-  const logout = () => {
-    window.localStorage.clear();
-    navigate("/login");
   };
 
   const onClickMenuItem = (e) => {

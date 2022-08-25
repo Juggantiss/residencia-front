@@ -21,12 +21,16 @@ export const Warning = (title, text, confirmText, action) => {
   });
 };
 
-export const Error = (title, text, footer) => {
+export const Error = (title, text, action) => {
   MySwal.fire({
     icon: "error",
     title,
     text,
-    footer
+    confirmButtonText: "Aceptar"
+  }).then((result) => {
+    if (result.isConfirmed && action) {
+      action();
+    }
   });
 };
 
