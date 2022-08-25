@@ -6,9 +6,10 @@ function useGetSession() {
   let auth = false;
   const jwt = window.localStorage.getItem("jwt");
   const id = window.localStorage.getItem("id");
+  const role = window.localStorage.getItem("role");
 
   useEffect(() => {
-    if (jwt && id) navigate("personal/dashboard");
+    if (jwt && id && role) navigate("/personal/dashboard");
 
     return;
   });

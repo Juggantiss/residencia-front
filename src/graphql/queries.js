@@ -1,5 +1,21 @@
 import { gql } from "@apollo/client";
 
+export const GET_ME_DATA = gql`
+  {
+    me {
+      id
+      username
+      email
+      confirmed
+      blocked
+      role {
+        id
+        name
+      }
+    }
+  }
+`;
+
 export const GET_ASPIRANT_DATA = gql`
   query GET_ASPIRANT_DATA($ID: ID!) {
     usersPermissionsUser(id: $ID) {
