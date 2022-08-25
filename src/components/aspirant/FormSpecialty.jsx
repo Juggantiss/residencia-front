@@ -5,6 +5,7 @@ import { Button, Form, Input, Select, Spin, message } from "antd";
 import { SPECIALTY_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { GET_SPECIALTIES } from "../../graphql/queries";
 import { addSpecialty } from "../../api/aspirant/addSpecialty";
+import { Error } from "../Alerts";
 
 const { Item } = Form;
 const { Option } = Select;
@@ -14,7 +15,7 @@ function FormSpecialty({ next, idAspirant }) {
   const { data, loading, error } = useQuery(GET_SPECIALTIES);
 
   if (error) {
-    return <h1>{error}</h1>;
+    return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
 
   const onFinish = async (data) => {

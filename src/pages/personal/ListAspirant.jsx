@@ -7,7 +7,7 @@ import { GET_LIST_ASPIRANTS } from "../../graphql/queries";
 import Profile from "../../components/aspirant/Profile";
 import Modal from "../../components/Modal";
 import { updateAspirant } from "../../api/personal/updateAspirant";
-import { Warning, ModalInput } from "../../components/Alerts";
+import { Warning, ModalInput, Error } from "../../components/Alerts";
 import { Loading } from "../../components/Loading";
 
 const colorByStatus = (status) => {
@@ -39,7 +39,7 @@ function ListAspirant() {
   const [loadingAction, setLoadingAction] = useState(false);
 
   if (error) {
-    return <h1>{error}</h1>;
+    return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
 
   let newData = [];
