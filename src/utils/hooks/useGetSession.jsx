@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { dashboards } from "../rolesDashboard";
 
 function useGetSession() {
   const navigate = useNavigate();
@@ -9,7 +10,14 @@ function useGetSession() {
   const role = window.localStorage.getItem("role");
 
   useEffect(() => {
-    if (jwt && id && role) navigate("/personal/dashboard");
+    if (jwt && id && role) {
+      const result = dashboards.find((dash) => dash.role === role);
+      if (result) {
+        navigate(result.path);
+      } else {
+        navigate("/404");
+      }
+    }
 
     return;
   });

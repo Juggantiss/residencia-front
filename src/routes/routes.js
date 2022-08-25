@@ -27,12 +27,12 @@ export const routes = [
   },
   {
     name: "Dashboard",
-    path: "aspirant/dashboard",
+    path: "aspirant/home",
     element: <Aspirant />
   },
   {
     name: "Dashboard",
-    path: "personal/dashboard",
+    path: "personal/home",
     element: <Personal />
   },
   {
