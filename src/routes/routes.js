@@ -1,4 +1,5 @@
 import Login from "../pages/Login";
+import PageNotFound from "../pages/PageNotFound";
 import Register from "../pages/Register";
 
 export const routes = [
@@ -10,7 +11,7 @@ export const routes = [
   {
     name: "Not Found",
     path: "*",
-    element: <h1>404 Esta pagina no existe</h1>
+    element: <PageNotFound />
   },
   {
     name: "Inicio Sesión",
