@@ -179,18 +179,16 @@ const Profile = ({ id }) => {
           }}
           span={8}
         >
-          <Link
-            to={{
-              pathname: baseUrl + document?.certificate?.data?.attributes?.url
-            }}
+          <a
+            href={baseUrl + document?.certificate?.data?.attributes?.url}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
           >
             <button className="btn gap-2">
               <FilePdfOutlined />
               Certificado
             </button>
-          </Link>
+          </a>
         </Col>
         <Col
           style={{
@@ -200,18 +198,16 @@ const Profile = ({ id }) => {
           }}
           span={8}
         >
-          <Link
-            to={{
-              pathname: baseUrl + document?.curp?.data?.attributes?.url
-            }}
+          <a
+            href={baseUrl + document?.curp?.data?.attributes?.url}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
           >
             <button className="btn gap-2">
               <FilePdfOutlined />
               CURP
             </button>
-          </Link>
+          </a>
         </Col>
         <Col
           style={{
@@ -221,38 +217,16 @@ const Profile = ({ id }) => {
           }}
           span={8}
         >
-          <Link
-            to={{
-              pathname:
-                baseUrl + document?.birthCertificate?.data?.attributes?.url
-            }}
+          <a
+            href={baseUrl + document?.birthCertificate?.data?.attributes?.url}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
           >
             <button className="btn gap-2">
               <FilePdfOutlined />
               Acta
             </button>
-          </Link>
-          {/* <Link
-            style={{
-              padding: 10,
-              border: "1px solid #CCCCCC",
-              borderRadius: 8,
-              fontSize: 16,
-              backgroundColor: "#f1f1f1",
-              cursor: "pointer"
-            }}
-            to={{
-              pathname:
-                process.env.REACT_APP_API_URL.slice(0, -4) +
-                document?.birthCertificate?.data?.attributes?.url
-            }}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FilePdfOutlined /> <Text>Acta de nacimiento</Text>
-          </Link> */}
+          </a>
         </Col>
       </Row>
     </>
