@@ -4,7 +4,6 @@ import { DATA_GENERAL_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { DATA_GENERAL_INITIAL_STATE } from "../../forms/states/aspirant";
 import { addAddress } from "../../api/aspirant/addAddress";
 import { Loading } from "../Loading";
-import { Error } from "../Alerts";
 
 const { Item } = Form;
 
@@ -37,12 +36,6 @@ function FormGeneralData({ next, idAspirant }) {
   const resultForResponse = (response) => {
     if (response?.data) {
       next();
-    } else {
-      Error(
-        "Lo sentimos",
-        "Ah ocurrido un error al registrar los datos generales",
-        () => {}
-      );
     }
   };
 

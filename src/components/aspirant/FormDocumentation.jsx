@@ -101,12 +101,6 @@ function FormDocumentation({ idAspirant, next }) {
       if (response?.data) {
         next();
         window.location.reload();
-      } else {
-        Error(
-          "Lo sentimos",
-          "Ah ocurrido un error al subir los documentos",
-          () => {}
-        );
       }
       console.log("si ha pasado");
     } else {
@@ -139,7 +133,8 @@ function FormDocumentation({ idAspirant, next }) {
       console.log(responseUpdateAspirant);
       return responseUpdateAspirant;
     } catch (error) {
-      return error;
+      Error("Ah ocurrido un error al subir los documentos", error?.message);
+      return null;
     }
   };
 

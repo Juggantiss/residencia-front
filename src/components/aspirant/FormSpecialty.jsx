@@ -37,12 +37,6 @@ function FormSpecialty({ next, idAspirant }) {
   const resultForResponse = (response) => {
     if (response?.data) {
       next();
-    } else {
-      Error(
-        "Lo sentimos",
-        "Ah ocurrido un error al registrar los datos de especialidad",
-        () => {}
-      );
     }
   };
 
