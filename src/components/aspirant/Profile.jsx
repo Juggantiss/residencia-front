@@ -23,7 +23,6 @@ const Profile = ({ id }) => {
   let address = aspirant?.address?.data?.attributes;
   let document = aspirant?.document?.data?.attributes;
   let url = document?.photo?.data?.attributes?.url;
-  let baseUrl = process.env.REACT_APP_API_URL.slice(0, -4);
 
   let profilePhoto = url ? url : "https://placeimg.com/192/192/people";
 
