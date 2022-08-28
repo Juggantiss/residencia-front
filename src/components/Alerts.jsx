@@ -34,6 +34,23 @@ export const Error = (title, text, action) => {
   });
 };
 
+export const Success = (title, text, textConfirm, action, enter) => {
+  MySwal.fire({
+    icon: "success",
+    title,
+    text,
+    confirmButtonColor: "#3085d6",
+    confirmButtonText: textConfirm,
+    allowOutsideClick: enter,
+    allowEnterKey: enter,
+    allowEscapeKey: enter
+  }).then((result) => {
+    if (result.isConfirmed) {
+      action();
+    }
+  });
+};
+
 export const ModalInput = async (label) => {
   const { value: text } = await MySwal.fire({
     input: "textarea",
