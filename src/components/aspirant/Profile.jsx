@@ -23,11 +23,8 @@ const Profile = ({ id }) => {
   let address = aspirant?.address?.data?.attributes;
   let document = aspirant?.document?.data?.attributes;
   let url = document?.photo?.data?.attributes?.url;
-  let baseUrl = process.env.REACT_APP_API_URL.slice(0, -4);
 
-  let profilePhoto = url
-    ? baseUrl + url
-    : "https://placeimg.com/192/192/people";
+  let profilePhoto = url ? url : "https://placeimg.com/192/192/people";
 
   return loading ? (
     <Skeleton
@@ -181,7 +178,7 @@ const Profile = ({ id }) => {
               span={8}
             >
               <a
-                href={baseUrl + document?.certificate?.data?.attributes?.url}
+                href={document?.certificate?.data?.attributes?.url}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -202,7 +199,7 @@ const Profile = ({ id }) => {
               span={8}
             >
               <a
-                href={baseUrl + document?.curp?.data?.attributes?.url}
+                href={document?.curp?.data?.attributes?.url}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -223,9 +220,7 @@ const Profile = ({ id }) => {
               span={8}
             >
               <a
-                href={
-                  baseUrl + document?.birthCertificate?.data?.attributes?.url
-                }
+                href={document?.birthCertificate?.data?.attributes?.url}
                 target="_blank"
                 rel="noreferrer"
               >
