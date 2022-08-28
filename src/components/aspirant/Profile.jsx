@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Skeleton, Typography, Row, Col } from "antd";
 import { FilePdfOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
 
 import { GET_ASPIRANT_DATA } from "../../graphql/queries";
 
@@ -170,65 +169,75 @@ const Profile = ({ id }) => {
           <Title level={5}>Documentos:</Title>
         </Col>
       </Row>
-      <Row>
-        <Col
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
-          }}
-          span={8}
-        >
-          <a
-            href={baseUrl + document?.certificate?.data?.attributes?.url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <button className="btn gap-2">
-              <FilePdfOutlined />
-              Certificado
-            </button>
-          </a>
-        </Col>
-        <Col
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
-          }}
-          span={8}
-        >
-          <a
-            href={baseUrl + document?.curp?.data?.attributes?.url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <button className="btn gap-2">
-              <FilePdfOutlined />
-              CURP
-            </button>
-          </a>
-        </Col>
-        <Col
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
-          }}
-          span={8}
-        >
-          <a
-            href={baseUrl + document?.birthCertificate?.data?.attributes?.url}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <button className="btn gap-2">
-              <FilePdfOutlined />
-              Acta
-            </button>
-          </a>
-        </Col>
-      </Row>
+      {document && (
+        <Row>
+          {document?.certificate && (
+            <Col
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+              }}
+              span={8}
+            >
+              <a
+                href={baseUrl + document?.certificate?.data?.attributes?.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <button className="btn gap-2">
+                  <FilePdfOutlined />
+                  Certificado
+                </button>
+              </a>
+            </Col>
+          )}
+          {document?.curp && (
+            <Col
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+              }}
+              span={8}
+            >
+              <a
+                href={baseUrl + document?.curp?.data?.attributes?.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <button className="btn gap-2">
+                  <FilePdfOutlined />
+                  CURP
+                </button>
+              </a>
+            </Col>
+          )}
+          {document?.birthCertificate && (
+            <Col
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center"
+              }}
+              span={8}
+            >
+              <a
+                href={
+                  baseUrl + document?.birthCertificate?.data?.attributes?.url
+                }
+                target="_blank"
+                rel="noreferrer"
+              >
+                <button className="btn gap-2">
+                  <FilePdfOutlined />
+                  Acta
+                </button>
+              </a>
+            </Col>
+          )}
+        </Row>
+      )}
     </>
   );
 };
