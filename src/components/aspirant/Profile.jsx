@@ -3,16 +3,18 @@ import { Skeleton, Typography, Row, Col } from "antd";
 import { FilePdfOutlined } from "@ant-design/icons";
 
 import { GET_ASPIRANT_DATA } from "../../graphql/queries";
+import { Error } from "../Alerts";
+import StatsAspirant from "./StatsAspirant";
 
 const { Title } = Typography;
 
-const Profile = ({ id }) => {
+const Profile = ({ id, cards }) => {
   const { data, loading, error } = useQuery(GET_ASPIRANT_DATA, {
     variables: { ID: id }
   });
 
   if (error) {
-    return <h1>{error.message}</h1>;
+    return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
 
   let user = data?.usersPermissionsUser?.data?.attributes;
@@ -36,6 +38,22 @@ const Profile = ({ id }) => {
     />
   ) : (
     <>
+      {cards && (
+        // <Row>
+        //   <Col
+        //     style={{
+        //       display: "flex",
+        //       flexDirection: "column",
+        //       alignItems: "center",
+        //       marginBottom: 20
+        //     }}
+        //     span={24}
+        //   >
+        //     <StatsAspirant />
+        //   </Col>
+        // </Row>
+        <StatsAspirant />
+      )}
       <Row>
         <Col
           style={{
