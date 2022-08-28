@@ -23,8 +23,12 @@ const Profile = ({ id }) => {
       ?.description;
   let address = aspirant?.address?.data?.attributes;
   let document = aspirant?.document?.data?.attributes;
-
+  let url = document?.photo?.data?.attributes?.url;
   let baseUrl = process.env.REACT_APP_API_URL.slice(0, -4);
+
+  let profilePhoto = url
+    ? baseUrl + url
+    : "https://placeimg.com/192/192/people";
 
   return loading ? (
     <Skeleton
@@ -47,7 +51,7 @@ const Profile = ({ id }) => {
         >
           <div className="avatar">
             <div className="w-32 mask mask-squircle">
-              <img src="https://placeimg.com/192/192/people" alt="profile" />
+              <img src={profilePhoto} alt="profile" />
             </div>
           </div>
         </Col>
