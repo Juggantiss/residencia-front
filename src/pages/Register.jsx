@@ -2,18 +2,8 @@ import "../styles/Register.modules.css";
 import "dayjs/locale/es-mx";
 import { useState } from "react";
 import dayjs from "dayjs";
-import {
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  Radio,
-  DatePicker,
-  Spin,
-  Result,
-  Modal
-} from "antd";
-import { Link } from "react-router-dom";
+import { Form, Input, Button, Checkbox, Radio, DatePicker } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import Home from "../layouts/Home";
 import locale from "antd/es/date-picker/locale/es_ES";
 
@@ -22,6 +12,8 @@ import { REGISTER_SCHEMA } from "../forms/schemas/register.schema";
 import { registerUser } from "../api/register/registerUser";
 
 import useGetSession from "../utils/hooks/useGetSession";
+import { Loading } from "../components/Loading";
+import { Success, Error } from "../components/Alerts";
 
 const { Item } = Form;
 const { Password } = Input;
@@ -29,24 +21,8 @@ const { Group } = Radio;
 
 function Register() {
   const [loading, setLoading] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [result, setResult] = useState(null);
+  const navigate = useNavigate();
   useGetSession();
-
-  const showModal = (resultData) => {
-    setResult(
-      <Result
-        status={resultData.status}
-        title={resultData.title}
-        subTitle={resultData.subTitle}
-      />
-    );
-    setIsModalVisible(true);
-  };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
 
   const formSuccess = async (data) => {
     if (loading) return;
@@ -68,37 +44,24 @@ function Register() {
   };
 
   const resultForResponse = (response) => {
-    let resultData = null;
     if (!response.data) {
-      resultData = {
-        status: "error",
-        title: "Lo sentimos ah ocurrido un error",
-        subTitle: "Verifica los datos ingresados, e intenta nuevamente"
-      };
+      Error(
+        "Lo sentimos ah ocurrido un error",
+        "Verifica los datos ingresados, e intenta nuevamente",
+        () => {}
+      );
     } else {
-      resultData = {
-        status: "success",
-        title: "Se ha creado tu cuenta",
-        subTitle:
-          "Buenas noticias tu cuenta ha sido creada, ya puedes iniciar sesión"
-      };
+      Success(
+        "Se ha creado tu cuenta",
+        "Buenas noticias tu cuenta ha sido creada, ya puedes iniciar sesión",
+        "Aceptar",
+        () => navigate("/login")
+      );
     }
-    showModal(resultData);
   };
 
   return (
     <Home>
-      <Modal
-        visible={isModalVisible}
-        closable={false}
-        footer={
-          <Button type="primary" onClick={handleOk}>
-            Aceptar
-          </Button>
-        }
-      >
-        {result}
-      </Modal>
       <Form
         name="form_register"
         className="register-form"
@@ -188,7 +151,7 @@ function Register() {
           </Item>
         </div>
         ¿Ya tienes cuenta? <Link to="/login">Inicia Sesión</Link>
-        <Spin className="spin-layout" size="large" spinning={loading} />
+        {loading && <Loading />}
       </Form>
     </Home>
   );

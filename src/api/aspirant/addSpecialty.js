@@ -1,3 +1,4 @@
+import { Error } from "../../components/Alerts";
 import axios from "../axiosSetup";
 
 export const addSpecialty = async (values, id) => {
@@ -13,6 +14,10 @@ export const addSpecialty = async (values, id) => {
       return responseSchool;
     }
   } catch (error) {
-    return error;
+    Error(
+      "Ah ocurrido un error al registrar los datos de especialidad",
+      error?.message
+    );
+    return null;
   }
 };

@@ -1,3 +1,4 @@
+import { Error } from "../../components/Alerts";
 import axios from "../axiosSetup";
 
 export const addAddress = async (values) => {
@@ -5,6 +6,10 @@ export const addAddress = async (values) => {
     const response = await axios.post("/addresses", { data: values });
     return response;
   } catch (error) {
-    return error;
+    Error(
+      "Ah ocurrido un error al registrar los datos generales",
+      error?.message
+    );
+    return null;
   }
 };
