@@ -100,6 +100,7 @@ function FormDocumentation({ idAspirant, next }) {
       setLoadingForm(false);
       if (response?.data) {
         next();
+        window.location.reload();
       } else {
         Error(
           "Lo sentimos",
@@ -129,7 +130,14 @@ function FormDocumentation({ idAspirant, next }) {
         data: dataUploadAspirant
       });
       console.log(responseAspirant);
-      return responseAspirant;
+      const responseUpdateAspirant = await axios.put(
+        "/aspirants/" + idAspirant,
+        {
+          data: { statusRequest: "enviado" }
+        }
+      );
+      console.log(responseUpdateAspirant);
+      return responseUpdateAspirant;
     } catch (error) {
       return error;
     }

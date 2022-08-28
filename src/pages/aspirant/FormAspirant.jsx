@@ -53,8 +53,8 @@ function FormAspirant({ data }) {
             strokeWidth={12}
             width={240}
             type="circle"
-            percent={percent[1]}
-            format={percent[1] === 100 && (() => "Enviado")}
+            percent={100}
+            format={() => "Enviado"}
           />
           <Typography.Title level={2}>En espera de revisión</Typography.Title>
         </div>
