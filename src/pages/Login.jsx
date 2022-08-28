@@ -18,8 +18,13 @@ const { Password } = Input;
 
 function Login() {
   const [loadingAction, setLoadingAction] = useState(false);
-  const [getMe, { loading, error, data }] = useLazyQuery(GET_ME_DATA);
+  const [getMe, { loading, error }] = useLazyQuery(GET_ME_DATA);
   useGetSession();
+
+  // if (data) {
+  //   window.localStorage.setItem("role", data?.me?.role?.name);
+  //   navigate("/personal/dashboard");
+  // }
 
   if (error) {
     return Error("Ah ocurrido un error al traer los datos", error?.message);
@@ -31,19 +36,19 @@ function Login() {
     console.log("🚀 ~ file: Login.jsx ~ line 38 ~ onFinish ~ data", values);
     setLoadingAction(true);
     const response = await loginUser({ identifier: email, password });
-    getMe();
     resultForResponse(response);
+    let { data } = await getMe();
+    if (data) {
+      console.log(data);
+      window.localStorage.setItem("role", data?.me?.role?.name);
+      // navigate("/personal/dashboard");
+    }
     console.log(
       "🚀 ~ file: Login.jsx ~ line 42 ~ onFinish ~ response",
       response
     );
     setLoadingAction(false);
   };
-
-  if (data) {
-    window.localStorage.setItem("role", data?.me?.role?.name);
-    // navigate("/personal/dashboard");
-  }
 
   const resultForResponse = (response) => {
     if (!response.data) {
