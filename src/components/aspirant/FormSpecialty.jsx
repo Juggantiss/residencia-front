@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import { Button, Form, Input, Select, Spin, message } from "antd";
+import { Button, Form, Input, Select } from "antd";
 
 import { SPECIALTY_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { GET_SPECIALTIES } from "../../graphql/queries";
 import { addSpecialty } from "../../api/aspirant/addSpecialty";
 import { Error } from "../Alerts";
+import { Loading } from "../Loading";
 
 const { Item } = Form;
 const { Option } = Select;
@@ -37,9 +38,10 @@ function FormSpecialty({ next, idAspirant }) {
     if (response?.data) {
       next();
     } else {
-      message.error(
+      Error(
+        "Lo sentimos",
         "Ah ocurrido un error al registrar los datos de especialidad",
-        2
+        () => {}
       );
     }
   };
@@ -88,7 +90,7 @@ function FormSpecialty({ next, idAspirant }) {
       <Button size="large" htmlType="submit" type="primary">
         Siguiente
       </Button>
-      <Spin className="spin-layout" size="large" spinning={loadingForm} />
+      {loading || (loadingForm && <Loading />)}
     </Form>
   );
 }

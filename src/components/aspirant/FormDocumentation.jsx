@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import ImgCrop from "antd-img-crop";
-import { Button, Form, Spin, message, Upload } from "antd";
+import { Button, Form, Upload, message } from "antd";
 
 import { DOCUMENTATION_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import axios from "../../api/axiosSetup";
+import { Error } from "../Alerts";
+import { Loading } from "../Loading";
 
 const { Item } = Form;
 
@@ -99,7 +101,11 @@ function FormDocumentation({ idAspirant, next }) {
       if (response?.data) {
         next();
       } else {
-        message.error("Ah ocurrido un error al subir los documentos", 2);
+        Error(
+          "Lo sentimos",
+          "Ah ocurrido un error al subir los documentos",
+          () => {}
+        );
       }
       console.log("si ha pasado");
     } else {
@@ -203,7 +209,7 @@ function FormDocumentation({ idAspirant, next }) {
       <Button size="large" htmlType="submit" type="primary">
         Enviar
       </Button>
-      <Spin className="spin-layout" size="large" spinning={loadingForm} />
+      {loadingForm && <Loading />}
     </Form>
   );
 }

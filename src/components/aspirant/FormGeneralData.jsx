@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Button, Form, Input, Spin, Switch, message } from "antd";
+import { Button, Form, Input, Switch } from "antd";
 import { DATA_GENERAL_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { DATA_GENERAL_INITIAL_STATE } from "../../forms/states/aspirant";
 import { addAddress } from "../../api/aspirant/addAddress";
+import { Loading } from "../Loading";
+import { Error } from "../Alerts";
 
 const { Item } = Form;
 
@@ -36,7 +38,11 @@ function FormGeneralData({ next, idAspirant }) {
     if (response?.data) {
       next();
     } else {
-      message.error("Ah ocurrido un error al registrar los datos generales", 2);
+      Error(
+        "Lo sentimos",
+        "Ah ocurrido un error al registrar los datos generales",
+        () => {}
+      );
     }
   };
 
@@ -87,7 +93,7 @@ function FormGeneralData({ next, idAspirant }) {
       <Button size="large" htmlType="submit" type="primary">
         Siguiente
       </Button>
-      <Spin className="spin-layout" size="large" spinning={loading} />
+      {loading && <Loading />}
     </Form>
   );
 }
