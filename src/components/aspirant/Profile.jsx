@@ -3,16 +3,18 @@ import { Skeleton, Typography, Row, Col } from "antd";
 import { FilePdfOutlined } from "@ant-design/icons";
 
 import { GET_ASPIRANT_DATA } from "../../graphql/queries";
+import { Error } from "../Alerts";
+import StatsAspirant from "./StatsAspirant";
 
 const { Title } = Typography;
 
-const Profile = ({ id }) => {
+const Profile = ({ id, cards }) => {
   const { data, loading, error } = useQuery(GET_ASPIRANT_DATA, {
     variables: { ID: id }
   });
 
   if (error) {
-    return <h1>{error.message}</h1>;
+    return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
 
   let user = data?.usersPermissionsUser?.data?.attributes;
@@ -36,6 +38,7 @@ const Profile = ({ id }) => {
     />
   ) : (
     <>
+      {cards && <StatsAspirant status="enviado" data={data} />}
       <Row>
         <Col
           style={{
@@ -167,16 +170,9 @@ const Profile = ({ id }) => {
         </Col>
       </Row>
       {document && (
-        <Row>
+        <div className="stats">
           {document?.certificate && (
-            <Col
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-              }}
-              span={8}
-            >
+            <div className="stat flex justify-center">
               <a
                 href={document?.certificate?.data?.attributes?.url}
                 target="_blank"
@@ -187,17 +183,10 @@ const Profile = ({ id }) => {
                   Certificado
                 </button>
               </a>
-            </Col>
+            </div>
           )}
           {document?.curp && (
-            <Col
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-              }}
-              span={8}
-            >
+            <div className="stat flex justify-center">
               <a
                 href={document?.curp?.data?.attributes?.url}
                 target="_blank"
@@ -208,17 +197,10 @@ const Profile = ({ id }) => {
                   CURP
                 </button>
               </a>
-            </Col>
+            </div>
           )}
           {document?.birthCertificate && (
-            <Col
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-              }}
-              span={8}
-            >
+            <div className="stat flex justify-center">
               <a
                 href={document?.birthCertificate?.data?.attributes?.url}
                 target="_blank"
@@ -229,9 +211,9 @@ const Profile = ({ id }) => {
                   Acta
                 </button>
               </a>
-            </Col>
+            </div>
           )}
-        </Row>
+        </div>
       )}
     </>
   );
