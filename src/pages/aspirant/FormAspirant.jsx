@@ -48,16 +48,16 @@ function FormAspirant({ data }) {
     {
       title: "Finalizado",
       content: (
-        <div>
+        <>
+          <Typography.Title level={2}>Enviado</Typography.Title>
           <Progress
             strokeWidth={12}
             width={240}
-            type="circle"
+            type="dashboard"
             percent={100}
-            format={() => "Enviado"}
           />
           <Typography.Title level={2}>En espera de revisión</Typography.Title>
-        </div>
+        </>
       ),
       icon: <CheckSquareOutlined />
     }
