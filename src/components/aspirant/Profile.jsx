@@ -172,16 +172,9 @@ const Profile = ({ id, cards }) => {
         </Col>
       </Row>
       {document && (
-        <Row>
+        <div className="stats">
           {document?.certificate && (
-            <Col
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-              }}
-              span={8}
-            >
+            <div className="stat flex justify-center">
               <a
                 href={document?.certificate?.data?.attributes?.url}
                 target="_blank"
@@ -192,17 +185,10 @@ const Profile = ({ id, cards }) => {
                   Certificado
                 </button>
               </a>
-            </Col>
+            </div>
           )}
           {document?.curp && (
-            <Col
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-              }}
-              span={8}
-            >
+            <div className="stat flex justify-center">
               <a
                 href={document?.curp?.data?.attributes?.url}
                 target="_blank"
@@ -213,17 +199,10 @@ const Profile = ({ id, cards }) => {
                   CURP
                 </button>
               </a>
-            </Col>
+            </div>
           )}
           {document?.birthCertificate && (
-            <Col
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center"
-              }}
-              span={8}
-            >
+            <div className="stat flex justify-center">
               <a
                 href={document?.birthCertificate?.data?.attributes?.url}
                 target="_blank"
@@ -234,9 +213,9 @@ const Profile = ({ id, cards }) => {
                   Acta
                 </button>
               </a>
-            </Col>
+            </div>
           )}
-        </Row>
+        </div>
       )}
     </>
   );
