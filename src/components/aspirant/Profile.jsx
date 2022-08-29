@@ -38,9 +38,7 @@ const Profile = ({ id, cards }) => {
     />
   ) : (
     <>
-      {cards && (
-        <StatsAspirant status="enviado" data={data} photo={profilePhoto} />
-      )}
+      {cards && <StatsAspirant status="enviado" data={data} />}
       <Row>
         <Col
           style={{

@@ -1,6 +1,6 @@
 import getProgressFormAspirant from "../../utils/getProgressFormAspirant";
 
-const StatsAspirant = ({ status, data, photo }) => {
+const StatsAspirant = ({ status, data }) => {
   const textByStatus = () => {
     switch (status) {
       case "registrado":
@@ -53,16 +53,24 @@ const StatsAspirant = ({ status, data, photo }) => {
       </div>
 
       <div className="stat">
-        <div className="stat-figure text-secondary">
-          <div className="avatar online">
-            <div className="w-16 rounded-full">
-              <img src={photo} alt="profile" />
-            </div>
-          </div>
+        <div className="stat-figure text-primary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            className="inline-block w-8 h-8 stroke-current"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            ></path>
+          </svg>
         </div>
         <div className="stat-value">{percent[1]}%</div>
         <div className="stat-title">Formularios completados</div>
-        <div className="stat-desc text-secondary">Faltan {remaind}</div>
+        <div className="stat-desc text-primary">Faltan {remaind}</div>
       </div>
     </div>
   );
