@@ -39,20 +39,7 @@ const Profile = ({ id, cards }) => {
   ) : (
     <>
       {cards && (
-        // <Row>
-        //   <Col
-        //     style={{
-        //       display: "flex",
-        //       flexDirection: "column",
-        //       alignItems: "center",
-        //       marginBottom: 20
-        //     }}
-        //     span={24}
-        //   >
-        //     <StatsAspirant />
-        //   </Col>
-        // </Row>
-        <StatsAspirant />
+        <StatsAspirant status="enviado" data={data} photo={profilePhoto} />
       )}
       <Row>
         <Col

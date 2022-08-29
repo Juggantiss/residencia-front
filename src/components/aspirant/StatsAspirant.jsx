@@ -1,4 +1,32 @@
-const StatsAspirant = () => {
+import getProgressFormAspirant from "../../utils/getProgressFormAspirant";
+
+const StatsAspirant = ({ status, data, photo }) => {
+  const textByStatus = () => {
+    switch (status) {
+      case "registrado":
+        return "Puedes continuar con los formularios";
+      case "generales":
+        return "Escoge tu especialidad";
+      case "documentos":
+        return "Ya casi acabas solo debes subir tus documentos";
+      case "enviado":
+        return "En espera de revisión";
+      case "observaciones":
+        return "Tienes observaciones en tus datos, corrigelos";
+      case "aprobado":
+        return "Felicidades has sido aprobado";
+      case "rechazado":
+        return "Lo sentimos has sido rechazado";
+      default:
+        return "";
+    }
+  };
+
+  let text = textByStatus();
+  let percent = getProgressFormAspirant(data);
+  let remaind =
+    percent[0] === 3 ? 0 : percent[0] === 2 ? 1 : percent[0] === 1 ? 2 : 3;
+
   return (
     <div className="stats shadow mb-5">
       <div className="stat">
@@ -18,21 +46,23 @@ const StatsAspirant = () => {
           </svg>
         </div>
         <div className="stat-title">Estado</div>
-        <div className="stat-value text-primary">Enviado</div>
-        <div className="stat-desc">En espera de revisión</div>
+        <div className="stat-value text-primary">
+          {status?.slice(0, 1).toUpperCase() + status?.slice(1)}
+        </div>
+        <div className="stat-desc">{text}</div>
       </div>
 
       <div className="stat">
         <div className="stat-figure text-secondary">
           <div className="avatar online">
             <div className="w-16 rounded-full">
-              <img src="https://placeimg.com/128/128/people" />
+              <img src={photo} alt="profile" />
             </div>
           </div>
         </div>
-        <div className="stat-value">20%</div>
+        <div className="stat-value">{percent[1]}%</div>
         <div className="stat-title">Formularios completados</div>
-        <div className="stat-desc text-secondary">Faltan 2</div>
+        <div className="stat-desc text-secondary">Faltan {remaind}</div>
       </div>
     </div>
   );
