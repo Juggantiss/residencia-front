@@ -28,8 +28,8 @@ const StatsAspirant = ({ status, data }) => {
     percent[0] === 3 ? 0 : percent[0] === 2 ? 1 : percent[0] === 1 ? 2 : 3;
 
   return (
-    <div className="stats shadow mb-5">
-      <div className="stat">
+    <div className="stats stats-vertical lg:stats-horizontal shadow mb-5">
+      <div className="stat place-items-center">
         <div className="stat-figure text-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@ const StatsAspirant = ({ status, data }) => {
         <div className="stat-desc">{text}</div>
       </div>
 
-      <div className="stat">
+      <div className="stat place-items-center">
         <div className="stat-figure text-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"

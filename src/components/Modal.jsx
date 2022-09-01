@@ -8,7 +8,7 @@ const Modal = ({ close, accept, decline, message, children }) => {
       <div className="modal-box">
         <label
           htmlFor="my-modal-3"
-          className="btn btn-sm btn-circle absolute right-2 top-2"
+          className="btn btn-sm btn-circle absolute right-2 top-2 w-10 h-10"
           onClick={close}
         >
           ✕

@@ -8,7 +8,7 @@ function Home({ children }) {
   return (
     <Layout className="layout">
       <Content className="content">{children}</Content>
-      <Footer className="footer">
+      <Footer className="footer-container">
         Sistema de Solicitud de Fichas &copy; 2022 CBTIS 205
       </Footer>
     </Layout>
