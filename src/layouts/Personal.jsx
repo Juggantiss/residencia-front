@@ -13,6 +13,7 @@ import { GET_ASPIRANT_DATA } from "../graphql/queries";
 import { Loading } from "../components/Loading";
 import { Error, Warning } from "../components/Alerts";
 import ListAspirant from "../pages/personal/ListAspirant";
+import HomePersonal from "../pages/personal/HomePersonal";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -38,7 +39,7 @@ function Personal() {
     variables: { ID: idUser }
   });
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
-  const [content, setContent] = useState(<h1>Estadisticas</h1>);
+  const [content, setContent] = useState(<HomePersonal />);
 
   const logout = () => {
     window.localStorage.clear();
@@ -87,7 +88,7 @@ function Personal() {
   const onClickMenuItem = (e) => {
     const { key } = e;
     if (key === "1") {
-      setContent(<h1>Estadisticas</h1>);
+      setContent(<HomePersonal />);
     }
     if (key === "2") {
       setContent(<ListAspirant />);
