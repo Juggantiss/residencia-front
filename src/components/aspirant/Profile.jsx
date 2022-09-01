@@ -172,7 +172,7 @@ const Profile = ({ id, cards }) => {
       {document && (
         <div className="stats">
           {document?.certificate && (
-            <div className="stat flex justify-center">
+            <div className="stat place-items-center">
               <a
                 href={document?.certificate?.data?.attributes?.url}
                 target="_blank"
@@ -186,7 +186,7 @@ const Profile = ({ id, cards }) => {
             </div>
           )}
           {document?.curp && (
-            <div className="stat flex justify-center">
+            <div className="stat place-items-center">
               <a
                 href={document?.curp?.data?.attributes?.url}
                 target="_blank"
@@ -200,7 +200,7 @@ const Profile = ({ id, cards }) => {
             </div>
           )}
           {document?.birthCertificate && (
-            <div className="stat flex justify-center">
+            <div className="stat place-items-center">
               <a
                 href={document?.birthCertificate?.data?.attributes?.url}
                 target="_blank"

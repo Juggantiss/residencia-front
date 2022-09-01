@@ -81,7 +81,8 @@ function ListAspirant() {
     {
       title: "Especialidad",
       dataIndex: "specialty",
-      key: "specialty"
+      key: "specialty",
+      responsive: ["md"]
     },
     {
       title: "Estado",
