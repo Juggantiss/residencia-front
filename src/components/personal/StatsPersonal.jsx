@@ -18,11 +18,11 @@ const StatsPersonal = () => {
           </svg>
         </div>
         <div className="stat-title">Total de aspirantes</div>
-        <div className="stat-value text-primary">3</div>
+        <div className="stat-value">3</div>
       </div>
 
       <div className="stat place-items-center">
-        <div className="stat-figure text-secondary">
+        <div className="stat-figure text-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -38,11 +38,11 @@ const StatsPersonal = () => {
           </svg>
         </div>
         <div className="stat-title">Total que han finalizado</div>
-        <div className="stat-value text-secondary">2</div>
+        <div className="stat-value">2</div>
       </div>
 
       <div className="stat place-items-center">
-        <div className="stat-figure text-success">
+        <div className="stat-figure text-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -58,7 +58,7 @@ const StatsPersonal = () => {
           </svg>
         </div>
         <div className="stat-title">Aspirantes aceptados</div>
-        <div className="stat-value text-success">0</div>
+        <div className="stat-value">0</div>
       </div>
     </div>
   );
