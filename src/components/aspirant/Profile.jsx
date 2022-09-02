@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Skeleton, Typography, Row, Col } from "antd";
-import { FilePdfOutlined } from "@ant-design/icons";
+import { FilePdfOutlined, FileImageOutlined } from "@ant-design/icons";
 
 import { GET_ASPIRANT_DATA } from "../../graphql/queries";
 import { Error } from "../Alerts";
@@ -19,6 +19,7 @@ const Profile = ({ id, cards }) => {
 
   let user = data?.usersPermissionsUser?.data?.attributes;
   let aspirant = user?.aspirant?.data?.attributes;
+  let status = aspirant?.statusRequest;
   let specialty =
     aspirant?.specialtyOption?.data?.attributes?.specialty?.data?.attributes
       ?.description;
@@ -38,7 +39,7 @@ const Profile = ({ id, cards }) => {
     />
   ) : (
     <>
-      {cards && <StatsAspirant status="enviado" data={data} />}
+      {cards && <StatsAspirant status={status} data={data} />}
       <Row>
         <Col
           style={{
@@ -209,6 +210,20 @@ const Profile = ({ id, cards }) => {
                 <button className="btn gap-2">
                   <FilePdfOutlined />
                   Acta
+                </button>
+              </a>
+            </div>
+          )}
+          {document?.photo && (
+            <div className="stat place-items-center">
+              <a
+                href={document?.photo?.data?.attributes?.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <button className="btn gap-2">
+                  <FileImageOutlined />
+                  Fotografía
                 </button>
               </a>
             </div>
