@@ -37,6 +37,7 @@ function ListAspirant() {
   const [idAspirant, setIdAspirant] = useState(null);
   const [idUser, setIdUser] = useState(null);
   const [loadingAction, setLoadingAction] = useState(false);
+  const [status, setStatus] = useState(null);
 
   if (error) {
     return Error("Ah ocurrido un error al traer los datos", error?.message);
@@ -115,26 +116,31 @@ function ListAspirant() {
     {
       title: "Action",
       key: "action",
-      render: (_, record) => (
-        <Space size="small">
-          <div className="tooltip" data-tip="Observaciones">
-            <MdModeEdit
-              size={24}
-              color="#8898aa"
-              cursor="pointer"
-              onClick={() => handleClickMessage(record.key)}
-            />
-          </div>
-          <div className="tooltip tooltip-success" data-tip="Aceptar">
-            <GiCheckMark
-              size={24}
-              color="#16bd3f"
-              onClick={() => handleClickAccept(record.key)}
-              cursor="pointer"
-            />
-          </div>
-        </Space>
-      )
+      render: (_, record) => {
+        const { status } = record;
+        if (status === "enviado") {
+          return (
+            <Space size="small">
+              <div className="tooltip" data-tip="Observaciones">
+                <MdModeEdit
+                  size={24}
+                  color="#8898aa"
+                  cursor="pointer"
+                  onClick={() => handleClickMessage(record.key)}
+                />
+              </div>
+              <div className="tooltip tooltip-success" data-tip="Aceptar">
+                <GiCheckMark
+                  size={24}
+                  color="#16bd3f"
+                  onClick={() => handleClickAccept(record.key)}
+                  cursor="pointer"
+                />
+              </div>
+            </Space>
+          );
+        }
+      }
     }
   ];
 
@@ -198,6 +204,8 @@ function ListAspirant() {
         <Table
           onRow={(row) => ({
             onDoubleClick: () => {
+              const { status } = row;
+              setStatus(status);
               setIdAspirant(row?.key);
               showModal(row?.id);
             }
@@ -215,6 +223,7 @@ function ListAspirant() {
           accept={() => handleClickAccept(idAspirant)}
           decline={() => handleClickDecline(idAspirant)}
           message={() => handleClickMessage(idAspirant)}
+          haveActions={status === "enviado"}
         >
           <Profile id={idUser} />
         </Modal>
