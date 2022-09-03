@@ -1,4 +1,4 @@
-const StatsPersonal = () => {
+const StatsPersonal = ({ data }) => {
   return (
     <div className="stats shadow mb-5">
       <div className="stat place-items-center">
@@ -18,7 +18,9 @@ const StatsPersonal = () => {
           </svg>
         </div>
         <div className="stat-title">Total de aspirantes</div>
-        <div className="stat-value">3</div>
+        <div className="stat-value">
+          {data?.aspirants?.meta?.pagination?.total || 0}
+        </div>
       </div>
 
       <div className="stat place-items-center">
@@ -38,7 +40,9 @@ const StatsPersonal = () => {
           </svg>
         </div>
         <div className="stat-title">Total que han finalizado</div>
-        <div className="stat-value">2</div>
+        <div className="stat-value">
+          {data?.aspirantsEnviado?.meta?.pagination?.total || 0}
+        </div>
       </div>
 
       <div className="stat place-items-center">
@@ -58,7 +62,9 @@ const StatsPersonal = () => {
           </svg>
         </div>
         <div className="stat-title">Aspirantes aceptados</div>
-        <div className="stat-value">0</div>
+        <div className="stat-value">
+          {data?.aspirantsAprobado?.meta?.pagination?.total || 0}
+        </div>
       </div>
     </div>
   );

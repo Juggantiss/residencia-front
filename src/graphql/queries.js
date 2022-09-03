@@ -164,3 +164,49 @@ export const GET_LIST_ASPIRANTS = gql`
     }
   }
 `;
+
+export const GET_STATS_ASPIRANTS = gql`
+  query StatsAspirants {
+    aspirants: aspirants {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsEnviado: aspirants(filters: { statusRequest: { eq: "enviado" } }) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsAprobado: aspirants(
+      filters: { statusRequest: { eq: "aprobado" } }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsHombres: aspirants(
+      filters: { user: { gender: { eq: "Hombre" } } }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsMujeres: aspirants(
+      filters: { user: { gender: { eq: "Mujer" } } }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+  }
+`;
