@@ -171,64 +171,77 @@ const Profile = ({ id, cards }) => {
         </Col>
       </Row>
       {document && (
-        <div className="stats">
-          {document?.certificate && (
-            <div className="stat place-items-center">
-              <a
-                href={document?.certificate?.data?.attributes?.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <button className="btn gap-2">
-                  <FilePdfOutlined />
-                  Certificado
-                </button>
-              </a>
+        <Row>
+          <Col
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}
+            span={24}
+          >
+            <div className="stats">
+              {document?.birthCertificate?.data && (
+                <div className="stat place-items-center">
+                  <a
+                    href={document?.birthCertificate?.data?.attributes?.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <button className="btn gap-2">
+                      <FilePdfOutlined />
+                      Acta
+                    </button>
+                  </a>
+                </div>
+              )}
+              {document?.curp?.data && (
+                <div className="stat place-items-center">
+                  <a
+                    href={document?.curp?.data?.attributes?.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <button className="btn gap-2">
+                      <FilePdfOutlined />
+                      CURP
+                    </button>
+                  </a>
+                </div>
+              )}
             </div>
-          )}
-          {document?.curp && (
-            <div className="stat place-items-center">
-              <a
-                href={document?.curp?.data?.attributes?.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <button className="btn gap-2">
-                  <FilePdfOutlined />
-                  CURP
-                </button>
-              </a>
+            <div className="stats">
+              {document?.certificate?.data && (
+                <div className="stat place-items-center">
+                  <a
+                    href={document?.certificate?.data?.attributes?.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <button className="btn gap-2">
+                      <FilePdfOutlined />
+                      Certificado
+                    </button>
+                  </a>
+                </div>
+              )}
+              {document?.photo?.data && (
+                <div className="stat place-items-center">
+                  <a
+                    href={document?.photo?.data?.attributes?.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <button className="btn gap-2">
+                      <FileImageOutlined />
+                      Fotografía
+                    </button>
+                  </a>
+                </div>
+              )}
             </div>
-          )}
-          {document?.birthCertificate && (
-            <div className="stat place-items-center">
-              <a
-                href={document?.birthCertificate?.data?.attributes?.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <button className="btn gap-2">
-                  <FilePdfOutlined />
-                  Acta
-                </button>
-              </a>
-            </div>
-          )}
-          {document?.photo && (
-            <div className="stat place-items-center">
-              <a
-                href={document?.photo?.data?.attributes?.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <button className="btn gap-2">
-                  <FileImageOutlined />
-                  Fotografía
-                </button>
-              </a>
-            </div>
-          )}
-        </div>
+          </Col>
+        </Row>
       )}
     </>
   );
