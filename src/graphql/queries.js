@@ -208,5 +208,107 @@ export const GET_STATS_ASPIRANTS = gql`
         }
       }
     }
+    aspirantsRegistrado: aspirants(
+      filters: { statusRequest: { eq: "registrado" } }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsFormularios: aspirants(
+      filters: { statusRequest: { eq: "formularios" } }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsGenerales: aspirants(
+      filters: { statusRequest: { eq: "generales" } }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsDocumentos: aspirants(
+      filters: { statusRequest: { eq: "documentos" } }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsObservaciones: aspirants(
+      filters: { statusRequest: { eq: "observaciones" } }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsAdministracion: aspirants(
+      filters: {
+        specialtyOption: {
+          specialty: { description: { eq: "Administracion" } }
+        }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsConstruccion: aspirants(
+      filters: {
+        specialtyOption: { specialty: { description: { eq: "Construccion" } } }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsOfimatica: aspirants(
+      filters: {
+        specialtyOption: { specialty: { description: { eq: "Ofimatica" } } }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsEnfermeria: aspirants(
+      filters: {
+        specialtyOption: { specialty: { description: { eq: "Enfermeria" } } }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
+    aspirantsProgramacion: aspirants(
+      filters: {
+        specialtyOption: { specialty: { description: { eq: "Programacion" } } }
+      }
+    ) {
+      meta {
+        pagination {
+          total
+        }
+      }
+    }
   }
 `;

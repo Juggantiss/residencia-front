@@ -16,23 +16,14 @@ import { GET_STATS_ASPIRANTS } from "../../graphql/queries";
 import { Loading } from "../../components/Loading";
 import { Error } from "../../components/Alerts";
 
-const data01 = [
-  { name: "Sistemas", value: 4 },
-  { name: "Enfermeria", value: 3 },
-  { name: "Construccion", value: 3 },
-  { name: "Administracion", value: 2 },
-  { name: "Informatica", value: 2 },
-  { name: "Contabilidad", value: 1 }
-];
-
 const COLORS = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
   "#FF8042",
+  "#19232e",
+  "#0088FE",
   "#e74b87",
+  "#00C49F",
   "#9b9aed",
-  "#19232e"
+  "#FFBB28"
 ];
 const COLORS_GENDER = ["#0088FE", "#e74b87"];
 
@@ -49,6 +40,7 @@ const HomePersonal = () => {
 
   let dataGender = [];
   let dataStatus = [];
+  let dataSpecialty = [];
 
   if (data) {
     dataGender = [
@@ -68,12 +60,33 @@ const HomePersonal = () => {
         enviado: data?.aspirantsEnviado?.meta?.pagination?.total || 0,
         formularios: data?.aspirantsFormularios?.meta?.pagination?.total || 0,
         generales: data?.aspirantsGenerales?.meta?.pagination?.total || 0,
-        documentacion:
-          data?.aspirantsDocumentacion?.meta?.pagination?.total || 0,
+        documentos: data?.aspirantsDocumentos?.meta?.pagination?.total || 0,
         observaciones:
           data?.aspirantsObservaciones?.meta?.pagination?.total || 0,
         aprobado: data?.aspirantsAprobado?.meta?.pagination?.total || 0,
         rechazado: data?.aspirantsRechazado?.meta?.pagination?.total || 0
+      }
+    ];
+    dataSpecialty = [
+      {
+        name: "Administracion",
+        value: data?.aspirantsAdministracion?.meta?.pagination?.total || 0
+      },
+      {
+        name: "Construccion",
+        value: data?.aspirantsConstruccion?.meta?.pagination?.total || 0
+      },
+      {
+        name: "Ofimatica",
+        value: data?.aspirantsOfimatica?.meta?.pagination?.total || 0
+      },
+      {
+        name: "Enfermeria",
+        value: data?.aspirantsEnfermeria?.meta?.pagination?.total || 0
+      },
+      {
+        name: "Programacion",
+        value: data?.aspirantsProgramacion?.meta?.pagination?.total || 0
       }
     ];
   }
@@ -88,19 +101,20 @@ const HomePersonal = () => {
             <Pie
               dataKey="value"
               isAnimationActive={true}
-              data={data01}
+              data={dataSpecialty}
               cx="50%"
               cy="50%"
               outerRadius={90}
               label
             >
-              {data01.map((entry, index) => (
+              {dataSpecialty.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
                 />
               ))}
             </Pie>
+            <Legend />
             <Tooltip />
           </PieChart>
         </div>
@@ -125,6 +139,7 @@ const HomePersonal = () => {
                 />
               ))}
             </Pie>
+            <Legend />
             <Tooltip />
           </PieChart>
         </div>
@@ -141,7 +156,7 @@ const HomePersonal = () => {
             <Bar dataKey="registrado" fill="#19232e" />
             <Bar dataKey="formularios" fill="#8884d8" />
             <Bar dataKey="generales" fill="#e74b87" />
-            <Bar dataKey="documentacion" fill="#FF8042" />
+            <Bar dataKey="documentos" fill="#FF8042" />
             <Bar dataKey="enviado" fill="#0088FE" />
             <Bar dataKey="observaciones" fill="#FFBB28" />
             <Bar dataKey="aprobado" fill="#00C49F" />
