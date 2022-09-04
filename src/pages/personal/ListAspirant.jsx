@@ -212,6 +212,9 @@ function ListAspirant() {
           })}
           columns={columns}
           dataSource={newData}
+          pagination={{
+            position: ["topRight"]
+          }}
         />
       )}
 
