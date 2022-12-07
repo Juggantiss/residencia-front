@@ -41,6 +41,7 @@ function Login() {
     if (data) {
       console.log(data);
       window.localStorage.setItem("role", data?.me?.role?.name);
+      window.location.reload();
       // navigate("/personal/dashboard");
     }
     console.log(

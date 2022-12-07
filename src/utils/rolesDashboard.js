@@ -4,6 +4,10 @@ export const dashboards = [
     path: "/aspirant/home"
   },
   {
+    role: "Administrador",
+    path: "/personal/home"
+  },
+  {
     role: "Departamento",
     path: "/personal/home"
   }

@@ -19,7 +19,7 @@ function App() {
           <Route
             path="personal/home"
             element={
-              <AuthRouteComponent variant="Departamento">
+              <AuthRouteComponent variant="Departamento" admin>
                 <Personal />
               </AuthRouteComponent>
             }
