@@ -36,6 +36,7 @@ export const GET_ASPIRANT_DATA = gql`
               id
               attributes {
                 statusRequest
+                observations
                 schoolProcedence
                 address {
                   data {
@@ -85,6 +86,14 @@ export const GET_ASPIRANT_DATA = gql`
                         }
                       }
                       curp {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      pago {
                         data {
                           id
                           attributes {

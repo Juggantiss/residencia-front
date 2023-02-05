@@ -56,5 +56,6 @@ export const DOCUMENTATION_SCHEMA = {
     { required: true, message: "Debes seleccionar tu acta de nacimiento" }
   ],
   curp: [{ required: true, message: "Debes seleccionar tu curp" }],
+  pago: [{ required: true, message: "Debes subir tu comprobante de pago" }],
   photo: [{ required: true, message: "Debes seleccionar tu foto" }]
 };

@@ -165,9 +165,21 @@ function ListAspirant() {
   const handleClickDecline = async (id) => {
     Warning(
       "¿Estás seguro de querer rechazar al aspirante?",
-      "Este aspirante quedará rechazado.",
+      "Se le reiniciará todo el registro.",
       "Confirmar",
-      async () => await actionUpdateAspirant({ statusRequest: "rechazado" }, id)
+      async () =>
+        await actionUpdateAspirant(
+          {
+            statusRequest: "registrado",
+            specialtyOption: null,
+            document: null,
+            address: null,
+            schoolProcedence: "",
+            observations:
+              "Haz sido rechazado, inicia de nuevo el proceso de registro de datos"
+          },
+          id
+        )
     );
   };
 
@@ -175,7 +187,10 @@ function ListAspirant() {
     const text = await ModalInput("Observación");
     if (text) {
       console.log(text);
-      await actionUpdateAspirant({ statusRequest: "observaciones" }, id);
+      await actionUpdateAspirant(
+        { statusRequest: "observaciones", observations: text },
+        id
+      );
     }
   };
 

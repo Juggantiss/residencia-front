@@ -56,7 +56,9 @@ function FormAspirant({ data }) {
             type="dashboard"
             percent={100}
           />
-          <Typography.Title level={2}>En espera de revisión</Typography.Title>
+          <Typography.Title level={2}>
+            En espera de revisión máximo 48 horas
+          </Typography.Title>
         </>
       ),
       icon: <CheckSquareOutlined />
