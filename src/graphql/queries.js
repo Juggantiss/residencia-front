@@ -109,6 +109,14 @@ export const GET_ASPIRANT_DATA = gql`
                           }
                         }
                       }
+                      ficha {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -162,6 +170,21 @@ export const GET_LIST_ASPIRANTS = gql`
                     id
                     attributes {
                       description
+                    }
+                  }
+                }
+              }
+            }
+          }
+          document {
+            data {
+              id
+              attributes {
+                photo {
+                  data {
+                    id
+                    attributes {
+                      url
                     }
                   }
                 }

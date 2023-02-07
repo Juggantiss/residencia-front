@@ -9,6 +9,9 @@ import Modal from "../../components/Modal";
 import { updateAspirant } from "../../api/personal/updateAspirant";
 import { Warning, ModalInput, Error } from "../../components/Alerts";
 import { Loading } from "../../components/Loading";
+import FichaPdf from "../../components/aspirant/FichaPdf";
+import { pdf } from "@react-pdf/renderer";
+import axios from "../../api/axiosSetup";
 
 const colorByStatus = (status) => {
   switch (status) {
@@ -60,12 +63,16 @@ function ListAspirant() {
             key: aspirant?.id,
             id: idUser,
             name: user
-              ? `${user.name} ${user.firstLastName} ${user.secondLastName}`
+              ? `${user.name} ${user.firstLastName} ${user.secondLastName}`.toUpperCase()
               : "",
             birthday: user ? user.birthday : "",
             gender: user ? user.gender : "",
             status: aspirant?.attributes?.status,
-            specialty: specialty?.description
+            specialty: specialty?.description,
+            document: aspirant?.attributes?.document?.data?.id,
+            photo:
+              aspirant?.attributes?.document?.data?.attributes?.photo?.data
+                ?.attributes?.url
           }
         ];
       }
@@ -133,7 +140,20 @@ function ListAspirant() {
                 <GiCheckMark
                   size={24}
                   color="#16bd3f"
-                  onClick={() => handleClickAccept(record.key)}
+                  onClick={() => {
+                    let aspirantFicha = {
+                      numFicha: 1,
+                      name: record.name,
+                      speciality: record.specialty,
+                      photo: record.photo
+                    };
+                    handleClickAccept(
+                      record.id,
+                      record.key,
+                      record.document,
+                      aspirantFicha
+                    );
+                  }}
                   cursor="pointer"
                 />
               </div>
@@ -153,12 +173,17 @@ function ListAspirant() {
     setIsModalVisible(false);
   };
 
-  const handleClickAccept = async (id) => {
+  const handleClickAccept = async (
+    idUser,
+    idAspirant,
+    idDoc,
+    aspirantFicha
+  ) => {
     Warning(
       "¿Estás seguro de que los datos son correctos?",
       "Estas confirmando que los datos del aspirante son correctos y quedará aprobado.",
       "Confirmar",
-      async () => await actionUpdateAspirant({ statusRequest: "aprobado" }, id)
+      () => sendPdf(idUser, idAspirant, idDoc, aspirantFicha)
     );
   };
 
@@ -201,6 +226,48 @@ function ListAspirant() {
     resultForResponse(response);
     setIsModalVisible(false);
     setLoadingAction(false);
+  };
+
+  const sendPdf = async (idUser, idAspirant, idDoc, aspirantFicha) => {
+    try {
+      setLoadingAction(true);
+      const blob = await pdf(<FichaPdf data={aspirantFicha} />).toBlob({
+        quality: 0.5
+      });
+      const formData = new FormData();
+      formData.append("files", blob);
+      const response = await uploadFiles(formData, idAspirant, idDoc);
+      resultForResponse(response);
+      setIsModalVisible(false);
+      setLoadingAction(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const uploadFiles = async (data, idAspirant, idDoc) => {
+    try {
+      const response = await axios.post("/upload", data);
+      if (response?.data) {
+        console.log(response.data);
+        const responseDocument = await axios.put("/documents/" + idDoc, {
+          data: { ficha: response.data[0].id }
+        });
+        console.log(responseDocument);
+        const responseUpdateAspirant = await axios.put(
+          "/aspirants/" + idAspirant,
+          {
+            data: { statusRequest: "aprobado" }
+          }
+        );
+        console.log(responseUpdateAspirant);
+        return responseUpdateAspirant;
+      }
+      return null;
+    } catch (error) {
+      Error("Ah ocurrido un error al generar la ficha", error?.message);
+      return null;
+    }
   };
 
   const resultForResponse = (response) => {

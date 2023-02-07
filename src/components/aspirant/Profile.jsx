@@ -232,10 +232,10 @@ const Profile = ({ id, cards }) => {
                   </a>
                 </div>
               )}
-              {document?.certificate?.data && (
+              {document?.ficha?.data && (
                 <div className="stat place-items-center">
                   <a
-                    href={document?.certificate?.data?.attributes?.url}
+                    href={document?.ficha?.data?.attributes?.url}
                     target="_blank"
                     rel="noreferrer"
                   >
