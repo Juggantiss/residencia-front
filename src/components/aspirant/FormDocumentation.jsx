@@ -23,6 +23,7 @@ function FormDocumentation({ idAspirant, next }) {
     certificate: null,
     birthCertificate: null,
     curp: null,
+    pago: null,
     photo: null
   });
 
@@ -95,6 +96,7 @@ function FormDocumentation({ idAspirant, next }) {
       formData.append("files", fileList.certificate);
       formData.append("files", fileList.birthCertificate);
       formData.append("files", fileList.curp);
+      formData.append("files", fileList.pago);
       formData.append("files", fileList.photo);
       const response = await uploadFiles(formData);
       setLoadingForm(false);
@@ -118,7 +120,8 @@ function FormDocumentation({ idAspirant, next }) {
         certificate: results[0].id,
         birthCertificate: results[1].id,
         curp: results[2].id,
-        photo: results[3].id
+        pago: results[3].id,
+        photo: results[4].id
       };
       const responseAspirant = await axios.post("/documents", {
         data: dataUploadAspirant
@@ -182,6 +185,16 @@ function FormDocumentation({ idAspirant, next }) {
           {...props}
           onRemove={() => onRemove("curp")}
           beforeUpload={(file) => beforeUpload(file, "curp")}
+        >
+          <Button icon={<UploadOutlined />}>Selecciona tu archivo</Button>
+        </Upload>
+      </Item>
+      <h1>Comprobante de pago</h1>
+      <Item name="pago" valuePropName="pago" rules={DOCUMENTATION_SCHEMA.pago}>
+        <Upload
+          {...props}
+          onRemove={() => onRemove("pago")}
+          beforeUpload={(file) => beforeUpload(file, "pago")}
         >
           <Button icon={<UploadOutlined />}>Selecciona tu archivo</Button>
         </Upload>

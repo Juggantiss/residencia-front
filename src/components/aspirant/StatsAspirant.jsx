@@ -1,18 +1,20 @@
 import getProgressFormAspirant from "../../utils/getProgressFormAspirant";
 
-const StatsAspirant = ({ status, data }) => {
+const StatsAspirant = ({ status, data, observaciones }) => {
   const textByStatus = () => {
     switch (status) {
       case "registrado":
-        return "Puedes continuar con los formularios";
+        return observaciones
+          ? observaciones
+          : "Puedes continuar con los formularios";
       case "generales":
         return "Escoge tu especialidad";
       case "documentos":
-        return "Ya casi acabas solo debes subir tus documentos";
+        return "Ya casi acabas, solo debes subir tus documentos";
       case "enviado":
         return "En espera de revisión";
       case "observaciones":
-        return "Tienes observaciones en tus datos, corrigelos";
+        return observaciones;
       case "aprobado":
         return "Felicidades has sido aprobado";
       case "rechazado":

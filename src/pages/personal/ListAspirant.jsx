@@ -9,6 +9,9 @@ import Modal from "../../components/Modal";
 import { updateAspirant } from "../../api/personal/updateAspirant";
 import { Warning, ModalInput, Error } from "../../components/Alerts";
 import { Loading } from "../../components/Loading";
+import FichaPdf from "../../components/aspirant/FichaPdf";
+import { pdf } from "@react-pdf/renderer";
+import axios from "../../api/axiosSetup";
 
 const colorByStatus = (status) => {
   switch (status) {
@@ -44,8 +47,10 @@ function ListAspirant() {
   }
 
   let newData = [];
+  let generals = {};
 
   if (data) {
+    generals = data?.generals?.data[0];
     data?.aspirants?.data?.map((aspirant) => {
       const user = aspirant?.attributes?.user?.data?.attributes;
       const idUser = aspirant?.attributes?.user?.data?.id;
@@ -60,12 +65,16 @@ function ListAspirant() {
             key: aspirant?.id,
             id: idUser,
             name: user
-              ? `${user.name} ${user.firstLastName} ${user.secondLastName}`
+              ? `${user.name} ${user.firstLastName} ${user.secondLastName}`.toUpperCase()
               : "",
             birthday: user ? user.birthday : "",
             gender: user ? user.gender : "",
             status: aspirant?.attributes?.status,
-            specialty: specialty?.description
+            specialty: specialty?.description,
+            document: aspirant?.attributes?.document?.data?.id,
+            photo:
+              aspirant?.attributes?.document?.data?.attributes?.photo?.data
+                ?.attributes?.url
           }
         ];
       }
@@ -133,7 +142,18 @@ function ListAspirant() {
                 <GiCheckMark
                   size={24}
                   color="#16bd3f"
-                  onClick={() => handleClickAccept(record.key)}
+                  onClick={() => {
+                    let aspirantFicha = {
+                      name: record.name,
+                      speciality: record.specialty,
+                      photo: record.photo
+                    };
+                    handleClickAccept(
+                      record.key,
+                      record.document,
+                      aspirantFicha
+                    );
+                  }}
                   cursor="pointer"
                 />
               </div>
@@ -153,21 +173,33 @@ function ListAspirant() {
     setIsModalVisible(false);
   };
 
-  const handleClickAccept = async (id) => {
+  const handleClickAccept = async (idAspirant, idDoc, aspirantFicha) => {
     Warning(
       "¿Estás seguro de que los datos son correctos?",
       "Estas confirmando que los datos del aspirante son correctos y quedará aprobado.",
       "Confirmar",
-      async () => await actionUpdateAspirant({ statusRequest: "aprobado" }, id)
+      () => sendPdf(idAspirant, idDoc, aspirantFicha)
     );
   };
 
   const handleClickDecline = async (id) => {
     Warning(
       "¿Estás seguro de querer rechazar al aspirante?",
-      "Este aspirante quedará rechazado.",
+      "Se le reiniciará todo el registro.",
       "Confirmar",
-      async () => await actionUpdateAspirant({ statusRequest: "rechazado" }, id)
+      async () =>
+        await actionUpdateAspirant(
+          {
+            statusRequest: "registrado",
+            specialtyOption: null,
+            document: null,
+            address: null,
+            schoolProcedence: "",
+            observations:
+              "Haz sido rechazado, inicia de nuevo el proceso de registro de datos"
+          },
+          id
+        )
     );
   };
 
@@ -175,7 +207,10 @@ function ListAspirant() {
     const text = await ModalInput("Observación");
     if (text) {
       console.log(text);
-      await actionUpdateAspirant({ statusRequest: "observaciones" }, id);
+      await actionUpdateAspirant(
+        { statusRequest: "observaciones", observations: text },
+        id
+      );
     }
   };
 
@@ -186,6 +221,56 @@ function ListAspirant() {
     resultForResponse(response);
     setIsModalVisible(false);
     setLoadingAction(false);
+  };
+
+  const sendPdf = async (idAspirant, idDoc, aspirantFicha) => {
+    try {
+      setLoadingAction(true);
+      const blob = await pdf(
+        <FichaPdf data={aspirantFicha} generales={generals?.attributes} />
+      ).toBlob({
+        quality: 0.5
+      });
+      const formData = new FormData();
+      formData.append("files", blob);
+      const response = await uploadFiles(formData, idAspirant, idDoc);
+      resultForResponse(response);
+      setIsModalVisible(false);
+      setLoadingAction(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const uploadFiles = async (data, idAspirant, idDoc) => {
+    try {
+      const response = await axios.post("/upload", data);
+      if (response?.data) {
+        console.log(response.data);
+        const responseGenerals = await axios.put("/generals/" + generals?.id, {
+          data: {
+            numeroFicha: generals?.attributes?.numeroFicha + 1
+          }
+        });
+        console.log(responseGenerals);
+        const responseDocument = await axios.put("/documents/" + idDoc, {
+          data: { ficha: response.data[0].id }
+        });
+        console.log(responseDocument);
+        const responseUpdateAspirant = await axios.put(
+          "/aspirants/" + idAspirant,
+          {
+            data: { statusRequest: "aprobado" }
+          }
+        );
+        console.log(responseUpdateAspirant);
+        return responseUpdateAspirant;
+      }
+      return null;
+    } catch (error) {
+      Error("Ah ocurrido un error al generar la ficha", error?.message);
+      return null;
+    }
   };
 
   const resultForResponse = (response) => {

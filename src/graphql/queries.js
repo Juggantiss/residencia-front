@@ -36,6 +36,7 @@ export const GET_ASPIRANT_DATA = gql`
               id
               attributes {
                 statusRequest
+                observations
                 schoolProcedence
                 address {
                   data {
@@ -92,7 +93,23 @@ export const GET_ASPIRANT_DATA = gql`
                           }
                         }
                       }
+                      pago {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
                       birthCertificate {
+                        data {
+                          id
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                      ficha {
                         data {
                           id
                           attributes {
@@ -159,6 +176,33 @@ export const GET_LIST_ASPIRANTS = gql`
               }
             }
           }
+          document {
+            data {
+              id
+              attributes {
+                photo {
+                  data {
+                    id
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    generals {
+      data {
+        id
+        attributes {
+          cicloEscolar
+          numeroFicha
+          aula
+          diaExamen
+          horaExamen
         }
       }
     }

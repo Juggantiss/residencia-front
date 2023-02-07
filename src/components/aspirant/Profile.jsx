@@ -20,6 +20,7 @@ const Profile = ({ id, cards }) => {
   let user = data?.usersPermissionsUser?.data?.attributes;
   let aspirant = user?.aspirant?.data?.attributes;
   let status = aspirant?.statusRequest;
+  let observations = aspirant?.observations;
   let specialty =
     aspirant?.specialtyOption?.data?.attributes?.specialty?.data?.attributes
       ?.description;
@@ -39,7 +40,13 @@ const Profile = ({ id, cards }) => {
     />
   ) : (
     <>
-      {cards && <StatsAspirant status={status} data={data} />}
+      {cards && (
+        <StatsAspirant
+          status={status}
+          observaciones={observations}
+          data={data}
+        />
+      )}
       <Row>
         <Col
           style={{
@@ -205,6 +212,36 @@ const Profile = ({ id, cards }) => {
                     <button className="btn gap-2">
                       <FilePdfOutlined />
                       CURP
+                    </button>
+                  </a>
+                </div>
+              )}
+            </div>
+            <div className="stats">
+              {document?.pago?.data && (
+                <div className="stat place-items-center">
+                  <a
+                    href={document?.pago?.data?.attributes?.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <button className="btn gap-2">
+                      <FilePdfOutlined />
+                      Pago
+                    </button>
+                  </a>
+                </div>
+              )}
+              {document?.ficha?.data && (
+                <div className="stat place-items-center">
+                  <a
+                    href={document?.ficha?.data?.attributes?.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <button className="btn gap-2">
+                      <FilePdfOutlined />
+                      Ficha
                     </button>
                   </a>
                 </div>
