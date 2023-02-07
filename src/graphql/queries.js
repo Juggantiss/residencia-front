@@ -194,6 +194,18 @@ export const GET_LIST_ASPIRANTS = gql`
         }
       }
     }
+    generals {
+      data {
+        id
+        attributes {
+          cicloEscolar
+          numeroFicha
+          aula
+          diaExamen
+          horaExamen
+        }
+      }
+    }
   }
 `;
 

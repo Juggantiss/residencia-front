@@ -47,8 +47,10 @@ function ListAspirant() {
   }
 
   let newData = [];
+  let generals = {};
 
   if (data) {
+    generals = data?.generals?.data[0];
     data?.aspirants?.data?.map((aspirant) => {
       const user = aspirant?.attributes?.user?.data?.attributes;
       const idUser = aspirant?.attributes?.user?.data?.id;
@@ -142,13 +144,11 @@ function ListAspirant() {
                   color="#16bd3f"
                   onClick={() => {
                     let aspirantFicha = {
-                      numFicha: 1,
                       name: record.name,
                       speciality: record.specialty,
                       photo: record.photo
                     };
                     handleClickAccept(
-                      record.id,
                       record.key,
                       record.document,
                       aspirantFicha
@@ -173,17 +173,12 @@ function ListAspirant() {
     setIsModalVisible(false);
   };
 
-  const handleClickAccept = async (
-    idUser,
-    idAspirant,
-    idDoc,
-    aspirantFicha
-  ) => {
+  const handleClickAccept = async (idAspirant, idDoc, aspirantFicha) => {
     Warning(
       "¿Estás seguro de que los datos son correctos?",
       "Estas confirmando que los datos del aspirante son correctos y quedará aprobado.",
       "Confirmar",
-      () => sendPdf(idUser, idAspirant, idDoc, aspirantFicha)
+      () => sendPdf(idAspirant, idDoc, aspirantFicha)
     );
   };
 
@@ -228,10 +223,12 @@ function ListAspirant() {
     setLoadingAction(false);
   };
 
-  const sendPdf = async (idUser, idAspirant, idDoc, aspirantFicha) => {
+  const sendPdf = async (idAspirant, idDoc, aspirantFicha) => {
     try {
       setLoadingAction(true);
-      const blob = await pdf(<FichaPdf data={aspirantFicha} />).toBlob({
+      const blob = await pdf(
+        <FichaPdf data={aspirantFicha} generales={generals?.attributes} />
+      ).toBlob({
         quality: 0.5
       });
       const formData = new FormData();
@@ -250,6 +247,12 @@ function ListAspirant() {
       const response = await axios.post("/upload", data);
       if (response?.data) {
         console.log(response.data);
+        const responseGenerals = await axios.put("/generals/" + generals?.id, {
+          data: {
+            numeroFicha: generals?.attributes?.numeroFicha + 1
+          }
+        });
+        console.log(responseGenerals);
         const responseDocument = await axios.put("/documents/" + idDoc, {
           data: { ficha: response.data[0].id }
         });

@@ -38,6 +38,14 @@ const styles = StyleSheet.create({
     width: 70,
     height: 85
   },
+  headerImageSep: {
+    width: 80,
+    height: 30
+  },
+  headerImageCbtis: {
+    width: 70,
+    height: 70
+  },
   headerText: {
     display: "flex",
     flexDirection: "column",
@@ -85,8 +93,9 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const FichaPdf = ({ data }) => {
-  const { numFicha, name, speciality, photo } = data;
+const FichaPdf = ({ data, generales }) => {
+  const { name, speciality, photo } = data;
+  const { cicloEscolar, numeroFicha, aula, diaExamen, horaExamen } = generales;
 
   return (
     <Document>
@@ -95,8 +104,8 @@ const FichaPdf = ({ data }) => {
         <View style={styles.section}>
           <View style={styles.header}>
             <Image
-              src={require("../../assets/img/DGETI-logo.png")}
-              style={styles.headerImage}
+              src={require("../../assets/img/sep_logo.png")}
+              style={styles.headerImageSep}
             />
             <View style={styles.headerText}>
               <Text style={styles.text}>SECRETARIA DE EDUCACION PUBLICA</Text>
@@ -106,18 +115,20 @@ const FichaPdf = ({ data }) => {
               </Text>
               <Text style={styles.text}>
                 FICHA DE SOLICITUD PARA EL EXAMEN DE INGRESO A LA EDUCACION
-                MEDIA SUPERIOR TECNOLÓGICA CICLO ESCOLAR 2023-2024
+                MEDIA SUPERIOR TECNOLÓGICA CICLO ESCOLAR {cicloEscolar}
               </Text>
             </View>
             <Image
-              src={require("../../assets/img/DGETI-logo.png")}
-              style={styles.headerImage}
+              src={require("../../assets/img/cbtis205_logo.jpeg")}
+              style={styles.headerImageCbtis}
             />
           </View>
           <Text style={styles.text}>
             ____________________________________________________________________________________
           </Text>
-          <Text style={styles.textFicha}>NUMERO DE FICHA: {numFicha}</Text>
+          <Text style={styles.textFicha}>
+            NUMERO DE FICHA: {cicloEscolar.substring(0, 4)}-{numeroFicha}
+          </Text>
           <View style={styles.content}>
             <View style={styles.contentLeft}>
               <Text style={styles.text}>
@@ -127,10 +138,11 @@ const FichaPdf = ({ data }) => {
                 <Text style={styles.text}>
                   ESPECIALIDAD SOLICITADA: {speciality?.toUpperCase()}
                 </Text>
-                <Text style={styles.text}>AULA: </Text>
+                <Text style={styles.text}>AULA: {aula}</Text>
               </View>
               <Text style={styles.text}>
-                EL EXAMEN SE LLEVARA A CABO EL DÍA 16/03/2023 A LAS 8:00 HORAS
+                EL EXAMEN SE LLEVARA A CABO EL DÍA {diaExamen} A LAS{" "}
+                {horaExamen.substring(0, 5)} HORAS
               </Text>
               <Text style={styles.text}>
                 PRESENTARSE PUNTUALMENTE EN EL DÍA Y HORA SEÑALADOS PARA EL
