@@ -88,6 +88,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: "center",
     marginTop: 20,
+    // marginBottom: 10,
+    fontFamily: "Times-Roman"
+  },
+  secondTextFooter: {
+    color: "black",
+    fontSize: 12,
+    textAlign: "center",
+    marginTop: 20,
     fontFamily: "Times-Roman"
   }
 });
@@ -110,16 +118,16 @@ const FichaPdf = ({ data, generales }) => {
             <View style={styles.headerText}>
               <Text style={styles.text}>SECRETARIA DE EDUCACION PUBLICA</Text>
               <Text style={styles.text}>
-                CENTRO DE BACHILLERATO TECNOLOGICO industrial y de servicios No.
-                205
+                CENTRO DE BACHILLERATO TECNOLOGICO 205
               </Text>
+              <Text style={styles.text}>industrial y de servicios No. 205</Text>
               <Text style={styles.text}>
                 FICHA DE SOLICITUD PARA EL EXAMEN DE INGRESO A LA EDUCACION
                 MEDIA SUPERIOR TECNOLÓGICA CICLO ESCOLAR {cicloEscolar}
               </Text>
             </View>
             <Image
-              src={require("../../assets/img/cbtis205_logo.jpeg")}
+              src={require("../../assets/img/cbtis_logo.jpeg")}
               style={styles.headerImageCbtis}
             />
           </View>
@@ -164,7 +172,66 @@ const FichaPdf = ({ data, generales }) => {
           <Text style={styles.textFooter}>ASPIRANTE</Text>
         </View>
         <View style={styles.section}>
-          <Text>World</Text>
+          <View style={styles.header}>
+            <Image
+              src={require("../../assets/img/sep_logo.png")}
+              style={styles.headerImageSep}
+            />
+            <View style={styles.headerText}>
+              <Text style={styles.text}>SECRETARIA DE EDUCACION PUBLICA</Text>
+              <Text style={styles.text}>
+                CENTRO DE BACHILLERATO TECNOLOGICO 205
+              </Text>
+              <Text style={styles.text}>industrial y de servicios No. 205</Text>
+              <Text style={styles.text}>
+                FICHA DE SOLICITUD PARA EL EXAMEN DE INGRESO A LA EDUCACION
+                MEDIA SUPERIOR TECNOLÓGICA CICLO ESCOLAR {cicloEscolar}
+              </Text>
+            </View>
+            <Image
+              src={require("../../assets/img/cbtis_logo.jpeg")}
+              style={styles.headerImageCbtis}
+            />
+          </View>
+          <Text style={styles.text}>
+            ____________________________________________________________________________________
+          </Text>
+          <Text style={styles.textFicha}>
+            NUMERO DE FICHA: {cicloEscolar.substring(0, 4)}-{numeroFicha}
+          </Text>
+          <View style={styles.content}>
+            <View style={styles.contentLeft}>
+              <Text style={styles.text}>
+                NOMBRE DEL ASPIRANTE: {name?.toUpperCase()}
+              </Text>
+              <View style={styles.contentHeader}>
+                <Text style={styles.text}>
+                  ESPECIALIDAD SOLICITADA: {speciality?.toUpperCase()}
+                </Text>
+                <Text style={styles.text}>AULA: {aula}</Text>
+              </View>
+              <Text style={styles.text}>
+                EL EXAMEN SE LLEVARA A CABO EL DÍA {diaExamen} A LAS{" "}
+                {horaExamen.substring(0, 5)} HORAS
+              </Text>
+              <Text style={styles.text}>
+                PRESENTARSE PUNTUALMENTE EN EL DÍA Y HORA SEÑALADOS PARA EL
+                EXAMEN
+              </Text>
+              <Text style={styles.text}>
+                PRESENTAR ESTA FICHA COMO IDENTIFICACIÓN CON FOTOGRAFÍA Y SELLO
+                DEL PLANTEL
+              </Text>
+              <Text style={styles.text}>
+                LOS MATERIALES QUE NECESITA SON: LAPIZ (NO. 2), GOMA Y
+                SACAPUNTAS.
+              </Text>
+            </View>
+            <View style={styles.contentRight}>
+              <Image src={photo} style={styles.headerImage} />
+            </View>
+          </View>
+          <Text style={styles.secondTextFooter}>PLANTEL</Text>
         </View>
       </Page>
     </Document>
