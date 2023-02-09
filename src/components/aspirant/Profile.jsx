@@ -56,6 +56,20 @@ const Profile = ({ id, cards }) => {
           }}
           span={24}
         >
+          {document?.ficha?.data && (
+            <div className="stat place-items-center">
+              <a
+                href={document?.ficha?.data?.attributes?.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <button className="btn gap-2">
+                  <FilePdfOutlined />
+                  Descargar Ficha
+                </button>
+              </a>
+            </div>
+          )}
           <div className="avatar">
             <div className="w-32 mask mask-squircle">
               <img src={profilePhoto} alt="profile" />
@@ -228,20 +242,6 @@ const Profile = ({ id, cards }) => {
                     <button className="btn gap-2">
                       <FilePdfOutlined />
                       Pago
-                    </button>
-                  </a>
-                </div>
-              )}
-              {document?.ficha?.data && (
-                <div className="stat place-items-center">
-                  <a
-                    href={document?.ficha?.data?.attributes?.url}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <button className="btn gap-2">
-                      <FilePdfOutlined />
-                      Ficha
                     </button>
                   </a>
                 </div>

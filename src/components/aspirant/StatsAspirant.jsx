@@ -4,9 +4,7 @@ const StatsAspirant = ({ status, data, observaciones }) => {
   const textByStatus = () => {
     switch (status) {
       case "registrado":
-        return observaciones
-          ? observaciones
-          : "Puedes continuar con los formularios";
+        return "Puedes continuar con los formularios";
       case "generales":
         return "Escoge tu especialidad";
       case "documentos":
@@ -16,7 +14,7 @@ const StatsAspirant = ({ status, data, observaciones }) => {
       case "observaciones":
         return observaciones;
       case "aprobado":
-        return "Felicidades has sido aprobado";
+        return "Descargar la ficha generada y llevar a la escuela para el sello oficial";
       case "rechazado":
         return "Lo sentimos has sido rechazado";
       default:
@@ -47,7 +45,11 @@ const StatsAspirant = ({ status, data, observaciones }) => {
             ></path>
           </svg>
         </div>
-        <div className="stat-title">Estado</div>
+        {observaciones ? (
+          <div className="stat-title text-error-content">{observaciones}</div>
+        ) : (
+          <div className="stat-title">Estado</div>
+        )}
         <div className="stat-value text-primary">
           {status?.slice(0, 1).toUpperCase() + status?.slice(1)}
         </div>

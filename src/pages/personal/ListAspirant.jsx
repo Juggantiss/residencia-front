@@ -37,7 +37,7 @@ const colorByStatus = (status) => {
 function ListAspirant() {
   const { data, loading, error, refetch } = useQuery(GET_LIST_ASPIRANTS);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [idAspirant, setIdAspirant] = useState(null);
+  const [dataAspirant, setDataAspirant] = useState(null);
   const [idUser, setIdUser] = useState(null);
   const [loadingAction, setLoadingAction] = useState(false);
   const [status, setStatus] = useState(null);
@@ -121,47 +121,47 @@ function ListAspirant() {
       responsive: ["md"],
       render: (_, { gender }) =>
         gender === "Hombre" ? "M" : gender === "Mujer" ? "F" : ""
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => {
-        const { status } = record;
-        if (status === "enviado") {
-          return (
-            <Space size="small">
-              <div className="tooltip" data-tip="Observaciones">
-                <MdModeEdit
-                  size={24}
-                  color="#8898aa"
-                  cursor="pointer"
-                  onClick={() => handleClickMessage(record.key)}
-                />
-              </div>
-              <div className="tooltip tooltip-success" data-tip="Aceptar">
-                <GiCheckMark
-                  size={24}
-                  color="#16bd3f"
-                  onClick={() => {
-                    let aspirantFicha = {
-                      name: record.name,
-                      speciality: record.specialty,
-                      photo: record.photo
-                    };
-                    handleClickAccept(
-                      record.key,
-                      record.document,
-                      aspirantFicha
-                    );
-                  }}
-                  cursor="pointer"
-                />
-              </div>
-            </Space>
-          );
-        }
-      }
     }
+    // {
+    //   title: "Action",
+    //   key: "action",
+    //   render: (_, record) => {
+    //     const { status } = record;
+    //     if (status === "enviado") {
+    //       return (
+    //         <Space size="small">
+    //           <div className="tooltip" data-tip="Observaciones">
+    //             <MdModeEdit
+    //               size={24}
+    //               color="#8898aa"
+    //               cursor="pointer"
+    //               onClick={() => handleClickMessage(record.key)}
+    //             />
+    //           </div>
+    //           <div className="tooltip tooltip-success" data-tip="Aceptar">
+    //             <GiCheckMark
+    //               size={24}
+    //               color="#16bd3f"
+    //               onClick={() => {
+    //                 let aspirantFicha = {
+    //                   name: record.name,
+    //                   speciality: record.specialty,
+    //                   photo: record.photo
+    //                 };
+    //                 handleClickAccept(
+    //                   record.key,
+    //                   record.document,
+    //                   aspirantFicha
+    //                 );
+    //               }}
+    //               cursor="pointer"
+    //             />
+    //           </div>
+    //         </Space>
+    //       );
+    //     }
+    //   }
+    // }
   ];
 
   const showModal = (id) => {
@@ -194,9 +194,7 @@ function ListAspirant() {
             specialtyOption: null,
             document: null,
             address: null,
-            schoolProcedence: "",
-            observations:
-              "Haz sido rechazado, inicia de nuevo el proceso de registro de datos"
+            schoolProcedence: ""
           },
           id
         )
@@ -207,24 +205,22 @@ function ListAspirant() {
     const text = await ModalInput("Observación");
     if (text) {
       console.log(text);
-      await actionUpdateAspirant(
-        { statusRequest: "observaciones", observations: text },
-        id
-      );
+      await actionUpdateAspirant({ observations: text }, id);
     }
   };
 
   const actionUpdateAspirant = async (data, id) => {
+    setIsModalVisible(false);
     setLoadingAction(true);
     const response = await updateAspirant(data, id);
     // console.log(response);
     resultForResponse(response);
-    setIsModalVisible(false);
     setLoadingAction(false);
   };
 
   const sendPdf = async (idAspirant, idDoc, aspirantFicha) => {
     try {
+      setIsModalVisible(false);
       setLoadingAction(true);
       const blob = await pdf(
         <FichaPdf data={aspirantFicha} generales={generals?.attributes} />
@@ -235,7 +231,6 @@ function ListAspirant() {
       formData.append("files", blob);
       const response = await uploadFiles(formData, idAspirant, idDoc);
       resultForResponse(response);
-      setIsModalVisible(false);
       setLoadingAction(false);
     } catch (error) {
       console.log(error);
@@ -291,7 +286,16 @@ function ListAspirant() {
             onDoubleClick: () => {
               const { status } = row;
               setStatus(status);
-              setIdAspirant(row?.key);
+              let aspirantFicha = {
+                name: row?.name,
+                speciality: row?.specialty,
+                photo: row?.photo
+              };
+              setDataAspirant({
+                id: row?.key,
+                idDoc: row?.document,
+                ficha: aspirantFicha
+              });
               showModal(row?.id);
             }
           })}
@@ -308,9 +312,15 @@ function ListAspirant() {
       {isModalVisible && (
         <Modal
           close={handleClose}
-          accept={() => handleClickAccept(idAspirant)}
-          decline={() => handleClickDecline(idAspirant)}
-          message={() => handleClickMessage(idAspirant)}
+          accept={() =>
+            handleClickAccept(
+              dataAspirant?.id,
+              dataAspirant?.idDoc,
+              dataAspirant?.ficha
+            )
+          }
+          decline={() => handleClickDecline(dataAspirant?.id)}
+          message={() => handleClickMessage(dataAspirant?.id)}
           haveActions={status === "enviado"}
         >
           <Profile id={idUser} />
