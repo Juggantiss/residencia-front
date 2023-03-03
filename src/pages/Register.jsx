@@ -88,21 +88,39 @@ function Register() {
           <Input showCount autoFocus className="input-upper" maxLength={18} />
         </Item>
         <Item label="Nombre (s)" name="name" rules={REGISTER_SCHEMA.name}>
-          <Input className="input-cap" maxLength={30} />
+          <Input
+            className="input-cap"
+            maxLength={30}
+            onInput={(e) =>
+              (e.target.value = ("" + e.target.value).toUpperCase())
+            }
+          />
         </Item>
         <Item
           label="Apellido Paterno"
           name="firstLastName"
           rules={REGISTER_SCHEMA.firstLastName}
         >
-          <Input className="input-cap" maxLength={50} />
+          <Input
+            className="input-cap"
+            maxLength={50}
+            onInput={(e) =>
+              (e.target.value = ("" + e.target.value).toUpperCase())
+            }
+          />
         </Item>
         <Item
           label="Apellido Materno"
           name="secondLastName"
           rules={REGISTER_SCHEMA.secondLastName}
         >
-          <Input className="input-cap" maxLength={50} />
+          <Input
+            className="input-cap"
+            maxLength={50}
+            onInput={(e) =>
+              (e.target.value = ("" + e.target.value).toUpperCase())
+            }
+          />
         </Item>
         <Item label="Sexo" name="gender" rules={REGISTER_SCHEMA.gender}>
           <Group name="radioGender">

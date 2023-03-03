@@ -58,7 +58,12 @@ function FormGeneralData({ next, idAspirant }) {
     >
       <h1>Domicilio</h1>
       <Item label="Calle" name="street" rules={DATA_GENERAL_SCHEMA.street}>
-        <Input autoFocus />
+        <Input
+          autoFocus
+          onInput={(e) =>
+            (e.target.value = ("" + e.target.value).toUpperCase())
+          }
+        />
       </Item>
       <Item label="Número" name="number" rules={DATA_GENERAL_SCHEMA.number}>
         <Input
@@ -74,14 +79,22 @@ function FormGeneralData({ next, idAspirant }) {
         />
       </Item>
       <Item label="Colonia" name="suburb" rules={DATA_GENERAL_SCHEMA.suburb}>
-        <Input />
+        <Input
+          onInput={(e) =>
+            (e.target.value = ("" + e.target.value).toUpperCase())
+          }
+        />
       </Item>
       <Item
         label="Ciudad"
         name="municipality"
         rules={DATA_GENERAL_SCHEMA.municipality}
       >
-        <Input />
+        <Input
+          onInput={(e) =>
+            (e.target.value = ("" + e.target.value).toUpperCase())
+          }
+        />
       </Item>
       <Item
         label="Código Postal"

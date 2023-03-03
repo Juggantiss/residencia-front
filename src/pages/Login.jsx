@@ -80,7 +80,7 @@ function Login() {
           />
         </Item>
         <Item>
-          <Link className="login-form-forgot" to="/forgot-password">
+          <Link className="login-form-forgot" to="/login">
             Olvidé mi contraseña
           </Link>
         </Item>

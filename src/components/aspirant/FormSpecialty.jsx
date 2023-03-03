@@ -84,7 +84,12 @@ function FormSpecialty({ next, idAspirant }) {
         name="schoolProcedence"
         rules={SPECIALTY_SCHEMA.schoolProcedence}
       >
-        <Input placeholder="Nombre de la escuela" />
+        <Input
+          placeholder="Nombre de la escuela"
+          onInput={(e) =>
+            (e.target.value = ("" + e.target.value).toUpperCase())
+          }
+        />
       </Item>
       <br />
       <Button size="large" htmlType="submit" type="primary">
