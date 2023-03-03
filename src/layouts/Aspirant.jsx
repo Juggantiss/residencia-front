@@ -39,7 +39,9 @@ function Aspirant() {
     variables: { ID: idUser }
   });
   const [collapsed, setCollapsed] = useState(width > 990 ? false : true);
-  const [content, setContent] = useState(<Profile id={idUser} cards />);
+  const [content, setContent] = useState(
+    <Profile id={idUser} cards showInfo />
+  );
 
   const logout = () => {
     window.localStorage.clear();
@@ -68,7 +70,7 @@ function Aspirant() {
   const onClickMenuItem = (e) => {
     const { key } = e;
     if (key === "1") {
-      setContent(<Profile id={idUser} cards />);
+      setContent(<Profile id={idUser} cards showInfo />);
     }
     if (key === "2") {
       setContent(<FormAspirant data={data} />);

@@ -4,12 +4,19 @@ import { DATA_GENERAL_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { DATA_GENERAL_INITIAL_STATE } from "../../forms/states/aspirant";
 import { addAddress } from "../../api/aspirant/addAddress";
 import { Loading } from "../Loading";
+import { Info } from "../Alerts";
 
 const { Item } = Form;
 
 function FormGeneralData({ next, idAspirant }) {
   const [loading, setLoading] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
+
+  Info(
+    "CUARTO PASO",
+    "Proporcione los datos generales que se le solicita de su domicilio.",
+    () => {}
+  );
 
   const onFinish = async (data) => {
     console.log(

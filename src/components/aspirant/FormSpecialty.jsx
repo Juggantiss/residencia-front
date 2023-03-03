@@ -5,7 +5,7 @@ import { Button, Form, Input, Select } from "antd";
 import { SPECIALTY_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { GET_SPECIALTIES } from "../../graphql/queries";
 import { addSpecialty } from "../../api/aspirant/addSpecialty";
-import { Error } from "../Alerts";
+import { Error, Info } from "../Alerts";
 import { Loading } from "../Loading";
 
 const { Item } = Form;
@@ -18,6 +18,12 @@ function FormSpecialty({ next, idAspirant }) {
   if (error) {
     return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
+
+  Info(
+    "QUINTO PASO",
+    "Seleccione su especialidad deseada y proporcione el nombre de su escuela de procedencia.",
+    () => {}
+  );
 
   const onFinish = async (data) => {
     console.log(

@@ -5,7 +5,7 @@ import { Button, Form, Upload, message } from "antd";
 
 import { DOCUMENTATION_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import axios from "../../api/axiosSetup";
-import { Error } from "../Alerts";
+import { Error, Info } from "../Alerts";
 import { Loading } from "../Loading";
 
 const { Item } = Form;
@@ -28,6 +28,12 @@ function FormDocumentation({ idAspirant, next }) {
   });
 
   const [fileImage, setFileImage] = useState([]);
+
+  Info(
+    "SEXTO PASO",
+    "Selecciones los archivos que contienen los documentos requisitos ademas de su foto y subalos en el apartado que corresponda.",
+    () => {}
+  );
 
   const onRemove = (name) => {
     if (name === "photo") {

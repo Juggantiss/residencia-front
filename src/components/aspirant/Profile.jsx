@@ -3,12 +3,12 @@ import { Skeleton, Typography, Row, Col } from "antd";
 import { FilePdfOutlined, FileImageOutlined } from "@ant-design/icons";
 
 import { GET_ASPIRANT_DATA } from "../../graphql/queries";
-import { Error } from "../Alerts";
+import { Error, Info } from "../Alerts";
 import StatsAspirant from "./StatsAspirant";
 
 const { Title } = Typography;
 
-const Profile = ({ id, cards }) => {
+const Profile = ({ id, cards, showInfo }) => {
   const { data, loading, error } = useQuery(GET_ASPIRANT_DATA, {
     variables: { ID: id }
   });
@@ -29,6 +29,22 @@ const Profile = ({ id, cards }) => {
   let url = document?.photo?.data?.attributes?.url;
 
   let profilePhoto = url ? url : "https://placeimg.com/192/192/people";
+
+  if (status === "registrado") {
+    Info(
+      "TERCER PASO",
+      "Seleccione el apartado FORMULARIOS para iniciar el trámite de su solicitud de ficha y proporcione la información que se le solicita, así mismo debe subir los archivos que contienen los documentos requisitos.",
+      () => {}
+    );
+  }
+
+  if (showInfo && status === "aprobado") {
+    Info(
+      "FELICIDADES",
+      "Su solicitud a sido aprobada por favor seleccione el botón DESCARGAR FICHA, imprímala y preséntela a la institución para su sellado.",
+      () => {}
+    );
+  }
 
   return loading ? (
     <Skeleton
@@ -63,7 +79,7 @@ const Profile = ({ id, cards }) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <button className="btn gap-2">
+                <button className="btn btn-primary gap-2">
                   <FilePdfOutlined />
                   Descargar Ficha
                 </button>

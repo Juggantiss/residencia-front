@@ -68,3 +68,19 @@ export const ModalInput = async (label) => {
 
   return text;
 };
+
+export const Info = (title, text, action) => {
+  MySwal.fire({
+    // icon: "info",
+    title: title,
+    text,
+    allowOutsideClick: false,
+    allowEnterKey: false,
+    allowEscapeKey: false,
+    confirmButtonText: "Aceptar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      action();
+    }
+  });
+};

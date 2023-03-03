@@ -13,7 +13,7 @@ import { registerUser } from "../api/register/registerUser";
 
 import useGetSession from "../utils/hooks/useGetSession";
 import { Loading } from "../components/Loading";
-import { Success, Error } from "../components/Alerts";
+import { Success, Error, Info } from "../components/Alerts";
 
 const { Item } = Form;
 const { Password } = Input;
@@ -23,6 +23,18 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   useGetSession();
+
+  Info(
+    "BIENVENIDO AL SISTEMA DE SOLICITUD DE FICHAS DEL CBTIS 205",
+    "A través de este sitio podrá solicitar su ficha de ingreso al plantel, este proceso consta de 7 pasos y concluirá cuando se le haya generado su ficha con todos los datos y la fotografía.",
+    () => {
+      Info(
+        "PRIMER PASO: CREACION DE UNA CUENTA",
+        "Empecemos por generar una cuenta para el seguimiento de su trámite. El correo y contraseña proporcionada le servirá para acceder a su cuenta desde este sitio. Anote y guárdelo.",
+        () => {}
+      );
+    }
+  );
 
   const formSuccess = async (data) => {
     if (loading) return;
@@ -47,13 +59,13 @@ function Register() {
     if (!response.data) {
       Error(
         "Lo sentimos ah ocurrido un error",
-        "Verifica los datos ingresados, e intenta nuevamente",
+        "Verifica los datos ingresados, e intenta nuevamente.",
         () => {}
       );
     } else {
       Success(
-        "Se ha creado tu cuenta",
-        "Buenas noticias tu cuenta ha sido creada, ya puedes iniciar sesión",
+        "SEGUNDO PASO: Se ha creado tu cuenta",
+        "Buenas noticias tu cuenta ha sido creada, ya puedes iniciar sesión con tu correo electrónico y contraseña que registraste.",
         "Aceptar",
         () => navigate("/login")
       );
