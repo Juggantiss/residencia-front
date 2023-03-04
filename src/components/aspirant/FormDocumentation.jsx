@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import ImgCrop from "antd-img-crop";
 import { Button, Form, Upload, message } from "antd";
@@ -29,11 +29,15 @@ function FormDocumentation({ idAspirant, next }) {
 
   const [fileImage, setFileImage] = useState([]);
 
-  Info(
-    "SEXTO PASO",
-    "Selecciones los archivos que contienen los documentos requisitos ademas de su foto y subalos en el apartado que corresponda.",
-    () => {}
-  );
+  useEffect(() => {
+    Info(
+      "SEXTO PASO",
+      "Selecciones los archivos que contienen los documentos requisitos ademas de su foto y subalos en el apartado que corresponda.",
+      () => {}
+    );
+
+    return () => {};
+  }, []);
 
   const onRemove = (name) => {
     if (name === "photo") {

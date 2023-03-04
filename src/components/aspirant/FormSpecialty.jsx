@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client/react";
 import { Button, Form, Input, Select } from "antd";
 
@@ -15,15 +15,19 @@ function FormSpecialty({ next, idAspirant }) {
   const [loadingForm, setLoadingForm] = useState(false);
   const { data, loading, error } = useQuery(GET_SPECIALTIES);
 
+  useEffect(() => {
+    Info(
+      "QUINTO PASO",
+      "Seleccione su especialidad deseada y proporcione el nombre de su escuela de procedencia.",
+      () => {}
+    );
+
+    return () => {};
+  }, []);
+
   if (error) {
     return Error("Ah ocurrido un error al traer los datos", error?.message);
   }
-
-  Info(
-    "QUINTO PASO",
-    "Seleccione su especialidad deseada y proporcione el nombre de su escuela de procedencia.",
-    () => {}
-  );
 
   const onFinish = async (data) => {
     console.log(

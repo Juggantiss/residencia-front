@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SolutionOutlined,
   SelectOutlined,
@@ -30,13 +30,17 @@ function FormAspirant({ data }) {
     data?.usersPermissionsUser?.data?.attributes?.aspirant?.data?.attributes
       ?.statusRequest;
 
-  if (status === "enviado") {
-    Info(
-      "SEPTIMO PASO",
-      "Una vez enviada toda la información, esta será validada y en un periodo 48 horas vuelva a iniciar sesión para verificar si su solicitud fue aprobada y su ficha fue generada o en  caso que tenga observaciones iniciar otra vez su solicitud tomando las observaciones en cuenta.",
-      () => {}
-    );
-  }
+  useEffect(() => {
+    if (status === "enviado") {
+      Info(
+        "SEPTIMO PASO",
+        "Una vez enviada toda la información, esta será validada y en un periodo 48 horas vuelva a iniciar sesión para verificar si su solicitud fue aprobada y su ficha fue generada o en  caso que tenga observaciones iniciar otra vez su solicitud tomando las observaciones en cuenta.",
+        () => {}
+      );
+    }
+
+    return () => {};
+  }, []);
 
   // const prev = () => {
   //   setCurrent(current - 1);

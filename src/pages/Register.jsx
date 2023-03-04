@@ -1,6 +1,6 @@
 import "../styles/Register.modules.css";
 import "dayjs/locale/es-mx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { Form, Input, Button, Checkbox, Radio, DatePicker } from "antd";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,17 +24,20 @@ function Register() {
   const navigate = useNavigate();
   useGetSession();
 
-  Info(
-    "BIENVENIDO AL SISTEMA DE SOLICITUD DE FICHAS DEL CBTIS 205",
-    "A través de este sitio podrá solicitar su ficha de ingreso al plantel, este proceso consta de 7 pasos y concluirá cuando se le haya generado su ficha con todos los datos y la fotografía.",
-    () => {
-      Info(
-        "PRIMER PASO: CREACION DE UNA CUENTA",
-        "Empecemos por generar una cuenta para el seguimiento de su trámite. El correo y contraseña proporcionada le servirá para acceder a su cuenta desde este sitio. Anote y guárdelo.",
-        () => {}
-      );
-    }
-  );
+  useEffect(() => {
+    Info(
+      "BIENVENIDO AL SISTEMA DE SOLICITUD DE FICHAS DEL CBTIS 205",
+      "A través de este sitio podrá solicitar su ficha de ingreso al plantel, este proceso consta de 7 pasos y concluirá cuando se le haya generado su ficha con todos los datos y la fotografía.",
+      () => {
+        Info(
+          "PRIMER PASO: CREACION DE UNA CUENTA",
+          "Empecemos por generar una cuenta para el seguimiento de su trámite. El correo y contraseña proporcionada le servirá para acceder a su cuenta desde este sitio. Anote y guárdelo.",
+          () => {}
+        );
+      }
+    );
+    return () => {};
+  }, []);
 
   const formSuccess = async (data) => {
     if (loading) return;

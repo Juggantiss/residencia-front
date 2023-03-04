@@ -5,6 +5,7 @@ import { FilePdfOutlined, FileImageOutlined } from "@ant-design/icons";
 import { GET_ASPIRANT_DATA } from "../../graphql/queries";
 import { Error, Info } from "../Alerts";
 import StatsAspirant from "./StatsAspirant";
+import { useEffect } from "react";
 
 const { Title } = Typography;
 
@@ -12,6 +13,25 @@ const Profile = ({ id, cards, showInfo }) => {
   const { data, loading, error } = useQuery(GET_ASPIRANT_DATA, {
     variables: { ID: id }
   });
+
+  useEffect(() => {
+    if (status === "registrado") {
+      Info(
+        "TERCER PASO",
+        "Seleccione el apartado FORMULARIOS para iniciar el trámite de su solicitud de ficha y proporcione la información que se le solicita, así mismo debe subir los archivos que contienen los documentos requisitos.",
+        () => {}
+      );
+    }
+
+    if (showInfo && status === "aprobado") {
+      Info(
+        "FELICIDADES",
+        "Su solicitud a sido aprobada por favor seleccione el botón DESCARGAR FICHA, imprímala y espere las indicaciones de la institución.",
+        () => {}
+      );
+    }
+    return () => {};
+  }, []);
 
   if (error) {
     return Error("Ah ocurrido un error al traer los datos", error?.message);
@@ -29,22 +49,6 @@ const Profile = ({ id, cards, showInfo }) => {
   let url = document?.photo?.data?.attributes?.url;
 
   let profilePhoto = url ? url : "https://placeimg.com/192/192/people";
-
-  if (status === "registrado") {
-    Info(
-      "TERCER PASO",
-      "Seleccione el apartado FORMULARIOS para iniciar el trámite de su solicitud de ficha y proporcione la información que se le solicita, así mismo debe subir los archivos que contienen los documentos requisitos.",
-      () => {}
-    );
-  }
-
-  if (showInfo && status === "aprobado") {
-    Info(
-      "FELICIDADES",
-      "Su solicitud a sido aprobada por favor seleccione el botón DESCARGAR FICHA, imprímala y preséntela a la institución para su sellado.",
-      () => {}
-    );
-  }
 
   return loading ? (
     <Skeleton

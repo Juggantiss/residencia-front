@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form, Input, Switch } from "antd";
 import { DATA_GENERAL_SCHEMA } from "../../forms/schemas/aspirant.schema";
 import { DATA_GENERAL_INITIAL_STATE } from "../../forms/states/aspirant";
@@ -12,11 +12,15 @@ function FormGeneralData({ next, idAspirant }) {
   const [loading, setLoading] = useState(false);
   const [disabledInput, setDisabledInput] = useState(false);
 
-  Info(
-    "CUARTO PASO",
-    "Proporcione los datos generales que se le solicita de su domicilio.",
-    () => {}
-  );
+  useEffect(() => {
+    Info(
+      "CUARTO PASO",
+      "Proporcione los datos generales que se le solicita de su domicilio.",
+      () => {}
+    );
+
+    return () => {};
+  }, []);
 
   const onFinish = async (data) => {
     console.log(
