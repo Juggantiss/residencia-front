@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Space, Table, Tag, Skeleton } from "antd";
-import { GiCheckMark } from "react-icons/gi";
-import { MdModeEdit } from "react-icons/md";
+import { Table, Tag, Skeleton } from "antd";
 import { useQuery } from "@apollo/client/react";
 import { GET_LIST_ASPIRANTS } from "../../graphql/queries";
 import Profile from "../../components/aspirant/Profile";
@@ -50,6 +48,7 @@ function ListAspirant() {
   let generals = {};
 
   if (data) {
+    console.log(data);
     generals = data?.generals?.data[0];
     data?.aspirants?.data?.map((aspirant) => {
       const user = aspirant?.attributes?.user?.data?.attributes;

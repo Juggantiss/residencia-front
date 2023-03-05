@@ -144,7 +144,7 @@ export const GET_SPECIALTIES = gql`
 
 export const GET_LIST_ASPIRANTS = gql`
   {
-    aspirants {
+    aspirants(sort: "createdAt:asc", pagination: { limit: 2000 }) {
       data {
         id
         attributes {
