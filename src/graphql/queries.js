@@ -300,7 +300,7 @@ export const GET_STATS_ASPIRANTS = gql`
     aspirantsAdministracion: aspirants(
       filters: {
         specialtyOption: {
-          specialty: { description: { eq: "Administracion" } }
+          specialty: { description: { eq: "Administración de RR HH" } }
         }
       }
     ) {
@@ -323,7 +323,7 @@ export const GET_STATS_ASPIRANTS = gql`
     }
     aspirantsOfimatica: aspirants(
       filters: {
-        specialtyOption: { specialty: { description: { eq: "Ofimatica" } } }
+        specialtyOption: { specialty: { description: { eq: "Ofimática" } } }
       }
     ) {
       meta {
@@ -334,7 +334,9 @@ export const GET_STATS_ASPIRANTS = gql`
     }
     aspirantsEnfermeria: aspirants(
       filters: {
-        specialtyOption: { specialty: { description: { eq: "Enfermeria" } } }
+        specialtyOption: {
+          specialty: { description: { eq: "Enfermería General" } }
+        }
       }
     ) {
       meta {
@@ -345,7 +347,7 @@ export const GET_STATS_ASPIRANTS = gql`
     }
     aspirantsProgramacion: aspirants(
       filters: {
-        specialtyOption: { specialty: { description: { eq: "Programacion" } } }
+        specialtyOption: { specialty: { description: { eq: "Programación" } } }
       }
     ) {
       meta {

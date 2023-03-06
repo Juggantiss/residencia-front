@@ -116,14 +116,14 @@ const FichaPdf = ({ data, generales }) => {
               style={styles.headerImageSep}
             />
             <View style={styles.headerText}>
-              <Text style={styles.text}>SECRETARIA DE EDUCACION PUBLICA</Text>
+              <Text style={styles.text}>SECRETARIA DE EDUCACIÓN PUBLICA</Text>
               <Text style={styles.text}>
-                CENTRO DE BACHILLERATO TECNOLOGICO 205
+                CENTRO DE BACHILLERATO TECNOLÓGICO
               </Text>
               <Text style={styles.text}>industrial y de servicios No. 205</Text>
               <Text style={styles.text}>
-                FICHA DE SOLICITUD PARA EL EXAMEN DE INGRESO A LA EDUCACION
-                MEDIA SUPERIOR TECNOLÓGICA CICLO ESCOLAR {cicloEscolar}
+                FICHA DE SOLICITUD PARA EL EXAMEN DE INGRESO A LA EDUCACIÓN
+                MEDIA SUPERIOR CICLO ESCOLAR {cicloEscolar}
               </Text>
             </View>
             <Image
@@ -149,7 +149,7 @@ const FichaPdf = ({ data, generales }) => {
                 <Text style={styles.text}>AULA: {aula}</Text>
               </View>
               <Text style={styles.text}>
-                EL EXAMEN SE LLEVARA A CABO EL DÍA {diaExamen} A LAS{" "}
+                EL EXAMEN SE LLEVARÁ A CABO EL DÍA {diaExamen} A LAS{" "}
                 {horaExamen.substring(0, 5)} HORAS
               </Text>
               <Text style={styles.text}>
@@ -161,7 +161,7 @@ const FichaPdf = ({ data, generales }) => {
                 DEL PLANTEL
               </Text>
               <Text style={styles.text}>
-                LOS MATERIALES QUE NECESITA SON: LAPIZ (NO. 2), GOMA Y
+                LOS MATERIALES QUE NECESITA SON: LÁPIZ (NO. 2), GOMA Y
                 SACAPUNTAS.
               </Text>
             </View>
@@ -178,14 +178,14 @@ const FichaPdf = ({ data, generales }) => {
               style={styles.headerImageSep}
             />
             <View style={styles.headerText}>
-              <Text style={styles.text}>SECRETARIA DE EDUCACION PUBLICA</Text>
+              <Text style={styles.text}>SECRETARIA DE EDUCACIÓN PUBLICA</Text>
               <Text style={styles.text}>
-                CENTRO DE BACHILLERATO TECNOLOGICO 205
+                CENTRO DE BACHILLERATO TECNOLÓGICO
               </Text>
               <Text style={styles.text}>industrial y de servicios No. 205</Text>
               <Text style={styles.text}>
-                FICHA DE SOLICITUD PARA EL EXAMEN DE INGRESO A LA EDUCACION
-                MEDIA SUPERIOR TECNOLÓGICA CICLO ESCOLAR {cicloEscolar}
+                FICHA DE SOLICITUD PARA EL EXAMEN DE INGRESO A LA EDUCACIÓN
+                MEDIA SUPERIOR CICLO ESCOLAR {cicloEscolar}
               </Text>
             </View>
             <Image
@@ -211,7 +211,7 @@ const FichaPdf = ({ data, generales }) => {
                 <Text style={styles.text}>AULA: {aula}</Text>
               </View>
               <Text style={styles.text}>
-                EL EXAMEN SE LLEVARA A CABO EL DÍA {diaExamen} A LAS{" "}
+                EL EXAMEN SE LLEVARÁ A CABO EL DÍA {diaExamen} A LAS{" "}
                 {horaExamen.substring(0, 5)} HORAS
               </Text>
               <Text style={styles.text}>
@@ -223,7 +223,7 @@ const FichaPdf = ({ data, generales }) => {
                 DEL PLANTEL
               </Text>
               <Text style={styles.text}>
-                LOS MATERIALES QUE NECESITA SON: LAPIZ (NO. 2), GOMA Y
+                LOS MATERIALES QUE NECESITA SON: LÁPIZ (NO. 2), GOMA Y
                 SACAPUNTAS.
               </Text>
             </View>

@@ -69,7 +69,7 @@ const HomePersonal = () => {
     ];
     dataSpecialty = [
       {
-        name: "Administracion",
+        name: "Administración de RR HH",
         value: data?.aspirantsAdministracion?.meta?.pagination?.total || 0
       },
       {
@@ -77,15 +77,15 @@ const HomePersonal = () => {
         value: data?.aspirantsConstruccion?.meta?.pagination?.total || 0
       },
       {
-        name: "Ofimatica",
+        name: "Ofimática",
         value: data?.aspirantsOfimatica?.meta?.pagination?.total || 0
       },
       {
-        name: "Enfermeria",
+        name: "Enfermería General",
         value: data?.aspirantsEnfermeria?.meta?.pagination?.total || 0
       },
       {
-        name: "Programacion",
+        name: "Programación",
         value: data?.aspirantsProgramacion?.meta?.pagination?.total || 0
       }
     ];
